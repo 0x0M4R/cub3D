@@ -4,7 +4,8 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <fcntl.h>
-# include "get_next_line.h"
+# include "../libft/libft.h"
+# include "../mlx/mlx.h"
 
 typedef struct s_mlx
 {
@@ -34,5 +35,5 @@ typedef struct s_map
 }	t_map;
 
 void	parse_map(char *filepath, t_map *map);
-
+char	*ft_strjoin(char const *s1, char const *s2);
 #endif

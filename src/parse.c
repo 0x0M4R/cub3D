@@ -54,7 +54,36 @@ int	count_map(char *filepath, t_map *map)
 	}
 	return (lines + 1);
 }
+/*int	count_map(char *filepath, t_map *map)
+{
+	int		f;
+	char	*line;
+	int		r;
+	char	*buff;
 
+	f = open(filepath, O_RDONLY);
+	if (f < 0)
+	{
+		write(1, "Error\nFile could not be opened.\n", 33);
+		exit(0);
+	}
+	lines = 0;
+	r = read(fd, buff = malloc(sizeof(char) * BUFFER_SIZE + 1), BUFFER_SIZE);
+	if (r < 1)
+	{
+		write(1, "Error\nFile could not be read.\n", 31);
+		exit(0);
+	}
+	while (r > 0)
+	{
+		buff[r] = 0;
+		line = ft_gnljoin(&line, buff);
+		free(buff);
+		r = read(fd, buff = malloc(sizeof(char) * BUFFER_SIZE + 1), \
+		BUFFER_SIZE);
+	}
+	return (lines + 1);
+}*/
 int	check_filetype(char *str)
 {
 	int	l;
@@ -64,6 +93,13 @@ int	check_filetype(char *str)
 		|| str[l - 3] != 'c' || str[l - 4] != '.')
 		return (0);
 	return (1);
+}
+
+int	parse_elements(t_map *map, char *content)
+{
+	(void)map;
+	(void)content;
+	return (0);
 }
 
 void	parse_map(char *filepath, t_map *map)
