@@ -24,14 +24,15 @@ void	read_map(t_map *map, int lines, char *filepath)
 	}
 	close(f);
 }
+
 /*TODO: only count lines of map. ie. skip lines with texture info*/
-int	count_lines(char *filepath)
+int	count_map(char *filepath, t_map *map)
 {
 	int		f;
 	int		lines;
 	int		r;
 	char	buff[1];
-
+	(void)map;
 	f = open(filepath, O_RDONLY);
 	if (f < 0)
 	{
@@ -67,13 +68,13 @@ int	check_filetype(char *str)
 
 void	parse_map(char *filepath, t_map *map)
 {
-    int lines;
+	int	lines;
 
 	if (!check_filetype(filepath))
 	{
 		write(1, "Error\nNot .cub file.\n", 22);
 		exit(0);
 	}
-	lines = count_lines(filepath);
+	lines = count_map(filepath, map);
 	read_map(map, lines, filepath);
 }
