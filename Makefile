@@ -1,4 +1,4 @@
-SRCS	= src/cub3d.c src/parse.c
+SRCS	= src/cub3d.c src/parse.c src/parse_elements.c
 
 NAME = cub3d
 LIBDIR = libft/
@@ -10,8 +10,8 @@ $(LIBFT):
 all:	${NAME}
 
 ${NAME}: $(LIBFT)
-	gcc -g -Wall -Wextra -Werror ${SRCS} $(LIBFT) -o cub3d
-# mlx flags : -Lmlx -lmlx -Linc -framework OpenGL -framework AppKit 
+	gcc -g -Wall -Wextra -Werror -Linc ${SRCS} $(LIBFT) -o cub3d
+# mlx flags : -Lmlx -lmlx -framework OpenGL -framework AppKit 
 
 clean:
 	rm -f cub3d

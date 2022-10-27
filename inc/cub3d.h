@@ -35,5 +35,7 @@ typedef struct s_map
 }	t_map;
 
 void	parse_map(char *filepath, t_map *map);
-char	*ft_strjoin(char const *s1, char const *s2);
+
+int		parse_elements(t_map *map, char *content);
+
 #endif

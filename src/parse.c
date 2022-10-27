@@ -1,6 +1,6 @@
 #include "../inc/cub3d.h"
 
-/* TODO: adjust to skip lines with texture info and store somewhere else*/
+/* TODO: adjust to skip lines with texture info */
 void	read_map(t_map *map, int lines, char *filepath)
 {
 	int	f;
@@ -25,41 +25,9 @@ void	read_map(t_map *map, int lines, char *filepath)
 	close(f);
 }
 
-/*TODO: only count lines of map. ie. skip lines with texture info*/
-int	count_map(char *filepath, t_map *map)
+int	open_file(char *filepath)
 {
-	int		f;
-	int		lines;
-	int		r;
-	char	buff[1];
-	(void)map;
-	f = open(filepath, O_RDONLY);
-	if (f < 0)
-	{
-		write(1, "Error\nFile could not be opened.\n", 33);
-		exit(0);
-	}
-	lines = 0;
-	r = read(f, buff, 1);
-	if (r < 1)
-	{
-		write(1, "Error\nFile could not be read.\n", 31);
-		exit(0);
-	}
-	while (r > 0)
-	{
-		if (*buff == '\n')
-			lines++;
-		r = read(f, buff, 1);
-	}
-	return (lines + 1);
-}
-/*int	count_map(char *filepath, t_map *map)
-{
-	int		f;
-	char	*line;
-	int		r;
-	char	*buff;
+	int	f;
 
 	f = open(filepath, O_RDONLY);
 	if (f < 0)
@@ -67,23 +35,36 @@ int	count_map(char *filepath, t_map *map)
 		write(1, "Error\nFile could not be opened.\n", 33);
 		exit(0);
 	}
-	lines = 0;
-	r = read(fd, buff = malloc(sizeof(char) * BUFFER_SIZE + 1), BUFFER_SIZE);
+	return (f);
+}
+
+char	*read_file(char *filepath)
+{
+	char	*line;
+	int		r;
+	char	*buff;
+	int		f;
+
+	f = open_file(filepath);
+	r = read(f, buff = malloc(sizeof(char) * BUFFER_SIZE + 1), BUFFER_SIZE);
 	if (r < 1)
 	{
 		write(1, "Error\nFile could not be read.\n", 31);
 		exit(0);
 	}
+	line = malloc(sizeof(char));
+	line = "";
 	while (r > 0)
 	{
 		buff[r] = 0;
 		line = ft_gnljoin(&line, buff);
 		free(buff);
-		r = read(fd, buff = malloc(sizeof(char) * BUFFER_SIZE + 1), \
+		r = read(f, buff = malloc(sizeof(char) * BUFFER_SIZE + 1), \
 		BUFFER_SIZE);
 	}
-	return (lines + 1);
-}*/
+	return (line);
+}
+
 int	check_filetype(char *str)
 {
 	int	l;
@@ -95,22 +76,17 @@ int	check_filetype(char *str)
 	return (1);
 }
 
-int	parse_elements(t_map *map, char *content)
-{
-	(void)map;
-	(void)content;
-	return (0);
-}
-
 void	parse_map(char *filepath, t_map *map)
 {
-	int	lines;
+	char	*content;
+	int		line_num;
 
 	if (!check_filetype(filepath))
 	{
 		write(1, "Error\nNot .cub file.\n", 22);
 		exit(0);
 	}
-	lines = count_map(filepath, map);
-	read_map(map, lines, filepath);
+	content = read_file(filepath);
+	line_num = parse_elements(map, content);
+	read_map(map, 15, filepath);
 }
