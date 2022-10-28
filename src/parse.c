@@ -37,6 +37,7 @@ char	*read_file(char *filepath)
 		r = read(f, buff = malloc(sizeof(char) * BUFFER_SIZE + 1), \
 		BUFFER_SIZE);
 	}
+	close(f);
 	return (line);
 }
 
@@ -51,10 +52,11 @@ int	check_filetype(char *str)
 	return (1);
 }
 
+/* TODO: free() content if error in parse_element */
 void	parse_map(char *filepath, t_map *map)
 {
 	char	*content;
-	int		line_num;
+	int		pos;
 
 	if (!check_filetype(filepath))
 	{
@@ -62,7 +64,7 @@ void	parse_map(char *filepath, t_map *map)
 		exit(0);
 	}
 	content = read_file(filepath);
-	line_num = parse_elements(map, content);
-    map->map = ft_split(&content[line_num],'\n');
-	//printf("%s",&content[line_num]);
+	pos = parse_elements(map, content);
+	map->map = ft_split(&content[pos], '\n');
+	//printf("%s",&content[pos]);
 }

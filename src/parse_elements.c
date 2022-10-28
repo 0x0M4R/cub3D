@@ -51,7 +51,6 @@ int	match_element(t_map *map, char *element)
 	return (len);
 }
 
-/* TODO: count how many lines and return to feed read_map function */
 int	parse_elements(t_map *map, char *content)
 {
 	int	i;

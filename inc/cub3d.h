@@ -4,8 +4,18 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <fcntl.h>
+# include <math.h>
 # include "../libft/libft.h"
 # include "../mlx/mlx.h"
+
+typedef struct s_data
+{
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}				t_data;
 
 typedef struct s_mlx
 {
@@ -22,6 +32,7 @@ typedef struct s_rgb
 typedef struct s_map
 {
 	char	**map;
+	t_mlx	mlx;
 	int		player_pos_x;
 	int		player_pos_y;
 	int		player_direction;
