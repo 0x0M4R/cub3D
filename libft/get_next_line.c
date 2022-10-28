@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oabdalla <oabdalla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 11:29:12 by oabdalla          #+#    #+#             */
-/*   Updated: 2022/10/27 12:23:00 by oabdalla         ###   ########.fr       */
+/*   Updated: 2022/10/28 20:19:50 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,8 @@ int	ft_strchr_i(const char *s, int c)
 	{
 		if (*s == (char)c)
 			return (j);
-		if (*s == -1)
-			return (j - 1);
+		// if (*s == -1)
+		// 	return (j - 1);
 		s++;
 		j++;
 	}

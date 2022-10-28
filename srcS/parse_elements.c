@@ -61,6 +61,7 @@ int	parse_elements(t_map *map, char *content)
 	(void)content;
 	i = 0;
 	e_count = 0;
+	pos = 0;
 	while (content[i])
 	{
 		if ((i == 0 || (content[i] != '\n' && i != 0)) && e_count < 6)
