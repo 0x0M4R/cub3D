@@ -88,5 +88,6 @@ void	parse_map(char *filepath, t_map *map)
 	}
 	content = read_file(filepath);
 	line_num = parse_elements(map, content);
+	printf("hello%s",map->w_texture);
 	read_map(map, 15, filepath);
 }

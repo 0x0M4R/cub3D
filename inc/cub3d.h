@@ -29,7 +29,6 @@ typedef struct s_map
 	char	*e_texture;
 	char	*s_texture;
 	char	*w_texture;
-	char	*f_texture;
 	t_rgb	floor;
 	t_rgb	ceiling;
 }	t_map;
