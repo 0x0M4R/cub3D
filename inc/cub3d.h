@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/29 00:47:46 by ommohame          #+#    #+#             */
+/*   Updated: 2022/10/29 02:15:35 by ommohame         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_H
 # define CUB3D_H
 # include <stdio.h>
@@ -42,6 +54,12 @@ typedef struct s_map
 	t_rgb	floor;
 	t_rgb	ceiling;
 }	t_map;
+
+# define SUCCESS	1
+# define ERROR		0
+
+# define WIDTH		1000
+# define HEIGHT		500
 
 void	parse_map(char *filepath, t_map *map);
 
