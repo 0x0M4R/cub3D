@@ -1,4 +1,4 @@
-#include "../inc/cub3d.h"
+#include "cub3d.h"
 
 /* TODO : check errors in color.
 		- must be between 0-255
