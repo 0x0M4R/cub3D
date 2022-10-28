@@ -13,6 +13,7 @@ t_rgb	get_element_rgb(char *element, int len)
 	color.red = ft_atoi(str_color[0]);
 	color.green = ft_atoi(str_color[1]);
 	color.blue = ft_atoi(str_color[2]);
+	//free 2d array.
 	return (color);
 }
 
@@ -73,8 +74,8 @@ int	parse_elements(t_map *map, char *content)
 		else
 			i++;
 	}
-	printf("%s",&content[pos + ft_strchr_i(&content[pos],'1')]);
-	printf("%s",&content[pos + ft_strchr_i(&content[pos],' ')]);
-	//pos = pos + ft_strchr_i(&content[pos],'1')
-	return (pos + ft_strchr_i(&content[pos],'1'));
+	if (ft_strchr_i(&content[pos], '1') > ft_strchr_i(&content[pos], ' '))
+		return (pos + ft_strchr_i(&content[pos], ' '));
+	else
+		return (pos + ft_strchr_i(&content[pos], '1'));
 }

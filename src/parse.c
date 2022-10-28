@@ -1,30 +1,5 @@
 #include "../inc/cub3d.h"
 
-/* TODO: adjust to skip lines with texture info */
-void	read_map(t_map *map, int lines, char *filepath)
-{
-	int	f;
-	int	i;
-
-	map->map = 0;
-	map->map = malloc(sizeof(char *) * (lines + 1));
-	map->map[lines] = 0;
-	i = 0;
-	while (i < lines)
-	{
-		map->map[i] = 0;
-		i++;
-	}
-	i = 0;
-	f = open(filepath, O_RDONLY);
-	while (i < lines)
-	{
-		map->map[i] = get_next_line(f);
-		i++;
-	}
-	close(f);
-}
-
 int	open_file(char *filepath)
 {
 	int	f;
@@ -88,6 +63,6 @@ void	parse_map(char *filepath, t_map *map)
 	}
 	content = read_file(filepath);
 	line_num = parse_elements(map, content);
-	printf("hello%s",map->w_texture);
-	read_map(map, 15, filepath);
+    map->map = ft_split(&content[line_num],'\n');
+	//printf("%s",&content[line_num]);
 }
