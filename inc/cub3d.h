@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 00:47:46 by ommohame          #+#    #+#             */
-/*   Updated: 2022/10/29 02:15:35 by ommohame         ###   ########.fr       */
+/*   Updated: 2022/11/07 22:26:49 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ typedef struct s_data
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
-}				t_data;
+}	t_data;
 
 typedef struct s_mlx
 {
@@ -58,8 +58,8 @@ typedef struct s_map
 # define SUCCESS	1
 # define ERROR		0
 
-# define WIDTH		1000
-# define HEIGHT		500
+# define WIDTH		1920
+# define HEIGHT		1080
 
 void	parse_map(char *filepath, t_map *map);
 
