@@ -17,7 +17,7 @@
 # include <fcntl.h>
 # include <math.h>
 # include "../libft/libft.h"
-# include "../mlx/mlx.h"
+# include "mlx.h"
 
 typedef struct s_data
 {
@@ -62,7 +62,9 @@ typedef struct s_map
 # define HEIGHT		1080
 
 void	parse_map(char *filepath, t_map *map);
-
 int		parse_elements(t_map *map, char *content);
+
+
+void	draw_square(t_map map, int x1, int y1);
 
 #endif

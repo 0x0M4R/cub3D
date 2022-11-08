@@ -12,22 +12,29 @@
 
 #include "cub3d.h"
 
-void	draw_square(t_map map, int x1, int y1)
+void	load_assets(t_map map)
 {
-	int		x2;
-	int		y2;
+	(void)map;
+	return ;
+}
 
-	y2 = y1;
-	while (y2 < y1 + 100 && y2 < HEIGHT)
-	{
-		x2 = x1;
-		while (x2 < x1 + 100 && x2 < WIDTH)
-		{
-			mlx_pixel_put(map.mlx.mlx, map.mlx.win, x1, y1, 0x88CDF6);
-			x2++;
-		}
-		y2++;
-	}
+void	get_values(t_map *map)
+{
+	(void)map;
+	return ;
+}
+
+void	draw_image(t_map map)
+{
+	(void)map;
+	return ;
+}
+
+int	render_loop(t_map *map)
+{
+	get_values(map);
+	draw_image(*map);
+	return (SUCCESS);
 }
 
 int	init_cube(char **av)
@@ -41,8 +48,9 @@ int	init_cube(char **av)
 		ft_putstr_fd("Cube3D: Error: Failed to init minishell.\n", 2);
 		return (ERROR);
 	}
-	map.mlx.win = mlx_new_window(map.mlx.mlx, 1920, 1080, "cub3d");
-	draw_square(map, 500, 500);
+	load_assets(map);
+	map.mlx.win = mlx_new_window(map.mlx.mlx, WIDTH, HEIGHT, "cub3d");
+	mlx_loop_hook(map.mlx.mlx, render_loop, &map);
 	mlx_loop(map.mlx.mlx);
 	return (SUCCESS);
 }
