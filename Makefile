@@ -5,6 +5,8 @@ SRCS_DIR		=		./srcs/
 SRCS			=		cub3d.c				\
 						parse.c				\
 						parse_elements.c	\
+						big_brain.c			\
+						assets.c			\
 
 OBJS			=		$(addprefix $(SRCS_DIR),$(SRCS:.c=.o))
 

@@ -12,16 +12,16 @@
 
 #include "cub3d.h"
 
-void	load_assets(t_map map)
+void	init_struct(t_map *map)
 {
-	(void)map;
-	return ;
-}
-
-void	get_values(t_map *map)
-{
-	(void)map;
-	return ;
+	map->time = 0;
+	map->old_time = 0;
+	map->info.pos_x = 22;
+	map->info.pos_x = 12;
+	map->info.dir_x = -1;
+	map->info.dir_y = 0;
+	map->info.plane_x = 0;
+	map->info.plane_x = 0.66;
 }
 
 void	draw_image(t_map map)
@@ -32,8 +32,15 @@ void	draw_image(t_map map)
 
 int	render_loop(t_map *map)
 {
-	get_values(map);
-	draw_image(*map);
+	int		x;
+
+	x = 0;
+	while (x < WIDTH)
+	{
+		get_values(map, x);
+		draw_image(*map);
+		x++;
+	}
 	return (SUCCESS);
 }
 
@@ -42,6 +49,7 @@ int	init_cube(char **av)
 	t_map	map;
 
 	parse_map(av[1], &map);
+	init_struct(&map);
 	map.mlx.mlx = mlx_init();
 	if (!map.mlx.mlx)
 	{
