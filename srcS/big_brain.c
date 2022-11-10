@@ -4,7 +4,7 @@
 
 static void    dda(t_map *map)
 {
-    (void)map;
+	
     return ;
 }
 
