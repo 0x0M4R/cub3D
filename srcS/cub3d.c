@@ -6,27 +6,45 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 00:46:43 by ommohame          #+#    #+#             */
-/*   Updated: 2022/11/08 16:52:24 by ommohame         ###   ########.fr       */
+/*   Updated: 2022/11/12 23:27:32 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+int	keys(int key, t_map *map)
+{
+	if (key == 13)
+		map->player.pos.y++;
+	else if (key == 1)
+		map->player.pos.y--;
+	else if (key == 0)
+		map->player.pos.x--;
+	else if (key == 2)
+		map->player.pos.x++;
+	return (SUCCESS);
+}
+
 void	init_struct(t_map *map)
 {
 	map->time = 0;
 	map->old_time = 0;
-	map->info.pos_x = 22;
-	map->info.pos_x = 12;
-	map->info.dir_x = -1;
-	map->info.dir_y = 0;
-	map->info.plane_x = 0;
-	map->info.plane_x = 0.66;
+	map->player.pos.x = 22;
+	map->player.pos.y = 12;
+	map->player.dir.x = -1;
+	map->player.dir.y = 0;
+	map->player.render.plane.x = 0;
+	map->player.render.plane.y = 0.66;
 }
 
-void	draw_image(t_map map)
+void	draw_image(t_map *map, int x)
 {
-	(void)map;
+	while (map->player.render.draw.x < map->player.render.draw.y)
+	{
+		mlx_pixel_put(map->mlx.mlx, map->mlx.win,
+			x, map->player.render.draw.x, 0x88CDF6);
+		map->player.render.draw.x++;
+	}
 	return ;
 }
 
@@ -38,9 +56,10 @@ int	render_loop(t_map *map)
 	while (x < WIDTH)
 	{
 		get_values(map, x);
-		draw_image(*map);
+		draw_image(map, x);
 		x++;
 	}
+	// printf("x: %f - y: %f\n", map->player.pos_x, map->player.pos_y);
 	return (SUCCESS);
 }
 
@@ -59,6 +78,7 @@ int	init_cube(char **av)
 	load_assets(map);
 	map.mlx.win = mlx_new_window(map.mlx.mlx, WIDTH, HEIGHT, "cub3d");
 	mlx_loop_hook(map.mlx.mlx, render_loop, &map);
+	mlx_hook(map.mlx.win, ON_KEYDOWN, 0, &keys, &map);
 	mlx_loop(map.mlx.mlx);
 	return (SUCCESS);
 }

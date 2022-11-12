@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 00:47:46 by ommohame          #+#    #+#             */
-/*   Updated: 2022/11/07 22:26:49 by ommohame         ###   ########.fr       */
+/*   Updated: 2022/11/12 23:27:22 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef struct s_mlx
 {
 	void	*mlx;
 	void	*win;
+	void	*tmp;
 }	t_mlx;
 
 typedef struct s_rgb
@@ -41,24 +42,42 @@ typedef struct s_rgb
 	int	blue;
 }	t_rgb;
 
-typedef struct s_info
+typedef struct s_ixy
 {
-	double	pos_x;
-	double	pos_y;
-	double	dir_x;
-	double	dir_y;
-	double	plane_x;
-	double	plane_y;
-	double	camera_x;
-	double	ray_x;
-	double	ray_y;
-}	t_info;
+	int		x;
+	int		y;
+}	t_ixy;
+
+typedef struct s_dxy
+{
+	double	x;
+	double	y;
+}	t_dxy;
+typedef struct s_render
+{
+	t_dxy		plane;
+	t_dxy		ray;
+	t_dxy		delta;
+	t_dxy		dst;
+	t_ixy		step;
+	t_ixy		draw;
+}	t_render;
+
+typedef struct s_player
+{
+	int			side;
+	t_ixy		map;
+	t_dxy		pos;
+	t_dxy		dir;
+	double		camera_x;
+	t_render	render;
+}	t_player;
 
 typedef struct s_map
 {
 	char		**map;
 	t_mlx		mlx;
-	t_info		info;
+	t_player	player;
 	double		time;
 	double		old_time;
 	int			player_direction;
@@ -69,6 +88,16 @@ typedef struct s_map
 	t_rgb		floor;
 	t_rgb		ceiling;
 }	t_map;
+
+enum {
+	ON_KEYDOWN = 2,
+	ON_KEYUP = 3,
+	ON_MOUSEDOWN = 4,
+	ON_MOUSEUP = 5,
+	ON_MOUSEMOVE = 6,
+	ON_EXPOSE = 12,
+	ON_DESTROY = 17
+};
 
 # define SUCCESS	1
 # define ERROR		0
