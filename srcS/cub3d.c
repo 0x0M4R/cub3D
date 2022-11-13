@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 00:46:43 by ommohame          #+#    #+#             */
-/*   Updated: 2022/11/12 23:27:32 by ommohame         ###   ########.fr       */
+/*   Updated: 2022/11/13 18:41:55 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,68 @@
 
 int	keys(int key, t_map *map)
 {
+	double	old_dir_x;
+	double	old_plane_x;
+
 	if (key == 13)
-		map->player.pos.y++;
+	{
+		map->player.pos.x += map->player.dir.x * SPEED;
+		map->player.pos.y += map->player.dir.y * SPEED;
+	}
 	else if (key == 1)
-		map->player.pos.y--;
+	{
+		map->player.pos.x -= map->player.dir.x * SPEED;
+		map->player.pos.y -= map->player.dir.y * SPEED;
+	}
 	else if (key == 0)
-		map->player.pos.x--;
+	{
+		old_dir_x = map->player.dir.x;
+		map->player.dir.x = map->player.dir.x * cos(SPEED) - map->player.dir.y * sin(SPEED);
+		map->player.dir.y = old_dir_x * sin(SPEED) + map->player.dir.y * cos(SPEED);
+		old_plane_x = map->player.render.plane.x;
+		map->player.render.plane.x = map->player.render.plane.x * cos(SPEED) - map->player.render.plane.y * sin(SPEED);
+		map->player.render.plane.y = old_plane_x * sin(SPEED) + map->player.render.plane.y * cos(SPEED);
+	}
 	else if (key == 2)
-		map->player.pos.x++;
+	{
+		old_dir_x = map->player.dir.x;
+		map->player.dir.x = map->player.dir.x * cos(-SPEED) - map->player.dir.y * sin(-SPEED);
+		map->player.dir.y = old_dir_x * sin(-SPEED) + map->player.dir.y * cos(-SPEED);
+		old_plane_x = map->player.render.plane.x;
+		map->player.render.plane.x = map->player.render.plane.x * cos(-SPEED) - map->player.render.plane.y * sin(-SPEED);
+		map->player.render.plane.y = old_plane_x * sin(-SPEED) + map->player.render.plane.y * cos(-SPEED);
+	}
 	return (SUCCESS);
+}
+
+void	find_player(t_map *map)
+{
+	int		i;
+	int		j;
+
+	i = 0;
+	while (map->map[i])
+	{
+		j = 0;
+		while (map->map[i][j])
+		{
+			if (ft_strchr("NSEW", map->map[i][j]))
+			{
+				map->player.pos.x = i;
+				map->player.pos.y = j;
+				return ;
+			}
+			j++;
+		}
+		i++;
+	}
 }
 
 void	init_struct(t_map *map)
 {
+	find_player(map);
 	map->time = 0;
 	map->old_time = 0;
-	map->player.pos.x = 22;
-	map->player.pos.y = 12;
 	map->player.dir.x = -1;
 	map->player.dir.y = 0;
 	map->player.render.plane.x = 0;
@@ -42,7 +87,7 @@ void	draw_image(t_map *map, int x)
 	while (map->player.render.draw.x < map->player.render.draw.y)
 	{
 		mlx_pixel_put(map->mlx.mlx, map->mlx.win,
-			x, map->player.render.draw.x, 0x88CDF6);
+			x, map->player.render.draw.x, map->player.render.color);
 		map->player.render.draw.x++;
 	}
 	return ;
@@ -53,6 +98,7 @@ int	render_loop(t_map *map)
 	int		x;
 
 	x = 0;
+	mlx_clear_window(map->mlx.mlx, map->mlx.win);
 	while (x < WIDTH)
 	{
 		get_values(map, x);

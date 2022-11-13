@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 00:47:46 by ommohame          #+#    #+#             */
-/*   Updated: 2022/11/12 23:27:22 by ommohame         ###   ########.fr       */
+/*   Updated: 2022/11/13 20:34:23 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ typedef struct s_dxy
 }	t_dxy;
 typedef struct s_render
 {
+	int			color;
 	t_dxy		plane;
 	t_dxy		ray;
 	t_dxy		delta;
@@ -104,6 +105,12 @@ enum {
 
 # define WIDTH		640
 # define HEIGHT		480
+
+# define SPEED		0.5
+
+# define RED		0xFF0000
+# define GREEN		0x00FF00
+# define WHITE		0x0000FF
 
 void	parse_map(char *filepath, t_map *map);
 int		parse_elements(t_map *map, char *content);
