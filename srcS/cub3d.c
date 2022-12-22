@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 00:46:43 by ommohame          #+#    #+#             */
-/*   Updated: 2022/11/13 18:41:55 by ommohame         ###   ########.fr       */
+/*   Updated: 2022/12/22 22:31:11 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,37 +14,21 @@
 
 int	keys(int key, t_map *map)
 {
-	double	old_dir_x;
-	double	old_plane_x;
-
-	if (key == 13)
+	if (key == 13) // forward
 	{
-		map->player.pos.x += map->player.dir.x * SPEED;
-		map->player.pos.y += map->player.dir.y * SPEED;
+		map->player.pos.y--;
 	}
-	else if (key == 1)
+	else if (key == 1) //backward
 	{
-		map->player.pos.x -= map->player.dir.x * SPEED;
-		map->player.pos.y -= map->player.dir.y * SPEED;
+		map->player.pos.y++;
 	}
-	else if (key == 0)
+	else if (key == 0) //left
 	{
-		old_dir_x = map->player.dir.x;
-		map->player.dir.x = map->player.dir.x * cos(SPEED) - map->player.dir.y * sin(SPEED);
-		map->player.dir.y = old_dir_x * sin(SPEED) + map->player.dir.y * cos(SPEED);
-		old_plane_x = map->player.render.plane.x;
-		map->player.render.plane.x = map->player.render.plane.x * cos(SPEED) - map->player.render.plane.y * sin(SPEED);
-		map->player.render.plane.y = old_plane_x * sin(SPEED) + map->player.render.plane.y * cos(SPEED);
 	}
-	else if (key == 2)
+	else if (key == 2) //right
 	{
-		old_dir_x = map->player.dir.x;
-		map->player.dir.x = map->player.dir.x * cos(-SPEED) - map->player.dir.y * sin(-SPEED);
-		map->player.dir.y = old_dir_x * sin(-SPEED) + map->player.dir.y * cos(-SPEED);
-		old_plane_x = map->player.render.plane.x;
-		map->player.render.plane.x = map->player.render.plane.x * cos(-SPEED) - map->player.render.plane.y * sin(-SPEED);
-		map->player.render.plane.y = old_plane_x * sin(-SPEED) + map->player.render.plane.y * cos(-SPEED);
 	}
+	(void)map;
 	return (SUCCESS);
 }
 
@@ -61,8 +45,11 @@ void	find_player(t_map *map)
 		{
 			if (ft_strchr("NSEW", map->map[i][j]))
 			{
+				map->player.angle = 90;
 				map->player.pos.x = i;
 				map->player.pos.y = j;
+				map->player.map.x = i;
+				map->player.map.x = j;
 				return ;
 			}
 			j++;
@@ -74,38 +61,37 @@ void	find_player(t_map *map)
 void	init_struct(t_map *map)
 {
 	find_player(map);
-	map->time = 0;
-	map->old_time = 0;
-	map->player.dir.x = -1;
-	map->player.dir.y = 0;
-	map->player.render.plane.x = 0;
-	map->player.render.plane.y = 0.66;
 }
 
 void	draw_image(t_map *map, int x)
 {
-	while (map->player.render.draw.x < map->player.render.draw.y)
-	{
-		mlx_pixel_put(map->mlx.mlx, map->mlx.win,
-			x, map->player.render.draw.x, map->player.render.color);
-		map->player.render.draw.x++;
-	}
+	for (int i = HEIGHT / 2; i > map->player.render.height; i--)
+		mlx_pixel_put(map->mlx.mlx, map->mlx.win, x, i, RED);
+	(void)map;
+	(void)x;
 	return ;
 }
 
 int	render_loop(t_map *map)
 {
-	int		x;
+	int		x; // column number
+	double	angle; // angle of the first ray
+	double	ang_inc; // the angle difference between each rays
 
 	x = 0;
 	mlx_clear_window(map->mlx.mlx, map->mlx.win);
+	ang_inc = FOV / WIDTH;
+	angle = map->player.angle - (FOV / 2);
 	while (x < WIDTH)
 	{
-		get_values(map, x);
+		printf("huh\n");
+		get_values(map, angle);
 		draw_image(map, x);
 		x++;
+		angle += ang_inc;
 	}
-	// printf("x: %f - y: %f\n", map->player.pos_x, map->player.pos_y);
+	(void)map;
+	(void)x;
 	return (SUCCESS);
 }
 

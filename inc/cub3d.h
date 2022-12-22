@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 00:47:46 by ommohame          #+#    #+#             */
-/*   Updated: 2022/11/13 20:34:23 by ommohame         ###   ########.fr       */
+/*   Updated: 2022/12/22 20:41:59 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,22 +55,14 @@ typedef struct s_dxy
 }	t_dxy;
 typedef struct s_render
 {
-	int			color;
-	t_dxy		plane;
-	t_dxy		ray;
-	t_dxy		delta;
-	t_dxy		dst;
-	t_ixy		step;
-	t_ixy		draw;
+	int		height;
 }	t_render;
 
 typedef struct s_player
 {
-	int			side;
-	t_ixy		map;
+	double		angle;
 	t_dxy		pos;
-	t_dxy		dir;
-	double		camera_x;
+	t_ixy		map;
 	t_render	render;
 }	t_player;
 
@@ -103,8 +95,9 @@ enum {
 # define SUCCESS	1
 # define ERROR		0
 
-# define WIDTH		640
-# define HEIGHT		480
+# define WIDTH		320
+# define HEIGHT		200
+# define FOV		60
 
 # define SPEED		0.5
 
@@ -118,6 +111,6 @@ int		parse_elements(t_map *map, char *content);
 void	draw_square(t_map map, int x1, int y1);
 
 void	load_assets(t_map map);
-void	get_values(t_map *map, int x);
+void	get_values(t_map *map, double angle);
 
 #endif

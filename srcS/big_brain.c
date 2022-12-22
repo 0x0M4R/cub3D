@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 18:12:55 by ommohame          #+#    #+#             */
-/*   Updated: 2022/11/13 18:16:51 by ommohame         ###   ########.fr       */
+/*   Updated: 2022/12/22 22:37:51 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,108 +14,86 @@
 
 /*********** WIP *************/
 
-
-static void	init_values(t_player *player, int x)
+# define SCALE 64
+# define UP	1
+# define DOWN -1
+# define LEFT_SIDE -1
+# define RIGHT_SIDE 1
+# define TOP_SIDE 1
+# define BOT_SIDE -1
+# define VERTICAL 0
+# define HORIZONTAL 1
+// get the angle quadrant for x-axis or y-axis
+int		angle_side(double angle, int axis)
 {
-	player->camera_x = 2 * x / (double)WIDTH - 1;
-	player->render.ray.x = player->dir.x + player->render.plane.x * player->camera_x;
-	player->render.ray.y = player->dir.y + player->render.plane.y * player->camera_x;
-	player->map.x = (int)player->pos.x;
-	player->map.y = (int)player->pos.y;
-}
-
-static void get_delta(t_player *player)
-{
-	if (!player->render.ray.x)
-		player->render.delta.x = 1e30;
+	// for now it only checks if up and down
+	(void)axis;
+	if (angle > 0 && angle < 180)
+		return (1);
 	else
-		player->render.delta.x = fabs(1 / player->render.ray.x);
-	if (!player->render.ray.y)
-		player->render.delta.y = 1e30;
-	else
-		player->render.delta.y = fabs(1 / player->render.ray.y);
+		return (-1);
 }
 
-static void	calculate_step(t_player *player)
+double	deg_to_rad(int deg)
 {
-	if (player->render.ray.x < 0)
-	{
-		player->render.step.x = -1;
-		player->render.dst.x = (player->pos.x - player->map.x) * player->render.delta.x;
-	}
-	else
-	{
-		player->render.step.x = 1;
-		player->render.dst.x = (player->map.x + 1.0 - player->pos.x) * player->render.delta.x;
-	}
-	if (player->render.ray.y < 0)
-	{
-		player->render.step.y = -1;
-		player->render.dst.y = (player->pos.y - player->map.y) * player->render.delta.y;
-	}
-	else
-	{
-		player->render.step.y = 1;
-		player->render.dst.y = (player->map.y + 1.0 - player->pos.y) * player->render.delta.y;
-	}
+	return (deg * M_PI / (double)180);
 }
 
-static void	dda(t_map *map)
+int dda(t_map *map, double angle, t_dxy a, int side)
 {
-	int		hit;
+	t_dxy	inc; // the distance to increment to check the next grid point
+	double	dst; // ray distance to the wall
+	t_dxy	b; // the first grid point after a on the 2d grid
 
-	hit = 0;
-	get_delta(&map->player);
-	calculate_step(&map->player);
-	while (!hit)
+	(void)side;
+	if (side == HORIZONTAL)
 	{
-		if (map->player.render.dst.x < map->player.render.dst.y)
-		{
-			map->player.render.dst.x += map->player.render.delta.x;
-			map->player.map.x += map->player.render.step.x;
-			map->player.side = 0;
-		}
-		else
-		{
-			map->player.render.dst.y += map->player.render.delta.y;
-			map->player.map.y += map->player.render.step.y;
-			map->player.side = 1;
-		}
-		if (map->map[map->player.map.x][map->player.map.y] == '1')
-			hit = 1;
+		inc.y = SCALE * side;
+		inc.x = inc.y / tan(angle);
 	}
+	// else
+	// {
+	// 	inc.
+	// }
+	for (int i = 0; i < 10; i++)
+	{
+		b.x = a.x + inc.x;
+		b.y = a.y + inc.y;
+		b.x /= SCALE;
+		b.y /= SCALE;
+		if (map->map[(int)b.x][(int)b.y] == '1')
+			break ;
+		a.x = b.x;
+		a.y = b.y;
+	}
+	dst = sqrt(pow(map->player.pos.x - b.x, 2) + pow(map->player.pos.y - b.y, 2));
+	return (dst);
 }
 
-static void	line_height (t_player *player)
+void	rays(t_map *map, double angle)
 {
-	int		height;
-	double	wall_dis;
+	double
+	t_dxy	a; // first horizontal grid point according to the 2d map
+	t_dxy	b;
+	int		side; // ray side (UP OR DOWN)
 
-	if (!player->side)
-		wall_dis = player->render.dst.x - player->render.delta.x;
-	else
-		wall_dis = player->render.dst.y - player->render.delta.y;
-	height = (int)(HEIGHT / wall_dis);
-	player->render.draw.x = -height / 2 + HEIGHT / 2;
-	if (player->render.draw.x < 0)
-		player->render.draw.x = 0;
-	player->render.draw.y = height / 2 + HEIGHT / 2;
-	if (player->render.draw.y >= HEIGHT)
-		player->render.draw.y = HEIGHT - 1;
+	side = angle_side(angle, 0);
+	if (side == UP)
+		a.y = (int)(map->player.pos.y / SCALE) * SCALE - 1;
+	else if (side == DOWN)
+		a.y = (int)(map->player.pos.y / SCALE) * SCALE + 64;
+	a.x =  map->player.pos.x + (map->player.pos.y - a.y) / tan(angle);
+	a.x /= SCALE;
+	a.y /= SCALE;
+	map->player.render.height = dda(map, angle, a, HORIZONTAL); // horizontal grid points
+	printf("%d\n", map->player.render.height);
+	// dda(dst, yp); // vertical grid points
 }
 
-static void get_color(t_map *map)
+void	get_values(t_map *map, double angle)
 {
-	map->player.render.color = RED;
-	if (map->player.side == 1)
-		map->player.render.color /= 2;
-}
-
-void	get_values(t_map *map, int x)
-{
-	init_values(&map->player, x);
-	dda(map);
-	line_height(&map->player);
-	get_color(map);
+	rays(map, angle);
+	(void)angle;
+	(void)map;
 	return ;
 }
