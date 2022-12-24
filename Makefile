@@ -6,6 +6,7 @@ SRCS			=		cub3d.c				\
 						parse.c				\
 						parse_elements.c	\
 						big_brain.c			\
+						render.c			\
 						assets.c			\
 
 OBJS			=		$(addprefix $(SRCS_DIR),$(SRCS:.c=.o))
@@ -16,7 +17,7 @@ LIBFT			=		libft/libft.a
 
 CC				=		gcc
 
-CFLAGS			=		-Wall -Werror -Wextra -g -Iinc
+CFLAGS			=		-Wall -Werror -Wextra -Iinc
 
 RM				=		rm -f
 

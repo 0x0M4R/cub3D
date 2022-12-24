@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 00:46:43 by ommohame          #+#    #+#             */
-/*   Updated: 2022/12/22 22:31:11 by ommohame         ###   ########.fr       */
+/*   Updated: 2022/12/24 19:21:46 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,35 +63,27 @@ void	init_struct(t_map *map)
 	find_player(map);
 }
 
-void	draw_image(t_map *map, int x)
-{
-	for (int i = HEIGHT / 2; i > map->player.render.height; i--)
-		mlx_pixel_put(map->mlx.mlx, map->mlx.win, x, i, RED);
-	(void)map;
-	(void)x;
-	return ;
-}
-
-int	render_loop(t_map *map)
+int	game_loop(t_map *map)
 {
 	int		x; // column number
 	double	angle; // angle of the first ray
 	double	ang_inc; // the angle difference between each rays
+	t_frame	frame;
 
 	x = 0;
-	mlx_clear_window(map->mlx.mlx, map->mlx.win);
-	ang_inc = FOV / WIDTH;
 	angle = map->player.angle - (FOV / 2);
+	ang_inc = (double)FOV / (double)WIDTH;
+	frame = create_frame(&map->mlx);
 	while (x < WIDTH)
 	{
-		printf("huh\n");
 		get_values(map, angle);
-		draw_image(map, x);
-		x++;
+		draw_frame(map, frame.data,x);
 		angle += ang_inc;
+		x++;
 	}
-	(void)map;
-	(void)x;
+	mlx_clear_window(map->mlx.mlx, map->mlx.win);
+	mlx_put_image_to_window(map->mlx.mlx, map->mlx.win, frame.frame, 0, 0);
+	mlx_destroy_image(map->mlx.mlx, frame.frame);
 	return (SUCCESS);
 }
 
@@ -109,7 +101,7 @@ int	init_cube(char **av)
 	}
 	load_assets(map);
 	map.mlx.win = mlx_new_window(map.mlx.mlx, WIDTH, HEIGHT, "cub3d");
-	mlx_loop_hook(map.mlx.mlx, render_loop, &map);
+	mlx_loop_hook(map.mlx.mlx, game_loop, &map);
 	mlx_hook(map.mlx.win, ON_KEYDOWN, 0, &keys, &map);
 	mlx_loop(map.mlx.mlx);
 	return (SUCCESS);

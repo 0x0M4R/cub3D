@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 00:47:46 by ommohame          #+#    #+#             */
-/*   Updated: 2022/12/22 20:41:59 by ommohame         ###   ########.fr       */
+/*   Updated: 2022/12/24 19:20:15 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,15 @@ typedef struct s_map
 	t_rgb		ceiling;
 }	t_map;
 
+typedef struct s_frame
+{
+	void	*frame;
+	int		*data;
+	int		bpp;
+	int		size_line;
+	int		endian;
+}	t_frame;
+
 enum {
 	ON_KEYDOWN = 2,
 	ON_KEYUP = 3,
@@ -108,9 +117,10 @@ enum {
 void	parse_map(char *filepath, t_map *map);
 int		parse_elements(t_map *map, char *content);
 
-void	draw_square(t_map map, int x1, int y1);
-
 void	load_assets(t_map map);
 void	get_values(t_map *map, double angle);
+
+t_frame	create_frame(t_mlx *mlx);
+void	draw_frame(t_map *map, int *img_data, int x);
 
 #endif
