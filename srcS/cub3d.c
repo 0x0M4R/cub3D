@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 00:46:43 by ommohame          #+#    #+#             */
-/*   Updated: 2022/12/25 21:18:08 by ommohame         ###   ########.fr       */
+/*   Updated: 2022/12/25 21:23:25 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ void	find_player(t_map *map)
 			if (ft_strchr("NSEW", map->map[i][j]))
 			{
 				map->player.angle = get_angle(map->map[i][j]);
-				map->player.pos.x = j * 64;
-				map->player.pos.y = i * 64;
+				map->player.pos.x = j * SCALE;
+				map->player.pos.y = i * SCALE;
 				return ;
 			}
 			j++;

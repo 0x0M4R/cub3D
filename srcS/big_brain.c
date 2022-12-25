@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 18:12:55 by ommohame          #+#    #+#             */
-/*   Updated: 2022/12/25 21:15:42 by ommohame         ###   ########.fr       */
+/*   Updated: 2022/12/25 21:25:27 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ double dda(t_map *map, double angle, t_dxy a, int side, int dir)
 	// t_dxy	b; // the new grid point after a on the 2d grid
 
 	inc = get_inc(angle, side, dir);
-	for (int i = 0; i < 0; i++)
+	while (1)
 	{
 		if (side == VERTICAL)
 			printf("vert a.y: %f - a.x: %f, inc: %f\n", a.y / SCALE, a.x / SCALE, inc.y);
