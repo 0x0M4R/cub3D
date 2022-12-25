@@ -116,10 +116,8 @@
 // 	return 0;
 // }
 #include <stdio.h>
+# define T 1
 int main()
 {
-	double x = 2.7;
-	int y = x;
-
-	printf("Y: %d\n", y);
+	printf("%d, %d\n", T, -T);
 }

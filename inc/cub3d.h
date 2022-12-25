@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 00:47:46 by ommohame          #+#    #+#             */
-/*   Updated: 2022/12/24 19:20:15 by ommohame         ###   ########.fr       */
+/*   Updated: 2022/12/25 19:28:11 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ typedef struct s_player
 {
 	double		angle;
 	t_dxy		pos;
-	t_ixy		map;
 	t_render	render;
 }	t_player;
 
@@ -113,6 +112,14 @@ enum {
 # define RED		0xFF0000
 # define GREEN		0x00FF00
 # define WHITE		0x0000FF
+
+# define SCALE 64
+# define UP	1
+# define DOWN 2
+# define LEFT 3
+# define RIGHT 4
+# define VERTICAL 5
+# define HORIZONTAL 6
 
 void	parse_map(char *filepath, t_map *map);
 int		parse_elements(t_map *map, char *content);

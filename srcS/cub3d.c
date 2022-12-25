@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 00:46:43 by ommohame          #+#    #+#             */
-/*   Updated: 2022/12/24 19:21:46 by ommohame         ###   ########.fr       */
+/*   Updated: 2022/12/25 21:18:08 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,18 @@ int	keys(int key, t_map *map)
 	return (SUCCESS);
 }
 
+double	get_angle(char c)
+{
+	if (c == 'N')
+		return (90);
+	else if (c == 'W')
+		return (180);
+	else if (c == 'S')
+		return (270);
+	else
+		return (0);
+}
+
 void	find_player(t_map *map)
 {
 	int		i;
@@ -45,11 +57,9 @@ void	find_player(t_map *map)
 		{
 			if (ft_strchr("NSEW", map->map[i][j]))
 			{
-				map->player.angle = 90;
-				map->player.pos.x = i;
-				map->player.pos.y = j;
-				map->player.map.x = i;
-				map->player.map.x = j;
+				map->player.angle = get_angle(map->map[i][j]);
+				map->player.pos.x = j * 64;
+				map->player.pos.y = i * 64;
 				return ;
 			}
 			j++;
