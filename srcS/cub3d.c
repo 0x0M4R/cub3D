@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 00:46:43 by ommohame          #+#    #+#             */
-/*   Updated: 2022/12/25 21:23:25 by ommohame         ###   ########.fr       */
+/*   Updated: 2022/12/27 22:00:37 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,22 @@ int	keys(int key, t_map *map)
 {
 	if (key == 13) // forward
 	{
-		map->player.pos.y--;
+		map->player.pos.x += cos(map->player.angle) * SPEED;
+		map->player.pos.y += sin(map->player.angle) * SPEED;
 	}
 	else if (key == 1) //backward
 	{
-		map->player.pos.y++;
+		map->player.pos.x -= cos(map->player.angle) * SPEED;
+		map->player.pos.y -= sin(map->player.angle) * SPEED;
 	}
 	else if (key == 0) //left
 	{
+		map->player.angle -= SPEED;
 	}
 	else if (key == 2) //right
 	{
+		map->player.angle += SPEED;
 	}
-	(void)map;
 	return (SUCCESS);
 }
 
@@ -73,6 +76,16 @@ void	init_struct(t_map *map)
 	find_player(map);
 }
 
+double	fix_angle(double angle)
+{
+	if (angle < 0)
+		return (angle + 360);
+	else if (angle > 360)
+		return (angle - 360);
+	else
+		return (angle);
+}
+
 int	game_loop(t_map *map)
 {
 	int		x; // column number
@@ -81,14 +94,14 @@ int	game_loop(t_map *map)
 	t_frame	frame;
 
 	x = 0;
-	angle = map->player.angle - (FOV / 2);
+	angle = fix_angle(map->player.angle - (FOV / 2));
 	ang_inc = (double)FOV / (double)WIDTH;
 	frame = create_frame(&map->mlx);
 	while (x < WIDTH)
 	{
 		get_values(map, angle);
-		draw_frame(map, frame.data,x);
-		angle += ang_inc;
+		draw_frame(map, frame.data, x);
+		angle = fix_angle(angle + ang_inc);
 		x++;
 	}
 	mlx_clear_window(map->mlx.mlx, map->mlx.win);

@@ -9,7 +9,8 @@
         "request": "launch",
         "program": "${workspaceFolder}/cub3d", //path to your programs exe and exe name
         "args": ["test.cub"],
-        "stopAtEntry": false,
+        "preLaunchTask": "makefile",
+        "stopAtEntry": true,
         "cwd": "${workspaceFolder}",
         "environment": [],
         "externalConsole": false,

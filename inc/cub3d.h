@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 00:47:46 by ommohame          #+#    #+#             */
-/*   Updated: 2022/12/25 19:28:11 by ommohame         ###   ########.fr       */
+/*   Updated: 2022/12/27 21:59:16 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ enum {
 # define HEIGHT		200
 # define FOV		60
 
-# define SPEED		0.5
+# define SPEED		5
 
 # define RED		0xFF0000
 # define GREEN		0x00FF00

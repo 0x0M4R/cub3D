@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 18:12:55 by ommohame          #+#    #+#             */
-/*   Updated: 2022/12/25 21:25:27 by ommohame         ###   ########.fr       */
+/*   Updated: 2022/12/27 21:43:54 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ t_dxy	get_inc(double angle, int side, int dir)
 	return (inc);
 }
 
-double dda(t_map *map, double angle, t_dxy a, int side, int dir)
+double dda(t_map *map, double angle, t_dxy a, int side, int dir) // is this even dda?? I doubt it
 {
 	t_dxy	inc; // the distance to increment to check the next grid point
 	double	dst; // ray distance to the wall
@@ -99,11 +99,15 @@ double dda(t_map *map, double angle, t_dxy a, int side, int dir)
 	while (1)
 	{
 		if (side == VERTICAL)
-			printf("vert a.y: %f - a.x: %f, inc: %f\n", a.y / SCALE, a.x / SCALE, inc.y);
-		else
-			printf("horz a.y: %f - a.x: %f\n", a.y / SCALE, a.x / SCALE);
-		if (map->map[(int)(a.x / SCALE)][(int)(a.y / SCALE)] == '1')
+			printf("vert a.x %d - a.y %d, inc.x %d - inc.y %d, angle: %f\n", (int)a.x / SCALE, (int)a.y / SCALE, (int)inc.x / SCALE, (int)inc.y / SCALE, angle); 
+		// else
+		// 	printf("horz a.x %d - a.y %d, inc.x %d - inc.y %d\n", (int)a.x / SCALE, (int)a.y / SCALE, (int)inc.x / SCALE, (int)inc.y / SCALE);
+		if ((a.y / SCALE) < 0 || (a.y / SCALE) > 2 || (a.x / SCALE) < 0 || (a.x / SCALE) > 2 || map->map[(int)(a.y / SCALE)][(int)(a.x / SCALE)] == '1')
+		{
+			// printf("break\n");
 			break ;
+		}
+		// printf("after checking\n");
 		a.x += inc.x; // next x-axis pos on the grid
 		a.y += inc.y; // next y-axis pos on the grid
 	}
