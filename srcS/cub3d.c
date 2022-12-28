@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 00:46:43 by ommohame          #+#    #+#             */
-/*   Updated: 2022/12/27 22:00:37 by ommohame         ###   ########.fr       */
+/*   Updated: 2022/12/28 20:41:12 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,14 @@ int	keys(int key, t_map *map)
 {
 	if (key == 13) // forward
 	{
-		map->player.pos.x += cos(map->player.angle) * SPEED;
+		// map->player.pos.x += cos(map->player.angle) * SPEED;
 		map->player.pos.y += sin(map->player.angle) * SPEED;
 	}
 	else if (key == 1) //backward
 	{
-		map->player.pos.x -= cos(map->player.angle) * SPEED;
 		map->player.pos.y -= sin(map->player.angle) * SPEED;
+		// map->player.pos.x -= cos(map->player.angle) * SPEED;
+		// map->player.pos.y -= sin(map->player.angle) * SPEED;
 	}
 	else if (key == 0) //left
 	{
@@ -61,8 +62,8 @@ void	find_player(t_map *map)
 			if (ft_strchr("NSEW", map->map[i][j]))
 			{
 				map->player.angle = get_angle(map->map[i][j]);
-				map->player.pos.x = j * SCALE;
-				map->player.pos.y = i * SCALE;
+				map->player.pos.x = (i * SCALE) + SCALE / 2;
+				map->player.pos.y = (j * SCALE) + SCALE / 2;
 				return ;
 			}
 			j++;
@@ -97,6 +98,7 @@ int	game_loop(t_map *map)
 	angle = fix_angle(map->player.angle - (FOV / 2));
 	ang_inc = (double)FOV / (double)WIDTH;
 	frame = create_frame(&map->mlx);
+	draw_map(*map);
 	while (x < WIDTH)
 	{
 		get_values(map, angle);
@@ -124,6 +126,7 @@ int	init_cube(char **av)
 	}
 	load_assets(map);
 	map.mlx.win = mlx_new_window(map.mlx.mlx, WIDTH, HEIGHT, "cub3d");
+	map.mlx.tmp = mlx_new_window(map.mlx.mlx, 5 * 64, 5 * 64, "tmp");
 	mlx_loop_hook(map.mlx.mlx, game_loop, &map);
 	mlx_hook(map.mlx.win, ON_KEYDOWN, 0, &keys, &map);
 	mlx_loop(map.mlx.mlx);
@@ -136,7 +139,7 @@ int	main(int ac, char **av)
 
 	if (ac != 2)
 	{
-		ft_putstr_fd("Cube3D: Error: Wrong number of arguments.\n", 2);
+		ft_putstr_fd("Cub3D: Error: Wrong number of arguments.\n", 2);
 		exit(EXIT_FAILURE);
 	}
 	else

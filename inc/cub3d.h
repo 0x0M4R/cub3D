@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 00:47:46 by ommohame          #+#    #+#             */
-/*   Updated: 2022/12/27 21:59:16 by ommohame         ###   ########.fr       */
+/*   Updated: 2022/12/28 20:17:42 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,8 @@ enum {
 
 # define RED		0xFF0000
 # define GREEN		0x00FF00
-# define WHITE		0x0000FF
+# define BLUE		0x0000FF
+# define WHITE		0xFFFFFF
 
 # define SCALE 64
 # define UP	1
@@ -129,5 +130,9 @@ void	get_values(t_map *map, double angle);
 
 t_frame	create_frame(t_mlx *mlx);
 void	draw_frame(t_map *map, int *img_data, int x);
+
+
+// test
+void	draw_map(t_map map);
 
 #endif
