@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tmp.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oabdalla <oabdalla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 19:45:29 by ommohame          #+#    #+#             */
-/*   Updated: 2022/12/29 14:50:13 by oabdalla         ###   ########.fr       */
+/*   Updated: 2022/12/29 20:00:49 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,20 +32,20 @@ int draw_box(t_map map, int x, int y, int size, int colour)
 	// mlx_pixel_put(map->mlx.mlx, map->mlx.win, (73*map->player_pos_x), (73*map->player_pos_y), 0xFFFFFF);
 	return (0);
 }
-void draw_ray(t_map map)
+void draw_ray(t_map map, int ray_x, int ray_y, int angle)
 {
-	int	ray_x;
-	int	ray_y;
+	// int	ray_x;
+	// int	ray_y;
 	int	tangent;
 
 	tangent = 0;
-	ray_x = 0;
-	ray_y = 0;
+	// ray_x = 0;
+	// ray_y = 0;
 	while(map.player.pos.x + ray_x < (64 * 5) && map.player.pos.y + ray_y < (64 * 5))
 	{
 		mlx_pixel_put(map.mlx.mlx, map.mlx.tmp, map.player.pos.x - ray_x, map.player.pos.y - ray_y, YELLOW);
-		ray_x = cos(deg_to_rad(map.player.angle)) * tangent;
-		ray_y = sin(deg_to_rad(map.player.angle)) * tangent;
+		ray_x = cos(deg_to_rad(angle)) * tangent;
+		ray_y = sin(deg_to_rad(angle)) * tangent;
 		tangent += 1;
 	}
 }
@@ -68,6 +68,27 @@ void	draw_map(t_map map)
 	draw_box(map, map.player.pos.x - 1, map.player.pos.y - 1, 2, WHITE);
 	old_pos_x = map.player.pos.x;
 	old_pos_y = map.player.pos.y;
-	draw_ray(map);
+	// draw_ray(map, 0, 0, map.player.angle);
+	// draw_ray(map, 30, 30, map.player.angle + 10);
 	// mlx_pixel_put(map.mlx.mlx, map.mlx.tmp, map.player.pos.x, map.player.pos.y, GREEN);
+}
+
+int abs(int n) { return ((n > 0) ? n : (n * (-1))); }
+ 
+void line(t_map map, int X0, int Y0, int X1, int Y1)
+{
+	int dx = X1 - X0;
+	int dy = Y1 - Y0;
+ 
+	int steps = abs(dx) > abs(dy) ? abs(dx) : abs(dy);
+	float Xinc = dx / (float)steps;
+	float Yinc = dy / (float)steps;
+ 
+	float X = X0;
+	float Y = Y0;
+	for (int i = 0; i <= steps; i++) {
+		mlx_pixel_put(map.mlx.mlx, map.mlx.tmp, (int)X, (int)Y, GREEN);
+		X += Xinc;
+		Y += Yinc;
+	}
 }

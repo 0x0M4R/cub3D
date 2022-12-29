@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oabdalla <oabdalla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 00:46:43 by ommohame          #+#    #+#             */
-/*   Updated: 2022/12/29 14:43:39 by oabdalla         ###   ########.fr       */
+/*   Updated: 2022/12/29 20:23:16 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@ int	keys(int key, t_map *map)
 	}
 	else if (key == 0) //left
 	{
-		map->player.angle += SPEED;
+		map->player.angle -= SPEED;
 	}
 	else if (key == 2) //right
 	{
-		map->player.angle -= SPEED;
+		map->player.angle += SPEED;
 	}
 	return (SUCCESS);
 }
@@ -40,11 +40,11 @@ int	keys(int key, t_map *map)
 double	get_angle(char c)
 {
 	if (c == 'N')
-		return (90);
+		return (270);
 	else if (c == 'W')
 		return (180);
 	else if (c == 'S')
-		return (270);
+		return (90);
 	else
 		return (0);
 }
@@ -63,8 +63,8 @@ void	find_player(t_map *map)
 			if (ft_strchr("NSEW", map->map[i][j]))
 			{
 				map->player.angle = get_angle(map->map[i][j]);
-				map->player.pos.x = (i * SCALE) + SCALE / 2;
-				map->player.pos.y = (j * SCALE) + SCALE / 2;
+				map->player.pos.y = (i * SCALE) + SCALE / 2;
+				map->player.pos.x = (j * SCALE) + SCALE / 2;
 				return ;
 			}
 			j++;
