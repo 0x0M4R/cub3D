@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
+/*   By: oabdalla <oabdalla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 00:46:43 by ommohame          #+#    #+#             */
-/*   Updated: 2022/12/28 20:41:12 by ommohame         ###   ########.fr       */
+/*   Updated: 2022/12/29 14:43:39 by oabdalla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,25 @@
 
 int	keys(int key, t_map *map)
 {
+    printf("angle: %f",map->player.angle);
 	if (key == 13) // forward
 	{
-		// map->player.pos.x += cos(map->player.angle) * SPEED;
-		map->player.pos.y += sin(map->player.angle) * SPEED;
+		map->player.pos.x -= cos(deg_to_rad(map->player.angle)) * SPEED;
+		map->player.pos.y -= sin(deg_to_rad(map->player.angle)) * SPEED;
 	}
 	else if (key == 1) //backward
 	{
-		map->player.pos.y -= sin(map->player.angle) * SPEED;
-		// map->player.pos.x -= cos(map->player.angle) * SPEED;
+		map->player.pos.x += cos(deg_to_rad(map->player.angle)) * SPEED;
+		map->player.pos.y += sin(deg_to_rad(map->player.angle)) * SPEED;
 		// map->player.pos.y -= sin(map->player.angle) * SPEED;
 	}
 	else if (key == 0) //left
 	{
-		map->player.angle -= SPEED;
+		map->player.angle += SPEED;
 	}
 	else if (key == 2) //right
 	{
-		map->player.angle += SPEED;
+		map->player.angle -= SPEED;
 	}
 	return (SUCCESS);
 }

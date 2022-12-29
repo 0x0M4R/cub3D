@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   big_brain.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
+/*   By: oabdalla <oabdalla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 18:12:55 by ommohame          #+#    #+#             */
-/*   Updated: 2022/12/28 22:21:27 by ommohame         ###   ########.fr       */
+/*   Updated: 2022/12/29 14:47:05 by oabdalla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,16 @@ int		angle_side(double angle, int side)
 	if (side == HORIZONTAL)
 	{
 		if (angle >= 0 && angle < 180)
-			return (DOWN);
-		else
 			return (UP);
+		else
+			return (DOWN);
 	}
 	else // vertical
 	{
 		if (angle >= 90 && angle < 270)
-			return (RIGHT);
-		else
 			return (LEFT);
+		else
+			return (RIGHT);
 	}
 }
 

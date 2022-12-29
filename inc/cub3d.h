@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
+/*   By: oabdalla <oabdalla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 00:47:46 by ommohame          #+#    #+#             */
-/*   Updated: 2022/12/28 20:17:42 by ommohame         ###   ########.fr       */
+/*   Updated: 2022/12/29 11:33:41 by oabdalla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,8 @@ enum {
 # define GREEN		0x00FF00
 # define BLUE		0x0000FF
 # define WHITE		0xFFFFFF
+# define YELLOW		0xFFFF00
+# define BLACK		0x000000
 
 # define SCALE 64
 # define UP	1
@@ -130,6 +132,7 @@ void	get_values(t_map *map, double angle);
 
 t_frame	create_frame(t_mlx *mlx);
 void	draw_frame(t_map *map, int *img_data, int x);
+double	deg_to_rad(int deg);
 
 
 // test
