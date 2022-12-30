@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 18:12:55 by ommohame          #+#    #+#             */
-/*   Updated: 2022/12/29 20:51:39 by ommohame         ###   ########.fr       */
+/*   Updated: 2022/12/30 22:24:33 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ int		angle_side(double angle, int side)
 	else // vertical
 	{
 		if (angle >= 90 && angle < 270)
-			return (RIGHT);
-		else
 			return (LEFT);
+		else
+			return (RIGHT);
 	}
 }
 
@@ -46,9 +46,7 @@ t_dxy	first_hpoint(t_map *map, double angle, int side)
 		a.y = (int)(map->player.pos.y / SCALE) * SCALE - 1;
 	else if (side == DOWN)
 		a.y = (int)(map->player.pos.y / SCALE) * SCALE + SCALE;
-	a.x =  map->player.pos.x + (map->player.pos.y - a.y) / tan(deg_to_rad(angle));
-	// a.x /= 64;
-	// a.y /= 64;
+	a.x = (map->player.pos.y - a.y) / -tan(deg_to_rad(angle)) + map->player.pos.x;
 	return (a);
 }
 
@@ -60,9 +58,7 @@ t_dxy	first_vpoint(t_map *map, double angle, int side)
 		a.x = (int)(map->player.pos.x / SCALE) * SCALE - 1;
 	else if (side == RIGHT)
 		a.x = (int)(map->player.pos.x / SCALE) * SCALE + SCALE;
-	a.y = map->player.pos.y + (map->player.pos.x - a.x) * tan(deg_to_rad(angle));
-	// a.x /= 64;
-	// a.y /= 64;
+	a.y = (map->player.pos.x - a.x) * -tan(deg_to_rad(angle)) + map->player.pos.y;
 	return (a);
 }
 
@@ -89,45 +85,49 @@ t_dxy	get_inc(double angle, int side, int dir)
 	return (inc);
 }
 
-double dda(t_map *map, double angle, t_dxy a, int side, int dir) // is this even dda?? I doubt it
+double	get_dst(double x1, double y1, double x2, double y2)
+{
+	return (sqrt(pow(x1 - x2, 2) + pow(y1 - y2, 2)));
+}
+
+double	dda(t_map *map, double angle, t_dxy a, int side, int dir) // is this even dda?? I doubt it
 {
 	t_dxy	inc; // the distance to increment to check the next grid point
-	double	dst; // ray distance to the wall
 
 	inc = get_inc(angle, side, dir);
 	while (1)
 	{
-		// if (map->map[(int)(a.y / SCALE)][(int)(a.x / SCALE)] == '1')
-		if ((a.y / SCALE) < 0 || (a.y / SCALE) > 4 || (a.x / SCALE) < 0 || (a.x / SCALE) > 4 || map->map[(int)(a.y / SCALE)][(int)(a.x / SCALE)] == '1')
+		// if ((a.y / SCALE) < 0 || (a.y / SCALE) > 4 || (a.x / SCALE) < 0 || (a.x / SCALE) > 4 || map->map[(int)(a.y / SCALE)][(int)(a.x / SCALE)] == '1') // baqalaa fixx
+		if (map->map[(int)(a.y / SCALE)][(int)(a.x / SCALE)] == '1')
 		{
-			line(*map, map->player.pos.x, map->player.pos.y, a.x, a.y);
+			if (side == HORIZONTAL)
+				line(*map, map->player.pos.x, map->player.pos.y, a.x, a.y);
 			break ;
 		}
 		a.x += inc.x; // next x-axis pos on the grid
 		a.y += inc.y; // next y-axis pos on the grid
 	}
-	dst = sqrt(pow(map->player.pos.x - a.x, 2) + pow(map->player.pos.y - a.y, 2));
-	return (dst);
+	return (get_dst(map->player.pos.x, map->player.pos.y, a.x, a.y)); 
 }
 
 double	rays(t_map *map, double angle)
 {
 	int		side; // side of the ray (UP or Down) for the horizontal grid and (LEFT or RIGHT) for vertical grid
 	t_dxy	hpoint; // first horizontal grid point according to the 2d map
-	t_dxy	vpoint; // first vertical grid point according to the 2d map
+	// t_dxy	vpoint; // first vertical grid point according to the 2d map
 	double	hray_dst; // horizontal ray distance between the player and the wall
-	double	vray_dst; // vertical ray distance between the player and the wall
+	// double	vray_dst; // vertical ray distance between the player and the wall
 
 	side = angle_side(angle, HORIZONTAL); // UP or DOWN
 	hpoint = first_hpoint(map, angle, side); // first hoirzontal grid point
 	hray_dst = dda(map, angle, hpoint, HORIZONTAL, side); // horizontal grid points
 	side = angle_side(angle, VERTICAL); // LEFT or RIGHT
-	vpoint = first_vpoint(map, angle, side); // first vertical grid point
-	vray_dst = dda(map, angle, vpoint, VERTICAL, side); // vertical grid points
-	if (hray_dst < vray_dst) // check which ray is shorter to use its dst
+	// vpoint = first_vpoint(map, angle, side); // first vertical grid point
+	// vray_dst = dda(map, angle, vpoint, VERTICAL, side); // vertical grid points
+	// if (hray_dst < vray_dst) // check which ray is shorter to use its dst
 		return (hray_dst);
-	else
-		return (vray_dst);
+	// else
+	// 	return (vray_dst);
 }
 
 double	fishazz(double ray_dst, double angle) // WIP
@@ -143,7 +143,8 @@ void	get_values(t_map *map, double angle)
 	double	ray_dst;
 
 	ray_dst = rays(map, angle);
-	// ray_dst = baqlaa(map, angle);
+	// ray_dst = baqalaa(map, angle);
+	ray_dst = (SCALE * HEIGHT) / ray_dst;
 	map->player.render.height = ray_dst;
 	// printf("dst of angele %1f: %1f\n", angle, ray_dst);
 	// map->player.render.height = fishazz(ray_dst, angle); // fix for the fisheye effect

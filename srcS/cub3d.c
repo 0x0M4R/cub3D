@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 00:46:43 by ommohame          #+#    #+#             */
-/*   Updated: 2022/12/29 20:23:16 by ommohame         ###   ########.fr       */
+/*   Updated: 2022/12/30 22:24:16 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@ int	keys(int key, t_map *map)
     printf("angle: %f",map->player.angle);
 	if (key == 13) // forward
 	{
-		map->player.pos.x -= cos(deg_to_rad(map->player.angle)) * SPEED;
-		map->player.pos.y -= sin(deg_to_rad(map->player.angle)) * SPEED;
+		map->player.pos.x += cos(deg_to_rad(map->player.angle)) * SPEED;
+		map->player.pos.y += sin(deg_to_rad(map->player.angle)) * SPEED;
 	}
 	else if (key == 1) //backward
 	{
-		map->player.pos.x += cos(deg_to_rad(map->player.angle)) * SPEED;
-		map->player.pos.y += sin(deg_to_rad(map->player.angle)) * SPEED;
+		map->player.pos.x -= cos(deg_to_rad(map->player.angle)) * SPEED;
+		map->player.pos.y -= sin(deg_to_rad(map->player.angle)) * SPEED;
 		// map->player.pos.y -= sin(map->player.angle) * SPEED;
 	}
 	else if (key == 0) //left
@@ -81,9 +81,9 @@ void	init_struct(t_map *map)
 double	fix_angle(double angle)
 {
 	if (angle < 0)
-		return (angle + 360);
-	else if (angle > 360)
-		return (angle - 360);
+		return (angle + 359.0);
+	else if (angle > 359.0)
+		return (angle - 3600.0);
 	else
 		return (angle);
 }
