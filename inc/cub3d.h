@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 00:47:46 by ommohame          #+#    #+#             */
-/*   Updated: 2022/12/30 22:38:17 by ommohame         ###   ########.fr       */
+/*   Updated: 2022/12/31 01:29:08 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,10 +128,10 @@ void	parse_map(char *filepath, t_map *map);
 int		parse_elements(t_map *map, char *content);
 
 void	load_assets(t_map map);
-void	get_values(t_map *map, double angle);
+double	get_values(t_map *map, double angle);
 
 t_frame	create_frame(t_mlx *mlx);
-void	draw_frame(t_map *map, int *img_data, int x);
+void	draw_frame(int *img_data, double wall_height, int x);
 double	deg_to_rad(int deg);
 
 

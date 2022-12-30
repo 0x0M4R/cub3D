@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 18:12:55 by ommohame          #+#    #+#             */
-/*   Updated: 2022/12/31 00:03:01 by ommohame         ###   ########.fr       */
+/*   Updated: 2022/12/31 01:46:14 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,21 +176,19 @@ double	baqalaa(t_map *map, double angle)
 
 double	fishazz(double ray_dst, double angle) // WIP
 {
-	double	angleito; // the angle between the ray and the player plane
+	// double	angleito; // the angle between the ray and the player plane
 
-	angleito = 90 - angle; // not accurate yet
-	return (ray_dst * cos(deg_to_rad(angleito)));
+	// angleito = 90 - angle; // not accurate yet
+	return (ray_dst * cos(deg_to_rad(angle)));
 }
 
-void	get_values(t_map *map, double angle)
+double get_values(t_map *map, double angle)
 {
 	double	ray_dst;
 
-	// ray_dst = rays(map, angle);
-	ray_dst = baqalaa(map, angle);
+	ray_dst = rays(map, angle);
+	// ray_dst = baqalaa(map, angle);
+	// ray_dst = fishazz(ray_dst, angle);
 	ray_dst = (SCALE * HEIGHT) / ray_dst;
-	map->player.render.height = ray_dst;
-	// printf("dst of angele %1f: %1f\n", angle, ray_dst);
-	// map->player.render.height = fishazz(ray_dst, angle); // fix for the fisheye effect
-	return ;
+	return (ray_dst);
 }

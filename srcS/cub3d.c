@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 00:46:43 by ommohame          #+#    #+#             */
-/*   Updated: 2022/12/30 22:27:35 by ommohame         ###   ########.fr       */
+/*   Updated: 2022/12/31 01:30:21 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ int	game_loop(t_map *map)
 	int		x; // column number
 	double	angle; // angle of the first ray
 	double	ang_inc; // the angle difference between each rays
+	double	wall_height;
 	t_frame	frame;
 
 	x = 0;
@@ -102,8 +103,8 @@ int	game_loop(t_map *map)
 	// draw_map(*map);
 	while (x < WIDTH)
 	{
-		get_values(map, angle);
-		draw_frame(map, frame.data, x);
+		wall_height = get_values(map, angle);
+		draw_frame(frame.data, wall_height, x);
 		angle = fix_angle(angle + ang_inc);
 		x++;
 	}

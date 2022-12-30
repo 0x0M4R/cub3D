@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 19:18:48 by ommohame          #+#    #+#             */
-/*   Updated: 2022/12/24 19:22:14 by ommohame         ###   ########.fr       */
+/*   Updated: 2022/12/31 01:42:01 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,22 @@ t_frame	create_frame(t_mlx *mlx)
 	return (frame);
 }
 
-void	draw_frame(t_map *map, int *img_data, int x)
+void	draw_frame(int *img_data, double wall_height, int x)
 {
 	int		i;
 	int		j;
-	int		height;
+	int		k;
 
-	height = map->player.render.height;
-	i = (HEIGHT / 2) - (height / 2) - 1;
- 	j = (HEIGHT / 2) + (height / 2);
-	while (i < j)
-		alpha_pixel_put(img_data, x, i++, RED);
+	k = 0;
+	i = (HEIGHT / 2) - (wall_height / 2) - 1;
+ 	j = (HEIGHT / 2) + (wall_height / 2);
+	while (k < i) // Ceilling color
+		alpha_pixel_put(img_data, x, k++, RED);
+	while (i < j) // Floor color
+		alpha_pixel_put(img_data, x, i++, WHITE);
 		// mlx_pixel_put(map->mlx.mlx, map->mlx.win, x, i++, RED);
-	(void)img_data;
+	k = j;
+	while (k < HEIGHT)
+		alpha_pixel_put(img_data, x, k++, BLACK);
 	return ;
 }
