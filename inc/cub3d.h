@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 00:47:46 by ommohame          #+#    #+#             */
-/*   Updated: 2022/12/29 19:47:26 by ommohame         ###   ########.fr       */
+/*   Updated: 2022/12/30 22:38:17 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,8 +103,8 @@ enum {
 # define SUCCESS	1
 # define ERROR		0
 
-# define WIDTH		320
-# define HEIGHT		200
+# define WIDTH		1280
+# define HEIGHT		720
 # define FOV		60
 
 # define SPEED		5

@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 00:46:43 by ommohame          #+#    #+#             */
-/*   Updated: 2022/12/30 22:24:16 by ommohame         ###   ########.fr       */
+/*   Updated: 2022/12/30 22:27:35 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int	game_loop(t_map *map)
 	angle = fix_angle(map->player.angle - (FOV / 2));
 	ang_inc = (double)FOV / (double)WIDTH;
 	frame = create_frame(&map->mlx);
-	draw_map(*map);
+	// draw_map(*map);
 	while (x < WIDTH)
 	{
 		get_values(map, angle);

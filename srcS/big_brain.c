@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 18:12:55 by ommohame          #+#    #+#             */
-/*   Updated: 2022/12/30 22:24:33 by ommohame         ###   ########.fr       */
+/*   Updated: 2022/12/30 22:32:49 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,11 +97,11 @@ double	dda(t_map *map, double angle, t_dxy a, int side, int dir) // is this even
 	inc = get_inc(angle, side, dir);
 	while (1)
 	{
-		// if ((a.y / SCALE) < 0 || (a.y / SCALE) > 4 || (a.x / SCALE) < 0 || (a.x / SCALE) > 4 || map->map[(int)(a.y / SCALE)][(int)(a.x / SCALE)] == '1') // baqalaa fixx
-		if (map->map[(int)(a.y / SCALE)][(int)(a.x / SCALE)] == '1')
+		// if (map->map[(int)(a.y / SCALE)][(int)(a.x / SCALE)] == '1')
+		if ((int)(a.x / SCALE) < 0 || (int)(a.x / SCALE) >= 4 || (int)(a.y / SCALE) < 0 || (int)(a.y / SCALE) >= 4 || map->map[(int)(a.y / SCALE)][(int)(a.x / SCALE)] == '1')
 		{
-			if (side == HORIZONTAL)
-				line(*map, map->player.pos.x, map->player.pos.y, a.x, a.y);
+			// if (side == HORIZONTAL)
+			// 	line(*map, map->player.pos.x, map->player.pos.y, a.x, a.y);
 			break ;
 		}
 		a.x += inc.x; // next x-axis pos on the grid
@@ -114,20 +114,20 @@ double	rays(t_map *map, double angle)
 {
 	int		side; // side of the ray (UP or Down) for the horizontal grid and (LEFT or RIGHT) for vertical grid
 	t_dxy	hpoint; // first horizontal grid point according to the 2d map
-	// t_dxy	vpoint; // first vertical grid point according to the 2d map
+	t_dxy	vpoint; // first vertical grid point according to the 2d map
 	double	hray_dst; // horizontal ray distance between the player and the wall
-	// double	vray_dst; // vertical ray distance between the player and the wall
+	double	vray_dst; // vertical ray distance between the player and the wall
 
 	side = angle_side(angle, HORIZONTAL); // UP or DOWN
 	hpoint = first_hpoint(map, angle, side); // first hoirzontal grid point
 	hray_dst = dda(map, angle, hpoint, HORIZONTAL, side); // horizontal grid points
 	side = angle_side(angle, VERTICAL); // LEFT or RIGHT
-	// vpoint = first_vpoint(map, angle, side); // first vertical grid point
-	// vray_dst = dda(map, angle, vpoint, VERTICAL, side); // vertical grid points
-	// if (hray_dst < vray_dst) // check which ray is shorter to use its dst
+	vpoint = first_vpoint(map, angle, side); // first vertical grid point
+	vray_dst = dda(map, angle, vpoint, VERTICAL, side); // vertical grid points
+	if (hray_dst < vray_dst) // check which ray is shorter to use its dst
 		return (hray_dst);
-	// else
-	// 	return (vray_dst);
+	else
+		return (vray_dst);
 }
 
 double	fishazz(double ray_dst, double angle) // WIP
