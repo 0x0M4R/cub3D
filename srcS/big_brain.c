@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 18:12:55 by ommohame          #+#    #+#             */
-/*   Updated: 2022/12/31 17:14:14 by ommohame         ###   ########.fr       */
+/*   Updated: 2022/12/31 17:22:33 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ t_dxy	first_vpoint(t_dxy pos, double angle, int side)
 	t_dxy	a; //  first vertical grid point according to the 2d map
 
 	if (side == LEFT)
-		a.x = (int)(pos.x / SCALE) * SCALE - SCALE;
+		a.x = (int)(pos.x / SCALE) * SCALE - 1;
 	else if (side == RIGHT)
 		a.x = (int)(pos.x / SCALE) * SCALE + SCALE;
 	a.y = (pos.x - a.x) * -tan(deg_to_rad(angle)) + pos.y;
@@ -91,7 +91,7 @@ double	dda(t_map *map, double angle, t_dxy a, int side, int dir) // is this even
 		if ((int)(a.x / SCALE) < 0 || (int)(a.x / SCALE) > 4 || (int)(a.y / SCALE) < 0 || (int)(a.y / SCALE) > 4 || map->map[(int)(a.y / SCALE)][(int)(a.x / SCALE)] == '1')
 		{
 			// if (side == VERTICAL)
-			// 	line(*map, map->player.pos.x, map->player.pos.y, a.x, a.y);
+				// line(*map, map->player.pos.x, map->player.pos.y, a.x, a.y);
 			break ;
 		}
 		a.x += inc.x; // next x-axis pos on the grid
@@ -143,6 +143,8 @@ double get_values(t_map *map, double angle)
 	ray_dst = (SCALE * HEIGHT / 2) / ray_dst;
 	return (ray_dst);
 }
+
+
 
 
 double	baqalaa(t_map *map, double angle)
