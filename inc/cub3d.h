@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 00:47:46 by ommohame          #+#    #+#             */
-/*   Updated: 2022/12/31 01:29:08 by ommohame         ###   ########.fr       */
+/*   Updated: 2022/12/31 16:47:56 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,14 +127,20 @@ enum {
 void	parse_map(char *filepath, t_map *map);
 int		parse_elements(t_map *map, char *content);
 
-void	load_assets(t_map map);
+void	load_assets(t_map *map);
 double	get_values(t_map *map, double angle);
 
 t_frame	create_frame(t_mlx *mlx);
 void	draw_frame(int *img_data, double wall_height, int x);
-double	deg_to_rad(int deg);
 
+void	find_player(t_map *map);
 
+int		keys(int keycode, t_map *map);
+int		game_loop(t_map *map);
+
+double	deg_to_rad(double deg);
+double	get_dst(t_dxy p1, t_dxy p2);
+double	fix_angle(double angle);
 // test
 void	draw_map(t_map map);
 void	 line(t_map map, int X0, int Y0, int X1, int Y1);

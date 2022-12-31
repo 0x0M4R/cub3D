@@ -6,18 +6,13 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 18:12:55 by ommohame          #+#    #+#             */
-/*   Updated: 2022/12/31 01:46:14 by ommohame         ###   ########.fr       */
+/*   Updated: 2022/12/31 17:09:05 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
 /*********** WIP *************/
-
-double	deg_to_rad(int deg)
-{
-	return (deg * M_PI / (double)180);
-}
 
 // get the angle quadrant for x-axis or y-axis
 int		angle_side(double angle, int side)
@@ -32,7 +27,7 @@ int		angle_side(double angle, int side)
 	else // vertical
 	{
 		if (angle >= 90 && angle < 270)
-			return (LEFT);
+		 	return (LEFT);
 		else
 			return (RIGHT);
 	}
@@ -55,7 +50,7 @@ t_dxy	first_vpoint(t_dxy pos, double angle, int side)
 	t_dxy	a; //  first vertical grid point according to the 2d map
 
 	if (side == LEFT)
-		a.x = (int)(pos.x / SCALE) * SCALE - 1;
+		a.x = (int)(pos.x / SCALE) * SCALE - SCALE;
 	else if (side == RIGHT)
 		a.x = (int)(pos.x / SCALE) * SCALE + SCALE;
 	a.y = (pos.x - a.x) * -tan(deg_to_rad(angle)) + pos.y;
@@ -85,11 +80,6 @@ t_dxy	get_inc(double angle, int side, int dir)
 	return (inc);
 }
 
-double	get_dst(double x1, double y1, double x2, double y2)
-{
-	return (sqrt(pow(x1 - x2, 2) + pow(y1 - y2, 2)));
-}
-
 double	dda(t_map *map, double angle, t_dxy a, int side, int dir) // is this even dda?? I doubt it
 {
 	t_dxy	inc; // the distance to increment to check the next grid point
@@ -98,16 +88,16 @@ double	dda(t_map *map, double angle, t_dxy a, int side, int dir) // is this even
 	while (1)
 	{
 		// if (map->map[(int)(a.y / SCALE)][(int)(a.x / SCALE)] == '1')
-		if ((int)(a.x / SCALE) < 0 || (int)(a.x / SCALE) >= 4 || (int)(a.y / SCALE) < 0 || (int)(a.y / SCALE) >= 4 || map->map[(int)(a.y / SCALE)][(int)(a.x / SCALE)] == '1')
+		if ((int)(a.x / SCALE) < 0 || (int)(a.x / SCALE) > 4 || (int)(a.y / SCALE) < 0 || (int)(a.y / SCALE) > 4 || map->map[(int)(a.y / SCALE)][(int)(a.x / SCALE)] == '1')
 		{
-			// if (side == HORIZONTAL)
+			// if (side == VERTICAL)
 			// 	line(*map, map->player.pos.x, map->player.pos.y, a.x, a.y);
 			break ;
 		}
 		a.x += inc.x; // next x-axis pos on the grid
 		a.y += inc.y; // next y-axis pos on the grid
 	}
-	return (get_dst(map->player.pos.x, map->player.pos.y, a.x, a.y)); 
+	return (get_dst(map->player.pos, a)); 
 }
 
 double	rays(t_map *map, double angle)
@@ -145,8 +135,8 @@ double	baqalaa(t_map *map, double angle)
 	vside = angle_side(angle, VERTICAL); // LEFT or RIGHT
 	hpoint = first_hpoint(map->player.pos, angle, hside); // first hoirzontal grid point
 	vpoint = first_vpoint(map->player.pos, angle, vside); // first vertical grid point
-	hray_dst = get_dst(map->player.pos.x, map->player.pos.y, hpoint.x, hpoint.y); // horizontal grid points
-	vray_dst = get_dst(map->player.pos.x, map->player.pos.y, vpoint.x, vpoint.y); // vertical grid points
+	hray_dst = get_dst(map->player.pos, hpoint); // horizontal grid points
+	vray_dst = get_dst(map->player.pos, vpoint); // vertical grid points
 	hinc = get_inc(angle, HORIZONTAL, hside);
 	vinc = get_inc(angle, VERTICAL, vside);
 	while (1)
@@ -169,17 +159,51 @@ double	baqalaa(t_map *map, double angle)
 		hpoint.y += hinc.y; // next y-axis pos on the grid
 		vpoint.x += vinc.x; // next x-axis pos on the grid
 		vpoint.y += vinc.y; // next y-axis pos on the grid
-		hray_dst = get_dst(map->player.pos.x, map->player.pos.y, hpoint.x, hpoint.y); // horizontal grid points
-		vray_dst = get_dst(map->player.pos.x, map->player.pos.y, vpoint.x, vpoint.y); // vertical grid points
+		hray_dst = get_dst(map->player.pos, hpoint); // horizontal dst
+		vray_dst = get_dst(map->player.pos, vpoint); // vertical dst
+	}
+}
+
+double baqalaa_v2(t_map *map, double angle)
+{
+	double	dx;
+	double	dy;
+	t_dxy	hpoint; // first horizontal grid point according to the 2d map
+	t_dxy	vpoint; // first vertical grid point according to the 2d map
+	t_dxy	hinc;
+	t_dxy	vinc;
+	int		steps;
+	int		x;
+	int		y;
+
+	hpoint = first_hpoint(map->player.pos, angle, angle_side(angle, HORIZONTAL)); // first hoirzontal grid point
+	vpoint = first_vpoint(map->player.pos, angle, angle_side(angle, VERTICAL)); // first vertical grid point
+	hinc = get_inc(angle, HORIZONTAL, angle_side(angle, HORIZONTAL));
+	vinc = get_inc(angle, VERTICAL, angle_side(angle, VERTICAL));
+	dx = map->player.pos.x - hpoint.x;
+	dy = map->player.pos.y - hpoint.y;
+	if (fabs(dx) > fabs(dy))
+		steps = fabs(dx);
+	else
+		steps = fabs(dy);
+	x = hpoint.x;
+	y = vpoint.y;
+	while (1)
+	{
+		if (map->map[(int)(y / SCALE)][(int)(x / SCALE)] == '1')
+			return (get_dst(map->player.pos, (t_dxy){x, y}));
+		x += hinc.x;
+		y += vinc.y;
 	}
 }
 
 double	fishazz(double ray_dst, double angle) // WIP
 {
-	// double	angleito; // the angle between the ray and the player plane
+	double	angleito; // the angle between the ray and the player plane
 
-	// angleito = 90 - angle; // not accurate yet
-	return (ray_dst * cos(deg_to_rad(angle)));
+	(void)angle;
+	(void)angleito;
+	return (ray_dst);
 }
 
 double get_values(t_map *map, double angle)
@@ -188,7 +212,8 @@ double get_values(t_map *map, double angle)
 
 	ray_dst = rays(map, angle);
 	// ray_dst = baqalaa(map, angle);
-	// ray_dst = fishazz(ray_dst, angle);
+	// ray_dst = baqalaa_v2(map, angle);
+	ray_dst = fishazz(ray_dst, angle);
 	ray_dst = (SCALE * HEIGHT) / ray_dst;
 	return (ray_dst);
 }
