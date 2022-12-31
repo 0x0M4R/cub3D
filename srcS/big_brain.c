@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 18:12:55 by ommohame          #+#    #+#             */
-/*   Updated: 2022/12/31 17:09:05 by ommohame         ###   ########.fr       */
+/*   Updated: 2022/12/31 17:14:14 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,31 @@ double	rays(t_map *map, double angle)
 		return (vray_dst);
 }
 
+double	fishazz(double ray_dst, double angle) // WIP
+{
+	double	angleito; // the angle between the ray and the player plane
+
+	(void)angle;
+	(void)angleito;
+	return (ray_dst);
+}
+
+double	baqalaa(t_map *map, double angle);
+double	baqalaa_v2(t_map *map, double angle);
+
+double get_values(t_map *map, double angle)
+{
+	double	ray_dst;
+
+	ray_dst = rays(map, angle);
+	// ray_dst = baqalaa(map, angle);
+	// ray_dst = baqalaa_v2(map, angle);
+	ray_dst = fishazz(ray_dst, angle);
+	ray_dst = (SCALE * HEIGHT / 2) / ray_dst;
+	return (ray_dst);
+}
+
+
 double	baqalaa(t_map *map, double angle)
 {
 	int		hside; // side of the ray (UP or Down) for the horizontal grid and (LEFT or RIGHT) for vertical grid
@@ -195,25 +220,4 @@ double baqalaa_v2(t_map *map, double angle)
 		x += hinc.x;
 		y += vinc.y;
 	}
-}
-
-double	fishazz(double ray_dst, double angle) // WIP
-{
-	double	angleito; // the angle between the ray and the player plane
-
-	(void)angle;
-	(void)angleito;
-	return (ray_dst);
-}
-
-double get_values(t_map *map, double angle)
-{
-	double	ray_dst;
-
-	ray_dst = rays(map, angle);
-	// ray_dst = baqalaa(map, angle);
-	// ray_dst = baqalaa_v2(map, angle);
-	ray_dst = fishazz(ray_dst, angle);
-	ray_dst = (SCALE * HEIGHT) / ray_dst;
-	return (ray_dst);
 }
