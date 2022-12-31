@@ -21,17 +21,25 @@ LIBFT			=		libft/libft.a
 
 CC				=		gcc
 
-CFLAGS			=		-Wall -Werror -Wextra -Iinc -g
+CFLAGS			=		-Wall -Werror -Wextra -Iinc -Ofast
+
+DEBUG			=		-g -DDEBUG
 
 RM				=		rm -f
 
 UNAME			:=		$(shell uname)
 
+DBG				=		0
+
+ifeq ($(DBG), 1)
+	CFLAGS += $(DEBUG)
+endif
+
 ifeq ($(UNAME),Linux)
 MLX_DIR			=		./mlx_linux
 MLX_FLAGS		=		 -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz 
 %.o				:		 %.c
-						$(CC) -Wall -Wextra -Werror -I/usr/include -Imlx_linux -O3 -I./inc -c $< -o $@
+						$(CC) $(CFLAGS) -I/usr/include -Imlx_linux -O3 -I./inc -c $< -o $@
 else
 MLX_DIR			=		./mlx
 MLX_FLAGS		=		-Lmlx -lmlx -framework OpenGL -framework AppKit -Ofast

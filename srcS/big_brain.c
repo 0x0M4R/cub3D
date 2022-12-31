@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 18:12:55 by ommohame          #+#    #+#             */
-/*   Updated: 2022/12/31 17:22:33 by ommohame         ###   ########.fr       */
+/*   Updated: 2022/12/31 18:55:10 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ double	dda(t_map *map, double angle, t_dxy a, int side, int dir) // is this even
 	while (1)
 	{
 		// if (map->map[(int)(a.y / SCALE)][(int)(a.x / SCALE)] == '1')
-		if ((int)(a.x / SCALE) < 0 || (int)(a.x / SCALE) > 4 || (int)(a.y / SCALE) < 0 || (int)(a.y / SCALE) > 4 || map->map[(int)(a.y / SCALE)][(int)(a.x / SCALE)] == '1')
+		if ((int)(a.x / SCALE) <= 0 || (int)(a.x / SCALE) >= 4 || (int)(a.y / SCALE) <= 0 || (int)(a.y / SCALE) >= 4 || map->map[(int)(a.y / SCALE)][(int)(a.x / SCALE)] == '1')
 		{
 			// if (side == VERTICAL)
 				// line(*map, map->player.pos.x, map->player.pos.y, a.x, a.y);

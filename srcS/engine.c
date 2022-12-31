@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/31 16:22:41 by ommohame          #+#    #+#             */
-/*   Updated: 2022/12/31 17:14:37 by ommohame         ###   ########.fr       */
+/*   Updated: 2022/12/31 18:59:10 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int	keys(int key, t_map *map)
 {
-    printf("angle: %f",map->player.angle);
 	if (key == 13) // forward
 	{
 		map->player.pos.x += cos(deg_to_rad(map->player.angle)) * SPEED;
@@ -50,7 +49,8 @@ int	game_loop(t_map *map)
 	ang_inc = (double)FOV / (double)WIDTH;
 	// printf("starting angle: %f - ang_inc: %f\n", angle, ang_inc);
 	frame = create_frame(&map->mlx);
-	// draw_map(*map);
+	if (DEBUG)
+		draw_map(*map);
 	while (x < WIDTH)
 	{
 		wall_height = get_values(map, angle);

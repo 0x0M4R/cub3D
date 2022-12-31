@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 00:47:46 by ommohame          #+#    #+#             */
-/*   Updated: 2022/12/31 16:47:56 by ommohame         ###   ########.fr       */
+/*   Updated: 2022/12/31 19:01:13 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,22 @@
 # include "../libft/libft.h"
 # include "mlx.h"
 
+#ifndef DEBUG
+# define DEBUG 0
+#endif
+
+typedef struct s_ixy
+{
+	int		x;
+	int		y;
+}	t_ixy;
+
+typedef struct s_dxy
+{
+	double	x;
+	double	y;
+}	t_dxy;
+
 typedef struct s_data
 {
 	void	*img;
@@ -27,6 +43,22 @@ typedef struct s_data
 	int		line_length;
 	int		endian;
 }	t_data;
+
+typedef struct s_frame
+{
+	void	*frame;
+	int		*data;
+	int		bpp;
+	int		size_line;
+	int		endian;
+}	t_frame;
+
+typedef struct s_debug
+{
+	void	*win;
+	t_dxy	ray;
+	t_frame	frame;
+}	t_debug;
 
 typedef struct s_mlx
 {
@@ -42,17 +74,6 @@ typedef struct s_rgb
 	int	blue;
 }	t_rgb;
 
-typedef struct s_ixy
-{
-	int		x;
-	int		y;
-}	t_ixy;
-
-typedef struct s_dxy
-{
-	double	x;
-	double	y;
-}	t_dxy;
 typedef struct s_render
 {
 	int		height;
@@ -81,15 +102,6 @@ typedef struct s_map
 	t_rgb		ceiling;
 }	t_map;
 
-typedef struct s_frame
-{
-	void	*frame;
-	int		*data;
-	int		bpp;
-	int		size_line;
-	int		endian;
-}	t_frame;
-
 enum {
 	ON_KEYDOWN = 2,
 	ON_KEYUP = 3,
@@ -107,7 +119,7 @@ enum {
 # define HEIGHT		720
 # define FOV		60
 
-# define SPEED		5
+# define SPEED		2
 
 # define RED		0xFF0000
 # define GREEN		0x00FF00
@@ -141,6 +153,7 @@ int		game_loop(t_map *map);
 double	deg_to_rad(double deg);
 double	get_dst(t_dxy p1, t_dxy p2);
 double	fix_angle(double angle);
+
 // test
 void	draw_map(t_map map);
 void	 line(t_map map, int X0, int Y0, int X1, int Y1);

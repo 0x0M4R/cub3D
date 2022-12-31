@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 00:46:43 by ommohame          #+#    #+#             */
-/*   Updated: 2022/12/31 16:26:38 by ommohame         ###   ########.fr       */
+/*   Updated: 2022/12/31 18:58:49 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	init_cube(char **av)
 
 	parse_map(av[1], &map);
 	init_struct(&map);
+	printf("debug: %d\n", DEBUG);
 	map.mlx.mlx = mlx_init();
 	if (!map.mlx.mlx)
 	{
@@ -31,7 +32,8 @@ int	init_cube(char **av)
 		return (ERROR);
 	}
 	map.mlx.win = mlx_new_window(map.mlx.mlx, WIDTH, HEIGHT, "cub3d");
-	map.mlx.tmp = mlx_new_window(map.mlx.mlx, 5 * 64, 5 * 64, "tmp");
+	// if (DEBUG)
+		map.mlx.tmp = mlx_new_window(map.mlx.mlx, 5 * 64, 5 * 64, "debug");
 	mlx_loop_hook(map.mlx.mlx, game_loop, &map);
 	mlx_hook(map.mlx.win, ON_KEYDOWN, 0, &keys, &map);
 	mlx_loop(map.mlx.mlx);
