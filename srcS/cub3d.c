@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 00:46:43 by ommohame          #+#    #+#             */
-/*   Updated: 2022/12/31 18:58:49 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/01 18:54:37 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,11 @@ int	init_cube(char **av)
 	printf("debug: %d\n", DEBUG);
 	map.mlx.mlx = mlx_init();
 	if (!map.mlx.mlx)
+	{
+		ft_putstr_fd("Cube3D: Error: Failed to init minishell.\n", 2);
+		return (ERROR);
+	}
+	if (!map.mlx.win)
 	{
 		ft_putstr_fd("Cube3D: Error: Failed to init minishell.\n", 2);
 		return (ERROR);

@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 18:12:55 by ommohame          #+#    #+#             */
-/*   Updated: 2022/12/31 18:55:10 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/01 18:43:39 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,8 @@ double	dda(t_map *map, double angle, t_dxy a, int side, int dir) // is this even
 	inc = get_inc(angle, side, dir);
 	while (1)
 	{
-		// if (map->map[(int)(a.y / SCALE)][(int)(a.x / SCALE)] == '1')
-		if ((int)(a.x / SCALE) <= 0 || (int)(a.x / SCALE) >= 4 || (int)(a.y / SCALE) <= 0 || (int)(a.y / SCALE) >= 4 || map->map[(int)(a.y / SCALE)][(int)(a.x / SCALE)] == '1')
+		if (map->map[(int)(a.y / SCALE)][(int)(a.x / SCALE)] == '1')
+		// if ((int)(a.x / SCALE) <= 0 || (int)(a.x / SCALE) >= 4 || (int)(a.y / SCALE) <= 0 || (int)(a.y / SCALE) >= 4 || map->map[(int)(a.y / SCALE)][(int)(a.x / SCALE)] == '1')
 		{
 			// if (side == VERTICAL)
 				// line(*map, map->player.pos.x, map->player.pos.y, a.x, a.y);
@@ -131,21 +131,56 @@ double	fishazz(double ray_dst, double angle) // WIP
 
 double	baqalaa(t_map *map, double angle);
 double	baqalaa_v2(t_map *map, double angle);
+double	supermarket(t_map *map, double angle);
+double	wahda_mall(t_map *map, double angle);
 
 double get_values(t_map *map, double angle)
 {
 	double	ray_dst;
 
-	ray_dst = rays(map, angle);
+	// ray_dst = rays(map, angle);
 	// ray_dst = baqalaa(map, angle);
 	// ray_dst = baqalaa_v2(map, angle);
+	// ray_dst = supermarket(map, angle);
+	ray_dst = wahda_mall(map, angle);
 	ray_dst = fishazz(ray_dst, angle);
 	ray_dst = (SCALE * HEIGHT / 2) / ray_dst;
 	return (ray_dst);
 }
 
+double wahda_mall(t_map *map, double angle)
+{
+	int		side;
+	int		step;
+	double	dx;
+	double	dy;
+	t_dxy	point;
+	t_dxy	hpoint;
+	t_dxy	vpoint;
+	t_dxy	inc;
 
-
+	side = angle_side(angle, HORIZONTAL);
+	hpoint = first_hpoint(map->player.pos, angle, side);
+	dx = map->player.pos.x - hpoint.x;
+	side = angle_side(angle, VERTICAL);
+	vpoint = first_hpoint(map->player.pos, angle, side);
+	dy = map->player.pos.y - hpoint.y;
+	if (fabs(dx) > fabs(dy))
+		step = fabs(dx);
+	else
+		step = fabs(dy);
+	inc.x = dx / step;
+	inc.y = dy / step;
+	point.x = map->player.pos.x;
+	point.y = map->player.pos.y;
+	while (1)
+	{
+		if (map->map[(int)(point.y / SCALE)][(int)(point.x / SCALE)] == '1')
+			return (get_dst(map->player.pos, point));
+		point.x += inc.x;
+		point.y += inc.y;
+	}
+}
 
 double	baqalaa(t_map *map, double angle)
 {
@@ -221,5 +256,69 @@ double baqalaa_v2(t_map *map, double angle)
 			return (get_dst(map->player.pos, (t_dxy){x, y}));
 		x += hinc.x;
 		y += vinc.y;
+	}
+}
+
+double	supermarket(t_map *map, double angle)
+{
+	int		side;
+	int		hside;
+	int		vside;
+	int		count;
+	t_dxy	hpoint;
+	t_dxy	vpoint;
+	t_dxy	hinc;
+	t_dxy	vinc;
+	
+
+	hside = angle_side(angle, HORIZONTAL);
+	vside = angle_side(angle, VERTICAL);
+	hpoint = first_hpoint(map->player.pos, angle, hside);
+	vpoint = first_vpoint(map->player.pos, angle, vside);
+	hinc = get_inc(angle, HORIZONTAL, hside);
+	vinc = get_inc(angle, VERTICAL, vside);
+	if (fabs(hinc.x) < fabs(vinc.y))
+	{
+		side = HORIZONTAL;
+		count = fabs(vinc.y / hinc.x);
+	}
+	else
+	{
+		side = VERTICAL;
+		count = fabs(hinc.x / vinc.y);
+	}
+	if (side == HORIZONTAL)
+	{
+		while (1)
+		{
+			for (int i = 0; i < count; i++)
+			{
+				if (map->map[(int)(hpoint.y / SCALE)][(int)(hpoint.x / SCALE)] == '1')
+					return (get_dst(map->player.pos, hpoint));
+				hpoint.x += hinc.x;
+				hpoint.y += hinc.y;
+			}
+			if (map->map[(int)(vpoint.y / SCALE)][(int)(vpoint.x / SCALE)] == '1')
+				return (get_dst(map->player.pos, vpoint));
+			vpoint.x += vinc.x;
+			vpoint.y += vinc.y;
+		}
+	}
+	else
+	{
+		while (1)
+		{
+			for (int i = 0; i < count; i++)
+			{
+				if (map->map[(int)(vpoint.y / SCALE)][(int)(vpoint.x / SCALE)] == '1')
+					return (get_dst(map->player.pos, vpoint));
+				vpoint.x += vinc.x;
+				vpoint.y += vinc.y;
+			}
+			if (map->map[(int)(hpoint.y / SCALE)][(int)(hpoint.x / SCALE)] == '1')
+				return (get_dst(map->player.pos, hpoint));
+			hpoint.x += hinc.x;
+			hpoint.y += hinc.y;
+		}
 	}
 }
