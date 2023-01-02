@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 18:12:55 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/01 18:43:39 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/02 21:35:54 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@ int		angle_side(double angle, int side)
 {
 	if (side == HORIZONTAL)
 	{
-		if (angle >= 0 && angle < 180)
-			return (DOWN);
-		else
+		if (angle >= 0.0 && angle < 180.0)
 			return (UP);
+		else
+			return (DOWN);
 	}
 	else // vertical
 	{
-		if (angle >= 90 && angle < 270)
+		if (angle >= 90.0 && angle < 270.0)
 		 	return (LEFT);
 		else
 			return (RIGHT);
@@ -126,7 +126,7 @@ double	fishazz(double ray_dst, double angle) // WIP
 
 	(void)angle;
 	(void)angleito;
-	return (ray_dst);
+	return (ray_dst * cos(deg_to_rad(angle)));
 }
 
 double	baqalaa(t_map *map, double angle);
@@ -143,12 +143,12 @@ double get_values(t_map *map, double angle)
 	// ray_dst = baqalaa_v2(map, angle);
 	// ray_dst = supermarket(map, angle);
 	ray_dst = wahda_mall(map, angle);
-	ray_dst = fishazz(ray_dst, angle);
+	// ray_dst = fishazz(ray_dst, angle);
 	ray_dst = (SCALE * HEIGHT / 2) / ray_dst;
 	return (ray_dst);
 }
 
-double wahda_mall(t_map *map, double angle)
+double wahda_mall(t_map *map, double angle) // FUNCTION UNDER CONSTRUCTION
 {
 	int		side;
 	int		step;
@@ -161,9 +161,9 @@ double wahda_mall(t_map *map, double angle)
 
 	side = angle_side(angle, HORIZONTAL);
 	hpoint = first_hpoint(map->player.pos, angle, side);
-	dx = map->player.pos.x - hpoint.x;
 	side = angle_side(angle, VERTICAL);
-	vpoint = first_hpoint(map->player.pos, angle, side);
+	vpoint = first_vpoint(map->player.pos, angle, side);
+	dx = map->player.pos.x - hpoint.x;
 	dy = map->player.pos.y - hpoint.y;
 	if (fabs(dx) > fabs(dy))
 		step = fabs(dx);
@@ -176,7 +176,11 @@ double wahda_mall(t_map *map, double angle)
 	while (1)
 	{
 		if (map->map[(int)(point.y / SCALE)][(int)(point.x / SCALE)] == '1')
+		{
+			if (DEBUG)
+				line(*map, map->player.pos.x, map->player.pos.y, point.x, point.y);
 			return (get_dst(map->player.pos, point));
+		}
 		point.x += inc.x;
 		point.y += inc.y;
 	}

@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 19:18:48 by ommohame          #+#    #+#             */
-/*   Updated: 2022/12/31 01:42:01 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/02 16:26:43 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	draw_frame(int *img_data, double wall_height, int x)
 	int		k;
 
 	k = 0;
-	i = (HEIGHT / 2) - (wall_height / 2) - 1;
+	i = (HEIGHT / 2) - (wall_height / 2);
  	j = (HEIGHT / 2) + (wall_height / 2);
 	while (k < i) // Ceilling color
 		alpha_pixel_put(img_data, x, k++, RED);

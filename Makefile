@@ -21,7 +21,7 @@ LIBFT			=		libft/libft.a
 
 CC				=		gcc
 
-CFLAGS			=		-Wall -Werror -Wextra -Iinc -Ofast -g
+CFLAGS			=		-Wall -Werror -Wextra -Iinc -g
 
 DEBUG			=		-g -DDEBUG
 

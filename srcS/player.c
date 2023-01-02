@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/31 16:19:21 by ommohame          #+#    #+#             */
-/*   Updated: 2022/12/31 16:56:27 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/02 21:09:31 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ static double	get_player_angle(char c)
 {
 	if (c == 'N')
 		return (270);
-	else if (c == 'E')
-		return (0);
 	else if (c == 'S')
 		return (90);
+	else if (c == 'E')
+		return (0);
 	else
 		return (180);
 }

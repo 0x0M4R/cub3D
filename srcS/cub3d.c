@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 00:46:43 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/01 18:54:37 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/02 19:17:32 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,20 +24,14 @@ int	init_cube(char **av)
 
 	parse_map(av[1], &map);
 	init_struct(&map);
-	printf("debug: %d\n", DEBUG);
 	map.mlx.mlx = mlx_init();
 	if (!map.mlx.mlx)
 	{
 		ft_putstr_fd("Cube3D: Error: Failed to init minishell.\n", 2);
 		return (ERROR);
 	}
-	if (!map.mlx.win)
-	{
-		ft_putstr_fd("Cube3D: Error: Failed to init minishell.\n", 2);
-		return (ERROR);
-	}
 	map.mlx.win = mlx_new_window(map.mlx.mlx, WIDTH, HEIGHT, "cub3d");
-	// if (DEBUG)
+	if (DEBUG)
 		map.mlx.tmp = mlx_new_window(map.mlx.mlx, 5 * 64, 5 * 64, "debug");
 	mlx_loop_hook(map.mlx.mlx, game_loop, &map);
 	mlx_hook(map.mlx.win, ON_KEYDOWN, 0, &keys, &map);
