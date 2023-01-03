@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 00:47:46 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/02 16:22:18 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/03 18:47:30 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ enum {
 
 # define WIDTH		1280
 # define HEIGHT		720
-# define FOV		60
+# define FOV		360
 
 # define SPEED		5
 
@@ -156,6 +156,6 @@ double	fix_angle(double angle);
 
 // test
 void	draw_map(t_map map);
-void	 line(t_map map, int X0, int Y0, int X1, int Y1);
+void	 line(t_map map, int X0, int Y0, int X1, int Y1, int color);
 
 #endif

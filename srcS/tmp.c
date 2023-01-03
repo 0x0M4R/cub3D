@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 19:45:29 by ommohame          #+#    #+#             */
-/*   Updated: 2022/12/31 14:59:49 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/03 12:07:10 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	draw_map(t_map map)
 
 int abs(int n) { return ((n > 0) ? n : (n * (-1))); }
  
-void line(t_map map, int X0, int Y0, int X1, int Y1)
+void line(t_map map, int X0, int Y0, int X1, int Y1, int color)
 {
 	int dx = X1 - X0;
 	int dy = Y1 - Y0;
@@ -87,7 +87,7 @@ void line(t_map map, int X0, int Y0, int X1, int Y1)
 	float X = X0;
 	float Y = Y0;
 	for (int i = 0; i <= steps; i++) {
-		mlx_pixel_put(map.mlx.mlx, map.mlx.tmp, (int)X, (int)Y, GREEN);
+		mlx_pixel_put(map.mlx.mlx, map.mlx.tmp, (int)X, (int)Y, color);
 		X += Xinc;
 		Y += Yinc;
 	}

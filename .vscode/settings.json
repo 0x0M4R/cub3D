@@ -3,6 +3,7 @@
     "files.associations": {
         "cub3d.h": "c",
         "cub3d": "c",
-        "libft.h": "c"
+        "libft.h": "c",
+        "algorithm": "c"
     }
 }

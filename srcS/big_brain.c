@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 18:12:55 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/02 21:35:54 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/03 18:44:18 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ int		angle_side(double angle, int side)
 	if (side == HORIZONTAL)
 	{
 		if (angle >= 0.0 && angle < 180.0)
-			return (UP);
-		else
 			return (DOWN);
+		else
+			return (UP);
 	}
 	else // vertical
 	{
@@ -87,11 +87,19 @@ double	dda(t_map *map, double angle, t_dxy a, int side, int dir) // is this even
 	inc = get_inc(angle, side, dir);
 	while (1)
 	{
+		// if (side == HORIZONTAL)
+		// 	mlx_pixel_put(map->mlx.mlx, map->mlx.tmp, a.x, a.y, GREEN);
+		// else if (side == VERTICAL)
+		// 	mlx_pixel_put(map->mlx.mlx, map->mlx.tmp, a.x, a.y, BLUE);
+		// if (map->map[(int)(a.y / SCALE)][(int)(a.x / SCALE)] == '1')
+		if ((int)(a.x / SCALE) < 0 || (int)(a.x / SCALE) > 4 || (int)(a.y / SCALE) < 0 || (int)(a.y / SCALE) > 4)
+			return (1e30);
 		if (map->map[(int)(a.y / SCALE)][(int)(a.x / SCALE)] == '1')
-		// if ((int)(a.x / SCALE) <= 0 || (int)(a.x / SCALE) >= 4 || (int)(a.y / SCALE) <= 0 || (int)(a.y / SCALE) >= 4 || map->map[(int)(a.y / SCALE)][(int)(a.x / SCALE)] == '1')
 		{
-			// if (side == VERTICAL)
-				// line(*map, map->player.pos.x, map->player.pos.y, a.x, a.y);
+			if (side == VERTICAL)
+				line(*map, map->player.pos.x, map->player.pos.y, a.x, a.y, BLUE);
+			else
+				line(*map, map->player.pos.x, map->player.pos.y, a.x, a.y, GREEN);
 			break ;
 		}
 		a.x += inc.x; // next x-axis pos on the grid
@@ -108,12 +116,20 @@ double	rays(t_map *map, double angle)
 	double	hray_dst; // horizontal ray distance between the player and the wall
 	double	vray_dst; // vertical ray distance between the player and the wall
 
-	side = angle_side(angle, HORIZONTAL); // UP or DOWN
-	hpoint = first_hpoint(map->player.pos, angle, side); // first hoirzontal grid point
-	hray_dst = dda(map, angle, hpoint, HORIZONTAL, side); // horizontal grid points
-	side = angle_side(angle, VERTICAL); // LEFT or RIGHT
-	vpoint = first_vpoint(map->player.pos, angle, side); // first vertical grid point
-	vray_dst = dda(map, angle, vpoint, VERTICAL, side); // vertical grid points
+	hray_dst = 1e30;
+	vray_dst = 1e30;
+	if (angle != 180.0 && angle != 0.0)
+	{
+		side = angle_side(angle, HORIZONTAL); // UP or DOWN
+		hpoint = first_hpoint(map->player.pos, angle, side); // first hoirzontal grid point
+		hray_dst = dda(map, angle, hpoint, HORIZONTAL, side); // horizontal grid points
+	}
+	if (angle != 90.0 && angle != 270.0)
+	{
+		side = angle_side(angle, VERTICAL); // LEFT or RIGHT
+		vpoint = first_vpoint(map->player.pos, angle, side); // first vertical grid point
+		vray_dst = dda(map, angle, vpoint, VERTICAL, side); // vertical grid points
+	}
 	if (hray_dst < vray_dst) // check which ray is shorter to use its dst
 		return (hray_dst);
 	else
@@ -133,20 +149,37 @@ double	baqalaa(t_map *map, double angle);
 double	baqalaa_v2(t_map *map, double angle);
 double	supermarket(t_map *map, double angle);
 double	wahda_mall(t_map *map, double angle);
+double	abudhabi_mall(t_map *map, double angle);
+double	uae(t_map *map, double angle);
 
 double get_values(t_map *map, double angle)
 {
+	// double	hray;
+	// double	vray;
 	double	ray_dst;
 
-	// ray_dst = rays(map, angle);
+	ray_dst = rays(map, angle);
 	// ray_dst = baqalaa(map, angle);
 	// ray_dst = baqalaa_v2(map, angle);
 	// ray_dst = supermarket(map, angle);
-	ray_dst = wahda_mall(map, angle);
+	// hray = wahda_mall(map, angle);
+	// vray = abudhabi_mall(map, angle);
+	// if (hray < vray)
+		// ray_dst = hray;
+	// else
+	// 	ray_dst = vray;
 	// ray_dst = fishazz(ray_dst, angle);
 	ray_dst = (SCALE * HEIGHT / 2) / ray_dst;
+	if (ray_dst > HEIGHT)
+		ray_dst = HEIGHT;
 	return (ray_dst);
 }
+
+// double uae(t_map *map, double angle)
+// {
+// 	t_dxy	hpoint;
+// 	t_dxy	vpoint;
+// }
 
 double wahda_mall(t_map *map, double angle) // FUNCTION UNDER CONSTRUCTION
 {
@@ -156,15 +189,53 @@ double wahda_mall(t_map *map, double angle) // FUNCTION UNDER CONSTRUCTION
 	double	dy;
 	t_dxy	point;
 	t_dxy	hpoint;
+	t_dxy	inc;
+
+	if (angle == 0 || angle == 180)
+		return (1e30);
+	side = angle_side(angle, HORIZONTAL);
+	hpoint = first_hpoint(map->player.pos, angle, side);
+	dx = map->player.pos.x - hpoint.x;
+	dy = map->player.pos.y - hpoint.y;
+	if (fabs(dx) > fabs(dy))
+		step = fabs(dx);
+	else
+		step = fabs(dy);
+	inc.x = dx / step;
+	inc.y = dy / step;
+	inc = get_inc(angle, HORIZONTAL, side);
+	point.x = map->player.pos.x;
+	point.y = map->player.pos.y;
+	while (1)
+	{
+		mlx_pixel_put(map->mlx.mlx, map->mlx.tmp, point.x, point.y, GREEN);
+		if (map->map[(int)(point.y / SCALE)][(int)(point.x / SCALE)] == '1')
+		{
+			// if (DEBUG)
+				// line(*map, map->player.pos.x, map->player.pos.y, point.x, point.y, GREEN);
+			return (get_dst(map->player.pos, point));
+		}
+		point.x += inc.x;
+		point.y += inc.y;
+	}
+}
+
+double abudhabi_mall(t_map *map, double angle) // FUNCTION UNDER CONSTRUCTION
+{
+	int		side;
+	int		step;
+	double	dx;
+	double	dy;
+	t_dxy	point;
 	t_dxy	vpoint;
 	t_dxy	inc;
 
-	side = angle_side(angle, HORIZONTAL);
-	hpoint = first_hpoint(map->player.pos, angle, side);
+	if (angle == 270 || angle == 90)
+		return (1e30);
 	side = angle_side(angle, VERTICAL);
 	vpoint = first_vpoint(map->player.pos, angle, side);
-	dx = map->player.pos.x - hpoint.x;
-	dy = map->player.pos.y - hpoint.y;
+	dx = map->player.pos.x - vpoint.x;
+	dy = map->player.pos.y - vpoint.y;
 	if (fabs(dx) > fabs(dy))
 		step = fabs(dx);
 	else
@@ -175,10 +246,11 @@ double wahda_mall(t_map *map, double angle) // FUNCTION UNDER CONSTRUCTION
 	point.y = map->player.pos.y;
 	while (1)
 	{
+		mlx_pixel_put(map->mlx.mlx, map->mlx.tmp, point.x, point.y, BLUE);
 		if (map->map[(int)(point.y / SCALE)][(int)(point.x / SCALE)] == '1')
 		{
-			if (DEBUG)
-				line(*map, map->player.pos.x, map->player.pos.y, point.x, point.y);
+			// if (DEBUG)
+				// line(*map, map->player.pos.x, map->player.pos.y, point.x, point.y, BLUE);
 			return (get_dst(map->player.pos, point));
 		}
 		point.x += inc.x;
