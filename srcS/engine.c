@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   engine.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
+/*   By: oabdalla <oabdalla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/31 16:22:41 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/02 16:40:00 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/05 16:17:17 by oabdalla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,15 @@ int	game_loop(t_map *map)
 	angle = fix_angle(map->player.angle - (FOV / 2));
 	ang_inc = (double)FOV / (double)WIDTH;
 	// printf("starting angle: %f - ang_inc: %f\n", angle, ang_inc);
-	frame = create_frame(&map->mlx);
+	frame = create_frame(&map->mlx, WIDTH, HEIGHT);
 	if (DEBUG)
+    {
+        // map->debug.img = mlx_new_image(map->mlx.mlx, 320, 320);
+        // map->debug.addr = mlx_get_data_addr(map->debug.img, &map->debug.bits_per_pixel, &map->debug.line_length,
+		// 						&map->debug.endian);
 		draw_map(*map);
+        // mlx_put_image_to_window(map->mlx.mlx, map->mlx.tmp, map->debug.img, 0, 0);
+    }
 	while (x < WIDTH)
 	{
 		wall_height = get_values(map, angle);
@@ -60,6 +66,8 @@ int	game_loop(t_map *map)
 	}
 	mlx_clear_window(map->mlx.mlx, map->mlx.win);
 	mlx_put_image_to_window(map->mlx.mlx, map->mlx.win, frame.frame, 0, 0);
+    if (DEBUG)
+        mlx_put_image_to_window(map->mlx.mlx, map->mlx.tmp, tmp.frame, 0, 0);
 	mlx_destroy_image(map->mlx.mlx, frame.frame);
 	return (SUCCESS);
 }

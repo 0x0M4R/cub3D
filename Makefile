@@ -29,7 +29,7 @@ RM				=		rm -f
 
 UNAME			:=		$(shell uname)
 
-DBG				=		0
+DBG				=		1
 
 ifeq ($(DBG), 1)
 	CFLAGS += $(DEBUG)

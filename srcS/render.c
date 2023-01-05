@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
+/*   By: oabdalla <oabdalla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 19:18:48 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/03 17:11:51 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/05 16:05:48 by oabdalla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@ static void	alpha_pixel_put(int *img_data, int x, int y, int color)
 	img_data[y * WIDTH + x] = color;
 }
 
-t_frame	create_frame(t_mlx *mlx)
+t_frame	create_frame(t_mlx *mlx, int x, int y)
 {
 	t_frame	frame;
 
-	frame.frame = mlx_new_image(mlx->mlx, WIDTH, HEIGHT);
+	frame.frame = mlx_new_image(mlx->mlx, x, y);
 	frame.data = (int *)mlx_get_data_addr(
 		frame.frame, &frame.bpp, &frame.size_line, &frame.endian);
 	return (frame);

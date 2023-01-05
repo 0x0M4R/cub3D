@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
+/*   By: oabdalla <oabdalla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 00:47:46 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/03 18:47:30 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/05 16:17:00 by oabdalla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ typedef struct s_map
 	char		*w_texture;
 	t_rgb		floor;
 	t_rgb		ceiling;
+	t_data		debug;		//temporary
 }	t_map;
 
 enum {
@@ -117,7 +118,7 @@ enum {
 
 # define WIDTH		1280
 # define HEIGHT		720
-# define FOV		360
+# define FOV		60
 
 # define SPEED		5
 
@@ -136,13 +137,15 @@ enum {
 # define VERTICAL 5
 # define HORIZONTAL 6
 
+t_frame tmp;
+
 void	parse_map(char *filepath, t_map *map);
 int		parse_elements(t_map *map, char *content);
 
 void	load_assets(t_map *map);
 double	get_values(t_map *map, double angle);
 
-t_frame	create_frame(t_mlx *mlx);
+t_frame	create_frame(t_mlx *mlx, int x, int y);
 void	draw_frame(int *img_data, double wall_height, int x);
 
 void	find_player(t_map *map);

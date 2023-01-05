@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   big_brain.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
+/*   By: oabdalla <oabdalla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 18:12:55 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/03 18:44:18 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/05 16:43:30 by oabdalla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,8 @@ double	dda(t_map *map, double angle, t_dxy a, int side, int dir) // is this even
 		{
 			if (side == VERTICAL)
 				line(*map, map->player.pos.x, map->player.pos.y, a.x, a.y, BLUE);
-			else
-				line(*map, map->player.pos.x, map->player.pos.y, a.x, a.y, GREEN);
+			if (side == HORIZONTAL)
+			 	line(*map, map->player.pos.x, map->player.pos.y, a.x, a.y, GREEN);
 			break ;
 		}
 		a.x += inc.x; // next x-axis pos on the grid
@@ -158,7 +158,8 @@ double get_values(t_map *map, double angle)
 	// double	vray;
 	double	ray_dst;
 
-	ray_dst = rays(map, angle);
+	// ray_dst = abudhabi_mall(map, angle);
+    ray_dst = uae(map, angle);
 	// ray_dst = baqalaa(map, angle);
 	// ray_dst = baqalaa_v2(map, angle);
 	// ray_dst = supermarket(map, angle);
@@ -175,11 +176,37 @@ double get_values(t_map *map, double angle)
 	return (ray_dst);
 }
 
-// double uae(t_map *map, double angle)
-// {
-// 	t_dxy	hpoint;
-// 	t_dxy	vpoint;
-// }
+double uae(t_map *map, double angle)
+{
+    int     steps;
+    double dx;
+    double dy;
+    t_dxy point;
+    t_dxy inc;
+    
+    point.x =  map->player.pos.x + cos(deg_to_rad(angle)) * 1000;
+    point.y = map->player.pos.y + sin(deg_to_rad(angle)) * 1000;
+    // dx = map->player.pos.x - point.x;
+    dx = point.x - map->player.pos.x;
+    // dy = map->player.pos.y - point.y;
+    dy = point.y - map->player.pos.y;
+    if (fabs(dx) > fabs(dy))
+        steps = fabs(dx);
+    else
+        steps = fabs(dy);
+    inc.x = dx / steps;
+    inc.y = dy / steps;
+    point = map->player.pos;
+    while (1)
+    {
+        point.x += inc.x;
+        point.y += inc.y;
+        if (map->map[(int)(point.y / SCALE)][(int)(point.x / SCALE)] == '1')
+            break ;
+    }
+    line(*map, map->player.pos.x, map->player.pos.y, point.x, point.y, GREEN);
+    return (get_dst(map->player.pos, point));
+}
 
 double wahda_mall(t_map *map, double angle) // FUNCTION UNDER CONSTRUCTION
 {
@@ -230,8 +257,8 @@ double abudhabi_mall(t_map *map, double angle) // FUNCTION UNDER CONSTRUCTION
 	t_dxy	vpoint;
 	t_dxy	inc;
 
-	if (angle == 270 || angle == 90)
-		return (1e30);
+	// if (angle == 270 || angle == 90)
+	// 	return (1e30);
 	side = angle_side(angle, VERTICAL);
 	vpoint = first_vpoint(map->player.pos, angle, side);
 	dx = map->player.pos.x - vpoint.x;
