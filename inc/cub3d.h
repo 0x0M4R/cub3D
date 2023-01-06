@@ -6,7 +6,7 @@
 /*   By: oabdalla <oabdalla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 00:47:46 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/06 11:08:12 by oabdalla         ###   ########.fr       */
+/*   Updated: 2023/01/06 13:10:56 by oabdalla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ typedef struct s_player
 typedef struct s_texture
 {
 	char		*path;
-	t_data		image;
+	t_frame		image;
 	int			img_width;
 	int			img_height;
 }	t_texture;
@@ -154,7 +154,7 @@ void	load_assets(t_map *map);
 double	get_values(t_map *map, double angle);
 
 t_frame	create_frame(t_mlx *mlx, int x, int y);
-void	draw_frame(int *img_data, double wall_height, int x);
+void	draw_frame(t_map *map, int *img_data, double wall_height, int x);
 
 void	find_player(t_map *map);
 

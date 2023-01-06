@@ -6,7 +6,7 @@
 /*   By: oabdalla <oabdalla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/31 16:22:41 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/05 16:17:17 by oabdalla         ###   ########.fr       */
+/*   Updated: 2023/01/06 13:11:29 by oabdalla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	game_loop(t_map *map)
 	while (x < WIDTH)
 	{
 		wall_height = get_values(map, angle);
-		draw_frame(frame.data, wall_height, x);
+		draw_frame(map, frame.data, wall_height, x);
 		angle = fix_angle(angle + ang_inc);
 		x++;
 	}

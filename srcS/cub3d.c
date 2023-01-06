@@ -6,7 +6,7 @@
 /*   By: oabdalla <oabdalla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 00:46:43 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/05 16:45:00 by oabdalla         ###   ########.fr       */
+/*   Updated: 2023/01/06 11:53:12 by oabdalla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ int	init_cube(char **av)
 	t_map	map;
 
 	parse_map(av[1], &map);
-	init_struct(&map);
 	map.mlx.mlx = mlx_init();
+	init_struct(&map);
 	if (!map.mlx.mlx)
 	{
 		ft_putstr_fd("Cube3D: Error: Failed to init minishell.\n", 2);

@@ -6,7 +6,7 @@
 /*   By: oabdalla <oabdalla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 19:18:48 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/05 16:05:48 by oabdalla         ###   ########.fr       */
+/*   Updated: 2023/01/06 13:25:22 by oabdalla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_frame	create_frame(t_mlx *mlx, int x, int y)
 	return (frame);
 }
 
-void	draw_frame(int *img_data, double wall_height, int x)
+void	draw_frame(t_map *map, int *img_data, double wall_height, int x)
 {
 	int		i;
 	int		j;
@@ -39,7 +39,7 @@ void	draw_frame(int *img_data, double wall_height, int x)
 	while (k < i) // Ceilling color
 		alpha_pixel_put(img_data, x, k++, RED);
 	while (i < j) // Floor color
-		alpha_pixel_put(img_data, x, i++, WHITE);
+		alpha_pixel_put(img_data, x, i++, map->n_texture.image.data[1 * 64 + 32]);
 		// mlx_pixel_put(map->mlx.mlx, map->mlx.win, x, i++, RED);
 	k = j;
 	while (k < HEIGHT)
