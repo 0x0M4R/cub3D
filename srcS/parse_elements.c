@@ -32,13 +32,13 @@ int	match_element(t_map *map, char *element)
 
 	len = ft_strlen(element) - ft_strlen(ft_strchr(element, '\n'));
 	if (!ft_strncmp(element, "NO ", 3))
-		map->n_texture = get_element(element, len);
+		map->n_texture.path = get_element(element, len);
 	else if (!ft_strncmp(element, "SO ", 3))
-		map->s_texture = get_element(element, len);
+		map->s_texture.path = get_element(element, len);
 	else if (!ft_strncmp(element, "WE ", 3))
-		map->w_texture = get_element(element, len);
+		map->w_texture.path = get_element(element, len);
 	else if (!ft_strncmp(element, "EA ", 3))
-		map->e_texture = get_element(element, len);
+		map->e_texture.path = get_element(element, len);
 	else if (!ft_strncmp(element, "F ", 2))
 		map->floor = get_element_rgb(element, len);
 	else if (!ft_strncmp(element, "C ", 2))

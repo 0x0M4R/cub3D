@@ -6,7 +6,7 @@
 /*   By: oabdalla <oabdalla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 18:12:55 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/05 16:43:30 by oabdalla         ###   ########.fr       */
+/*   Updated: 2023/01/06 10:39:54 by oabdalla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,7 +159,7 @@ double get_values(t_map *map, double angle)
 	double	ray_dst;
 
 	// ray_dst = abudhabi_mall(map, angle);
-    ray_dst = uae(map, angle);
+    ray_dst = rays(map, angle);
 	// ray_dst = baqalaa(map, angle);
 	// ray_dst = baqalaa_v2(map, angle);
 	// ray_dst = supermarket(map, angle);

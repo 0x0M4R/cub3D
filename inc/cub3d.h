@@ -6,7 +6,7 @@
 /*   By: oabdalla <oabdalla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 00:47:46 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/05 16:17:00 by oabdalla         ###   ########.fr       */
+/*   Updated: 2023/01/06 11:08:12 by oabdalla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,14 @@ typedef struct s_player
 	t_render	render;
 }	t_player;
 
+typedef struct s_texture
+{
+	char		*path;
+	t_data		image;
+	int			img_width;
+	int			img_height;
+}	t_texture;
+
 typedef struct s_map
 {
 	char		**map;
@@ -94,10 +102,10 @@ typedef struct s_map
 	double		time;
 	double		old_time;
 	int			player_direction;
-	char		*n_texture;
-	char		*e_texture;
-	char		*s_texture;
-	char		*w_texture;
+	t_texture		n_texture;
+	t_texture		e_texture;
+	t_texture		s_texture;
+	t_texture		w_texture;
 	t_rgb		floor;
 	t_rgb		ceiling;
 	t_data		debug;		//temporary
