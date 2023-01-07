@@ -33,14 +33,26 @@ void	draw_frame(t_map *map, int *img_data, double wall_height, int x)
 	int		j;
 	int		k;
 
+	static double texx;
+
+	if ((int)texx > map->n_texture.img_height)
+		texx = 0;
 	k = 0;
 	i = (HEIGHT / 2) - (wall_height / 2);
  	j = (HEIGHT / 2) + (wall_height / 2);
+	double step = (map->n_texture.img_height/wall_height);
+
+	double texp = (i - HEIGHT/2 + wall_height/2)*step;
 	while (k < i) // Ceilling color
 		alpha_pixel_put(img_data, x, k++, RED);
 	while (i < j) // Floor color
-		alpha_pixel_put(img_data, x, i++, map->n_texture.image.data[1 * 64 + 32]);
+	{
+		int texy = (int)texp & (map->n_texture.img_height - 1);
+		texp += step;
+		alpha_pixel_put(img_data, x, i++, map->n_texture.image.data[texy * map->n_texture.img_height + (int)texx]);
 		// mlx_pixel_put(map->mlx.mlx, map->mlx.win, x, i++, RED);
+	}
+	texx = texx + step;
 	k = j;
 	while (k < HEIGHT)
 		alpha_pixel_put(img_data, x, k++, BLACK);
