@@ -2,9 +2,18 @@
 
 void	load_assets(t_map *map)
 {
-	map->n_texture.image.frame = mlx_xpm_file_to_image
-		(map->mlx.mlx, map->n_texture.path, &map->n_texture.img_width, &map->n_texture.img_height);
-	map->n_texture.image.data = (int*)mlx_get_data_addr(
-		map->n_texture.image.frame, &map->n_texture.image.bpp, &map->n_texture.image.size_line, &map->n_texture.image.endian);
+	int	i;
+
+	i = 0;
+	while (i < 4)
+	{
+		map->tex[i].img.frame = mlx_xpm_file_to_image(\
+			map->mlx.mlx, map->tex[i].path, \
+			&map->tex[i].img_width, &map->tex[i].img_height);
+		map->tex[i].img.data = (int *)mlx_get_data_addr(\
+			map->tex[i].img.frame, &map->tex[i].img.bpp, \
+			&map->tex[i].img.size_line, &map->tex[i].img.endian);
+		i++;
+	}
 	return ;
 }

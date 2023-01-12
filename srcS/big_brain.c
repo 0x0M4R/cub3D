@@ -6,7 +6,7 @@
 /*   By: oabdalla <oabdalla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 18:12:55 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/06 10:39:54 by oabdalla         ###   ########.fr       */
+/*   Updated: 2023/01/12 14:42:19 by oabdalla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ t_dxy	get_inc(double angle, int side, int dir)
 	return (inc);
 }
 
-double	dda(t_map *map, double angle, t_dxy a, int side, int dir) // is this even dda?? I doubt it
+double	dda(t_map *map, double angle, t_dxy *a, int side, int dir) // is this even dda?? I doubt it
 {
 	t_dxy	inc; // the distance to increment to check the next grid point
 
@@ -92,20 +92,20 @@ double	dda(t_map *map, double angle, t_dxy a, int side, int dir) // is this even
 		// else if (side == VERTICAL)
 		// 	mlx_pixel_put(map->mlx.mlx, map->mlx.tmp, a.x, a.y, BLUE);
 		// if (map->map[(int)(a.y / SCALE)][(int)(a.x / SCALE)] == '1')
-		if ((int)(a.x / SCALE) < 0 || (int)(a.x / SCALE) > 4 || (int)(a.y / SCALE) < 0 || (int)(a.y / SCALE) > 4)
+		if ((int)(a->x / SCALE) < 0 || (int)(a->x / SCALE) > 4 || (int)(a->y / SCALE) < 0 || (int)(a->y / SCALE) > 4)
 			return (1e30);
-		if (map->map[(int)(a.y / SCALE)][(int)(a.x / SCALE)] == '1')
+		if (map->map[(int)(a->y / SCALE)][(int)(a->x / SCALE)] == '1')
 		{
 			if (side == VERTICAL)
-				line(*map, map->player.pos.x, map->player.pos.y, a.x, a.y, BLUE);
+				line(*map, map->player.pos.x, map->player.pos.y, a->x, a->y, BLUE);
 			if (side == HORIZONTAL)
-			 	line(*map, map->player.pos.x, map->player.pos.y, a.x, a.y, GREEN);
+			 	line(*map, map->player.pos.x, map->player.pos.y, a->x, a->y, GREEN);
 			break ;
 		}
-		a.x += inc.x; // next x-axis pos on the grid
-		a.y += inc.y; // next y-axis pos on the grid
+		a->x += inc.x; // next x-axis pos on the grid
+		a->y += inc.y; // next y-axis pos on the grid
 	}
-	return (get_dst(map->player.pos, a)); 
+	return (get_dst(map->player.pos, *a)); 
 }
 
 double	rays(t_map *map, double angle)
@@ -122,18 +122,26 @@ double	rays(t_map *map, double angle)
 	{
 		side = angle_side(angle, HORIZONTAL); // UP or DOWN
 		hpoint = first_hpoint(map->player.pos, angle, side); // first hoirzontal grid point
-		hray_dst = dda(map, angle, hpoint, HORIZONTAL, side); // horizontal grid points
+		hray_dst = dda(map, angle, &hpoint, HORIZONTAL, side); // horizontal grid points
 	}
 	if (angle != 90.0 && angle != 270.0)
 	{
 		side = angle_side(angle, VERTICAL); // LEFT or RIGHT
 		vpoint = first_vpoint(map->player.pos, angle, side); // first vertical grid point
-		vray_dst = dda(map, angle, vpoint, VERTICAL, side); // vertical grid points
+		vray_dst = dda(map, angle, &vpoint, VERTICAL, side); // vertical grid points
 	}
 	if (hray_dst < vray_dst) // check which ray is shorter to use its dst
+	{
+		map->ray.ray = hpoint;
+		map->ray.side = HORIZONTAL;
 		return (hray_dst);
+	}
 	else
+	{
+		map->ray.ray = vpoint;
+		map->ray.side = VERTICAL;
 		return (vray_dst);
+	}
 }
 
 double	fishazz(double ray_dst, double angle) // WIP
@@ -159,7 +167,7 @@ double get_values(t_map *map, double angle)
 	double	ray_dst;
 
 	// ray_dst = abudhabi_mall(map, angle);
-    ray_dst = rays(map, angle);
+	ray_dst = rays(map, angle);
 	// ray_dst = baqalaa(map, angle);
 	// ray_dst = baqalaa_v2(map, angle);
 	// ray_dst = supermarket(map, angle);
@@ -173,39 +181,40 @@ double get_values(t_map *map, double angle)
 	ray_dst = (SCALE * HEIGHT / 2) / ray_dst;
 	if (ray_dst > HEIGHT)
 		ray_dst = HEIGHT;
+
 	return (ray_dst);
 }
 
 double uae(t_map *map, double angle)
 {
-    int     steps;
-    double dx;
-    double dy;
-    t_dxy point;
-    t_dxy inc;
-    
-    point.x =  map->player.pos.x + cos(deg_to_rad(angle)) * 1000;
-    point.y = map->player.pos.y + sin(deg_to_rad(angle)) * 1000;
-    // dx = map->player.pos.x - point.x;
-    dx = point.x - map->player.pos.x;
-    // dy = map->player.pos.y - point.y;
-    dy = point.y - map->player.pos.y;
-    if (fabs(dx) > fabs(dy))
-        steps = fabs(dx);
-    else
-        steps = fabs(dy);
-    inc.x = dx / steps;
-    inc.y = dy / steps;
-    point = map->player.pos;
-    while (1)
-    {
-        point.x += inc.x;
-        point.y += inc.y;
-        if (map->map[(int)(point.y / SCALE)][(int)(point.x / SCALE)] == '1')
-            break ;
-    }
-    line(*map, map->player.pos.x, map->player.pos.y, point.x, point.y, GREEN);
-    return (get_dst(map->player.pos, point));
+	int     steps;
+	double dx;
+	double dy;
+	t_dxy point;
+	t_dxy inc;
+	
+	point.x =  map->player.pos.x + cos(deg_to_rad(angle)) * 1000;
+	point.y = map->player.pos.y + sin(deg_to_rad(angle)) * 1000;
+	// dx = map->player.pos.x - point.x;
+	dx = point.x - map->player.pos.x;
+	// dy = map->player.pos.y - point.y;
+	dy = point.y - map->player.pos.y;
+	if (fabs(dx) > fabs(dy))
+		steps = fabs(dx);
+	else
+		steps = fabs(dy);
+	inc.x = dx / steps;
+	inc.y = dy / steps;
+	point = map->player.pos;
+	while (1)
+	{
+		point.x += inc.x;
+		point.y += inc.y;
+		if (map->map[(int)(point.y / SCALE)][(int)(point.x / SCALE)] == '1')
+			break ;
+	}
+	line(*map, map->player.pos.x, map->player.pos.y, point.x, point.y, GREEN);
+	return (get_dst(map->player.pos, point));
 }
 
 double wahda_mall(t_map *map, double angle) // FUNCTION UNDER CONSTRUCTION

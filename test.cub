@@ -1,8 +1,8 @@
 NO       xpms/tile27.xpm
-SO ./path_to_the_south_texture
-WE   ./path_to_the_west_texture
+SO xpms/grass64x64.xpm
+WE   xpms/wall64x64.xpm
 
-EA ./path_to_the_east_texture
+EA xpms/exit64x64.xpm
 
 
 F   110,100,100
