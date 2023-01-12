@@ -6,7 +6,7 @@
 /*   By: oabdalla <oabdalla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 00:47:46 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/12 15:42:50 by oabdalla         ###   ########.fr       */
+/*   Updated: 2023/01/12 16:16:30 by oabdalla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,9 @@ typedef struct s_texture
 
 typedef struct s_ray
 {
-	t_dxy ray;
-	int side;
+	t_dxy	ray;
+	int		side;
+	double	angle;
 }	t_ray;
 
 typedef struct s_map
@@ -168,7 +169,7 @@ int		game_loop(t_map *map);
 double	deg_to_rad(double deg);
 double	get_dst(t_dxy p1, t_dxy p2);
 double	fix_angle(double angle);
-
+int		angle_side(double angle, int side);
 // test
 void	draw_map(t_map map);
 void	 line(t_map map, int X0, int Y0, int X1, int Y1, int color);

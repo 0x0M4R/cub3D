@@ -6,7 +6,7 @@
 /*   By: oabdalla <oabdalla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 19:18:48 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/12 15:53:05 by oabdalla         ###   ########.fr       */
+/*   Updated: 2023/01/12 16:19:36 by oabdalla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,30 +27,42 @@ t_frame	create_frame(t_mlx *mlx, int x, int y)
 	return (frame);
 }
 
+int		get_texture_color(t_map *map, double wall_height, double *texy)
+{
+	int				texx;
+	double			step;
+	int				color;
+	int				i;
+
+	i = angle_side(map->ray.angle, map->ray.side);
+	if (map->ray.side == HORIZONTAL)
+		texx = (int)map->ray.ray.x % map->tex[i - 1].img_height;
+	else
+		texx = (int)map->ray.ray.y % map->tex[i - 1].img_height;
+	step = (map->tex[i - 1].img_height / wall_height);
+	color = map->tex[i - 1].img.data[(int)*texy * map->tex[i - 1].img_height + texx];
+	*texy += step;
+	return (color);
+}
+
 void	draw_frame(t_map *map, int *img_data, double wall_height, int x)
 {
 	int		i;
 	int		j;
 	int		k;
-	int		texx;
-	double	step;
+	int		color;
 	double	texy;
 
 	texy = 0;
 	k = 0;
 	i = (HEIGHT / 2) - (wall_height / 2);
 	j = (HEIGHT / 2) + (wall_height / 2);
-	step = (map->tex[0].img_height / wall_height);
-	if (map->ray.side == HORIZONTAL)
-		texx = (int)map->ray.ray.x % map->tex[0].img_height;
-	else
-		texx = (int)map->ray.ray.y % map->tex[0].img_height;
 	while (k < i)
 		alpha_pixel_put(img_data, x, k++, RED);
 	while (i < j)
 	{
-		alpha_pixel_put(img_data, x, i++, map->tex[0].img.data[(int)texy * map->tex[0].img_height + texx]);
-		texy += step;
+		color = get_texture_color(map, wall_height, &texy);
+		alpha_pixel_put(img_data, x, i++, color);
 	}
 	k = j;
 	while (k < HEIGHT)

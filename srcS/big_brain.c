@@ -6,7 +6,7 @@
 /*   By: oabdalla <oabdalla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 18:12:55 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/12 14:42:19 by oabdalla         ###   ########.fr       */
+/*   Updated: 2023/01/12 16:16:39 by oabdalla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,7 @@ double	rays(t_map *map, double angle)
 		vpoint = first_vpoint(map->player.pos, angle, side); // first vertical grid point
 		vray_dst = dda(map, angle, &vpoint, VERTICAL, side); // vertical grid points
 	}
+	map->ray.angle = angle;
 	if (hray_dst < vray_dst) // check which ray is shorter to use its dst
 	{
 		map->ray.ray = hpoint;
@@ -181,7 +182,6 @@ double get_values(t_map *map, double angle)
 	ray_dst = (SCALE * HEIGHT / 2) / ray_dst;
 	if (ray_dst > HEIGHT)
 		ray_dst = HEIGHT;
-
 	return (ray_dst);
 }
 
