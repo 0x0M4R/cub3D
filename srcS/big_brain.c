@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   big_brain.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oabdalla <oabdalla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 18:12:55 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/05 16:43:30 by oabdalla         ###   ########.fr       */
+/*   Updated: 2023/01/12 23:35:37 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int		angle_side(double angle, int side)
 
 t_dxy	first_hpoint(t_dxy pos, double angle, int side)
 {
-	t_dxy	a; //  first horizontal grid point according to the 2d map
+	t_dxy	a; // first horizontal grid point according to the 2d map
 
 	if (side == UP)
 		a.y = (int)(pos.y / SCALE) * SCALE - 1;
@@ -47,7 +47,7 @@ t_dxy	first_hpoint(t_dxy pos, double angle, int side)
 
 t_dxy	first_vpoint(t_dxy pos, double angle, int side)
 {
-	t_dxy	a; //  first vertical grid point according to the 2d map
+	t_dxy	a; // first vertical grid point according to the 2d map
 
 	if (side == LEFT)
 		a.x = (int)(pos.x / SCALE) * SCALE - 1;
@@ -87,19 +87,19 @@ double	dda(t_map *map, double angle, t_dxy a, int side, int dir) // is this even
 	inc = get_inc(angle, side, dir);
 	while (1)
 	{
-		// if (side == HORIZONTAL)
-		// 	mlx_pixel_put(map->mlx.mlx, map->mlx.tmp, a.x, a.y, GREEN);
-		// else if (side == VERTICAL)
-		// 	mlx_pixel_put(map->mlx.mlx, map->mlx.tmp, a.x, a.y, BLUE);
-		// if (map->map[(int)(a.y / SCALE)][(int)(a.x / SCALE)] == '1')
-		if ((int)(a.x / SCALE) < 0 || (int)(a.x / SCALE) > 4 || (int)(a.y / SCALE) < 0 || (int)(a.y / SCALE) > 4)
+		// mlx_pixel_put(map->mlx.mlx, map->mlx.tmp, a.x, a.y, RED);
+		// if ((int)(a.x / SCALE) < 0 || (int)(a.y / SCALE) < 0 || map->map[(int)(a.y / SCALE)][(int)(a.x / SCALE)] == '\0' || map->map[(int)(a.y / SCALE)][(int)(a.x / SCALE)] == '\n')
+		if ((int)(a.x / SCALE) < 0 || (int)(a.y / SCALE) < 0 || (int)(a.x / SCALE) > 4 || (int)(a.y / SCALE) > 4)
 			return (1e30);
 		if (map->map[(int)(a.y / SCALE)][(int)(a.x / SCALE)] == '1')
 		{
-			if (side == VERTICAL)
-				line(*map, map->player.pos.x, map->player.pos.y, a.x, a.y, BLUE);
-			if (side == HORIZONTAL)
-			 	line(*map, map->player.pos.x, map->player.pos.y, a.x, a.y, GREEN);
+			if (DEBUG)
+			{
+				if (side == VERTICAL)
+					line(*map, map->player.pos.x, map->player.pos.y, a.x, a.y, BLUE);
+				if (side == HORIZONTAL)
+			 		line(*map, map->player.pos.x, map->player.pos.y, a.x, a.y, GREEN);
+			}
 			break ;
 		}
 		a.x += inc.x; // next x-axis pos on the grid
@@ -136,292 +136,92 @@ double	rays(t_map *map, double angle)
 		return (vray_dst);
 }
 
-double	fishazz(double ray_dst, double angle) // WIP
+double	fishazz(double ray_dst, double angle, double org_angle) // WIP
 {
-	double	angleito; // the angle between the ray and the player plane
-
-	(void)angle;
-	(void)angleito;
-	return (ray_dst * cos(deg_to_rad(angle)));
+	// if (angle > 0 && angle < 90)
+	// 	return (cos(deg_to_rad(180 - angle)) * ray_dst);
+	// else if (angle > 90 && angle < 180)
+	// 	return (cos(deg_to_rad(angle - 90)) * ray_dst);
+	// else if (angle > 180 && angle < 270)
+	// 	return (cos(deg_to_rad(270 - angle)) * ray_dst);
+	// else if (angle > 270 && angle < 360)
+	// 	return (cos(deg_to_rad(angle - 270)) * ray_dst);
+	// else
+	// 	return(ray_dst);
+	return (cos(deg_to_rad(org_angle - angle)) * ray_dst);
 }
 
-double	baqalaa(t_map *map, double angle);
-double	baqalaa_v2(t_map *map, double angle);
-double	supermarket(t_map *map, double angle);
-double	wahda_mall(t_map *map, double angle);
-double	abudhabi_mall(t_map *map, double angle);
-double	uae(t_map *map, double angle);
+double	om_eldonia(t_map *map, double angle);
 
 double get_values(t_map *map, double angle)
 {
-	// double	hray;
-	// double	vray;
 	double	ray_dst;
 
-	// ray_dst = abudhabi_mall(map, angle);
-    ray_dst = uae(map, angle);
-	// ray_dst = baqalaa(map, angle);
-	// ray_dst = baqalaa_v2(map, angle);
-	// ray_dst = supermarket(map, angle);
-	// hray = wahda_mall(map, angle);
-	// vray = abudhabi_mall(map, angle);
-	// if (hray < vray)
-		// ray_dst = hray;
-	// else
-	// 	ray_dst = vray;
-	// ray_dst = fishazz(ray_dst, angle);
+	ray_dst = rays(map, angle);
+	// ray_dst = om_eldonia(map, angle);
+	ray_dst = fishazz(ray_dst, angle, map->player.angle);
 	ray_dst = (SCALE * HEIGHT / 2) / ray_dst;
 	if (ray_dst > HEIGHT)
 		ray_dst = HEIGHT;
 	return (ray_dst);
 }
 
-double uae(t_map *map, double angle)
-{
-    int     steps;
-    double dx;
-    double dy;
-    t_dxy point;
-    t_dxy inc;
-    
-    point.x =  map->player.pos.x + cos(deg_to_rad(angle)) * 1000;
-    point.y = map->player.pos.y + sin(deg_to_rad(angle)) * 1000;
-    // dx = map->player.pos.x - point.x;
-    dx = point.x - map->player.pos.x;
-    // dy = map->player.pos.y - point.y;
-    dy = point.y - map->player.pos.y;
-    if (fabs(dx) > fabs(dy))
-        steps = fabs(dx);
-    else
-        steps = fabs(dy);
-    inc.x = dx / steps;
-    inc.y = dy / steps;
-    point = map->player.pos;
-    while (1)
-    {
-        point.x += inc.x;
-        point.y += inc.y;
-        if (map->map[(int)(point.y / SCALE)][(int)(point.x / SCALE)] == '1')
-            break ;
-    }
-    line(*map, map->player.pos.x, map->player.pos.y, point.x, point.y, GREEN);
-    return (get_dst(map->player.pos, point));
-}
-
-double wahda_mall(t_map *map, double angle) // FUNCTION UNDER CONSTRUCTION
+double	om_eldonia(t_map *map, double angle)
 {
 	int		side;
-	int		step;
-	double	dx;
-	double	dy;
-	t_dxy	point;
 	t_dxy	hpoint;
-	t_dxy	inc;
+	t_dxy	vpoint;
+	t_dxy	hinc;
+	t_dxy	vinc;
+	t_dxy	track;
 
-	if (angle == 0 || angle == 180)
-		return (1e30);
 	side = angle_side(angle, HORIZONTAL);
 	hpoint = first_hpoint(map->player.pos, angle, side);
-	dx = map->player.pos.x - hpoint.x;
-	dy = map->player.pos.y - hpoint.y;
-	if (fabs(dx) > fabs(dy))
-		step = fabs(dx);
-	else
-		step = fabs(dy);
-	inc.x = dx / step;
-	inc.y = dy / step;
-	inc = get_inc(angle, HORIZONTAL, side);
-	point.x = map->player.pos.x;
-	point.y = map->player.pos.y;
-	while (1)
-	{
-		mlx_pixel_put(map->mlx.mlx, map->mlx.tmp, point.x, point.y, GREEN);
-		if (map->map[(int)(point.y / SCALE)][(int)(point.x / SCALE)] == '1')
-		{
-			// if (DEBUG)
-				// line(*map, map->player.pos.x, map->player.pos.y, point.x, point.y, GREEN);
-			return (get_dst(map->player.pos, point));
-		}
-		point.x += inc.x;
-		point.y += inc.y;
-	}
-}
-
-double abudhabi_mall(t_map *map, double angle) // FUNCTION UNDER CONSTRUCTION
-{
-	int		side;
-	int		step;
-	double	dx;
-	double	dy;
-	t_dxy	point;
-	t_dxy	vpoint;
-	t_dxy	inc;
-
-	// if (angle == 270 || angle == 90)
-	// 	return (1e30);
+	hinc = get_inc(angle, HORIZONTAL, side);
 	side = angle_side(angle, VERTICAL);
 	vpoint = first_vpoint(map->player.pos, angle, side);
-	dx = map->player.pos.x - vpoint.x;
-	dy = map->player.pos.y - vpoint.y;
-	if (fabs(dx) > fabs(dy))
-		step = fabs(dx);
-	else
-		step = fabs(dy);
-	inc.x = dx / step;
-	inc.y = dy / step;
-	point.x = map->player.pos.x;
-	point.y = map->player.pos.y;
-	while (1)
+	vinc = get_inc(angle, VERTICAL, side);
+	track.x = fabs(hinc.x);
+	track.y = fabs(vinc.y);
+	// track.x = fabs(map->player.pos.x - hpoint.x);
+	// track.y = fabs(map->player.pos.y - vpoint.y);
+	int hit = 0;
+	int chance = 0;
+	while (!hit || !chance)
 	{
-		mlx_pixel_put(map->mlx.mlx, map->mlx.tmp, point.x, point.y, BLUE);
-		if (map->map[(int)(point.y / SCALE)][(int)(point.x / SCALE)] == '1')
-		{
-			// if (DEBUG)
-				// line(*map, map->player.pos.x, map->player.pos.y, point.x, point.y, BLUE);
-			return (get_dst(map->player.pos, point));
-		}
-		point.x += inc.x;
-		point.y += inc.y;
-	}
-}
-
-double	baqalaa(t_map *map, double angle)
-{
-	int		hside; // side of the ray (UP or Down) for the horizontal grid and (LEFT or RIGHT) for vertical grid
-	int		vside; // side of the ray (UP or Down) for the horizontal grid and (LEFT or RIGHT) for vertical grid
-	t_dxy	hpoint; // first horizontal grid point according to the 2d map
-	t_dxy	vpoint; // first vertical grid point according to the 2d map
-	double	hray_dst; // horizontal ray distance between the player and the wall
-	double	vray_dst; // vertical ray distance between the player and the wall
-	t_dxy	hinc;
-	t_dxy	vinc;
-
-	hside = angle_side(angle, HORIZONTAL); // UP or DOWN
-	vside = angle_side(angle, VERTICAL); // LEFT or RIGHT
-	hpoint = first_hpoint(map->player.pos, angle, hside); // first hoirzontal grid point
-	vpoint = first_vpoint(map->player.pos, angle, vside); // first vertical grid point
-	hray_dst = get_dst(map->player.pos, hpoint); // horizontal grid points
-	vray_dst = get_dst(map->player.pos, vpoint); // vertical grid points
-	hinc = get_inc(angle, HORIZONTAL, hside);
-	vinc = get_inc(angle, VERTICAL, vside);
-	while (1)
-	{
-		if (hray_dst < vray_dst)
+		if (hit)
+			chance = 1;
+		if (fabs(track.x) <= fabs(track.y))
 		{
 			if (map->map[(int)(hpoint.y / SCALE)][(int)(hpoint.x / SCALE)] == '1')
-				return (hray_dst);
-			else if (map->map[(int)(vpoint.y / SCALE)][(int)(vpoint.x / SCALE)] == '1')
-				return (vray_dst);
-		}
-		else
-		{
-			if (map->map[(int)(vpoint.y / SCALE)][(int)(vpoint.x / SCALE)] == '1')
-				return (vray_dst);
-			else if (map->map[(int)(hpoint.y / SCALE)][(int)(hpoint.x / SCALE)] == '1')
-				return (hray_dst);
-		}
-		hpoint.x += hinc.x; // next x-axis pos on the grid
-		hpoint.y += hinc.y; // next y-axis pos on the grid
-		vpoint.x += vinc.x; // next x-axis pos on the grid
-		vpoint.y += vinc.y; // next y-axis pos on the grid
-		hray_dst = get_dst(map->player.pos, hpoint); // horizontal dst
-		vray_dst = get_dst(map->player.pos, vpoint); // vertical dst
-	}
-}
-
-double baqalaa_v2(t_map *map, double angle)
-{
-	double	dx;
-	double	dy;
-	t_dxy	hpoint; // first horizontal grid point according to the 2d map
-	t_dxy	vpoint; // first vertical grid point according to the 2d map
-	t_dxy	hinc;
-	t_dxy	vinc;
-	int		steps;
-	int		x;
-	int		y;
-
-	hpoint = first_hpoint(map->player.pos, angle, angle_side(angle, HORIZONTAL)); // first hoirzontal grid point
-	vpoint = first_vpoint(map->player.pos, angle, angle_side(angle, VERTICAL)); // first vertical grid point
-	hinc = get_inc(angle, HORIZONTAL, angle_side(angle, HORIZONTAL));
-	vinc = get_inc(angle, VERTICAL, angle_side(angle, VERTICAL));
-	dx = map->player.pos.x - hpoint.x;
-	dy = map->player.pos.y - hpoint.y;
-	if (fabs(dx) > fabs(dy))
-		steps = fabs(dx);
-	else
-		steps = fabs(dy);
-	x = hpoint.x;
-	y = vpoint.y;
-	while (1)
-	{
-		if (map->map[(int)(y / SCALE)][(int)(x / SCALE)] == '1')
-			return (get_dst(map->player.pos, (t_dxy){x, y}));
-		x += hinc.x;
-		y += vinc.y;
-	}
-}
-
-double	supermarket(t_map *map, double angle)
-{
-	int		side;
-	int		hside;
-	int		vside;
-	int		count;
-	t_dxy	hpoint;
-	t_dxy	vpoint;
-	t_dxy	hinc;
-	t_dxy	vinc;
-	
-
-	hside = angle_side(angle, HORIZONTAL);
-	vside = angle_side(angle, VERTICAL);
-	hpoint = first_hpoint(map->player.pos, angle, hside);
-	vpoint = first_vpoint(map->player.pos, angle, vside);
-	hinc = get_inc(angle, HORIZONTAL, hside);
-	vinc = get_inc(angle, VERTICAL, vside);
-	if (fabs(hinc.x) < fabs(vinc.y))
-	{
-		side = HORIZONTAL;
-		count = fabs(vinc.y / hinc.x);
-	}
-	else
-	{
-		side = VERTICAL;
-		count = fabs(hinc.x / vinc.y);
-	}
-	if (side == HORIZONTAL)
-	{
-		while (1)
-		{
-			for (int i = 0; i < count; i++)
+				hit = 1;
+			else
 			{
-				if (map->map[(int)(hpoint.y / SCALE)][(int)(hpoint.x / SCALE)] == '1')
-					return (get_dst(map->player.pos, hpoint));
 				hpoint.x += hinc.x;
 				hpoint.y += hinc.y;
+				track.x += fabs(hinc.x);
 			}
-			if (map->map[(int)(vpoint.y / SCALE)][(int)(vpoint.x / SCALE)] == '1')
-				return (get_dst(map->player.pos, vpoint));
-			vpoint.x += vinc.x;
-			vpoint.y += vinc.y;
 		}
+		if (fabs(track.y) <= fabs(track.x))
+		{
+			if (map->map[(int)(vpoint.y / SCALE)][(int)(vpoint.x / SCALE)] == '1')
+				hit = 1;
+			else
+			{
+				vpoint.x += vinc.x;
+				vpoint.y += vinc.y;
+				track.y += fabs(vinc.y);
+			}
+		}
+	}
+	if (get_dst(map->player.pos, hpoint) < get_dst(map->player.pos, vpoint))
+	{
+		line(*map, map->player.pos.x, map->player.pos.y, hpoint.x, hpoint.y, BLUE);
+		return (get_dst(map->player.pos, hpoint));
 	}
 	else
 	{
-		while (1)
-		{
-			for (int i = 0; i < count; i++)
-			{
-				if (map->map[(int)(vpoint.y / SCALE)][(int)(vpoint.x / SCALE)] == '1')
-					return (get_dst(map->player.pos, vpoint));
-				vpoint.x += vinc.x;
-				vpoint.y += vinc.y;
-			}
-			if (map->map[(int)(hpoint.y / SCALE)][(int)(hpoint.x / SCALE)] == '1')
-				return (get_dst(map->player.pos, hpoint));
-			hpoint.x += hinc.x;
-			hpoint.y += hinc.y;
-		}
+		line(*map, map->player.pos.x, map->player.pos.y, vpoint.x, vpoint.y, GREEN);
+		return (get_dst(map->player.pos, vpoint));
 	}
 }

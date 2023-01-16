@@ -8,7 +8,7 @@ int	open_file(char *filepath)
 	if (f < 0)
 	{
 		write(1, "Error\nFile could not be opened.\n", 33);
-		exit(0);
+		exit(EXIT_FAILURE);
 	}
 	return (f);
 }
@@ -48,8 +48,8 @@ int	check_filetype(char *str)
 	l = ft_strlen(str);
 	if (str[l - 1] != 'b' || str[l - 2] != 'u'
 		|| str[l - 3] != 'c' || str[l - 4] != '.')
-		return (0);
-	return (1);
+		return (ERROR);
+	return (SUCCESS);
 }
 
 /* TODO: free() content if error in parse_element */

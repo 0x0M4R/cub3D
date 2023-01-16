@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oabdalla <oabdalla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 00:46:43 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/05 16:45:00 by oabdalla         ###   ########.fr       */
+/*   Updated: 2023/01/16 21:06:00 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ void	init_struct(t_map *map)
 
 int	init_cube(char **av)
 {
-	t_map	map;
+	t_data	*data;
 
-	parse_map(av[1], &map);
+	parse_map(av[1], data);
 	init_struct(&map);
 	map.mlx.mlx = mlx_init();
 	if (!map.mlx.mlx)
