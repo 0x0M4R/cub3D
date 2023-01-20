@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 21:11:47 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/20 22:44:01 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/21 02:43:10 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,14 +70,14 @@ t_data		*parser(char *map_path);
 char		**get_file(char *map_path);
 t_textures	*get_textures(char **file, size_t *line);
 t_map		*get_map(char **file);
-double		get_values(t_data *data, double angle);
+t_ray		get_values(t_data *data, double angle);
 
 /************ GAME ENGINE **********/
 int			keys(int keycode, t_data *data);
 
-t_player	*get_player(char **map);
+/************** RAY ***************/
 t_frame		create_frame(void *mlx, int x, int y);
-void		draw_frame(int *img_data, double wall_height, int x);
+void		draw_frame(int *img_data, t_ray ray, int x);
 
 int			game_loop(t_data *data);
 
@@ -88,6 +88,7 @@ int			check_walls(t_map *map, t_dxy a);
 void		get_corners_inc(t_dxy *inc1, t_dxy *inc2);
 int			angle_side(double angle, int side);
 
+t_player	*get_player(char **map);
 /********* UTILS **********/
 double		deg_to_rad(double deg);
 double		get_dst(t_dxy p1, t_dxy p2);

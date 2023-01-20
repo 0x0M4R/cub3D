@@ -12,6 +12,7 @@
         "get_next_line.h": "c",
         "error_msgs.h": "c",
         "debug.h": "c",
-        "data.h": "c"
+        "data.h": "c",
+        "mlx.h": "c"
     }
 }

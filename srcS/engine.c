@@ -36,7 +36,7 @@ int	game_loop(t_data *data)
 	int		x;
 	double	angle;
 	double	ang_inc;
-	double	wall_height;
+	t_ray	ray;
 	t_frame	frame;
 
 	x = 0;
@@ -47,8 +47,8 @@ int	game_loop(t_data *data)
 		draw_map(*data);
 	while (x < WIDTH)
 	{
-		wall_height = get_values(data, angle);
-		draw_frame(frame.data, wall_height, x);
+		ray = get_values(data, angle);
+		draw_frame(frame.data, ray, x);
 		angle = fix_angle(angle + ang_inc);
 		x++;
 	}

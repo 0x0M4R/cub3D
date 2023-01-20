@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 18:12:55 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/20 23:37:32 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/21 02:43:56 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,16 +65,17 @@ double	check_grids(t_data *data, double angle, t_dxy *a, int side)
 	return (get_dst(data->player->pos, *a));
 }
 
-t_render	render_vales(t_dxy point, double angle, int side, double dst)
+t_ray	ray_info(t_dxy point, int side, double dst)
 {
-	t_render	render;
+	t_ray	ray;
 
-	render.ray_loc = point;
-	render.side = side;
-	render.wall_height = dst;
+	ray.cord = point;
+	ray.side = side;
+	ray.wall_height = dst;
+	return (ray);
 }
 
-t_render	rays(t_data *data, double angle, t_render *render)
+t_ray	rays(t_data *data, double angle)
 {
 	int		side;
 	t_dxy	hpoint;
@@ -97,9 +98,9 @@ t_render	rays(t_data *data, double angle, t_render *render)
 		vray_dst = check_grids(data, angle, &vpoint, side);
 	}
 	if (hray_dst < vray_dst)
-		return (render_vales(hpoint, angle, get_side(angle, HORIZONTAL), hray_dst));
+		return (ray_info(hpoint, angle_side(angle, HORIZONTAL), hray_dst));
 	else
-		return (render_vales(vpoint, angle, get_side(angle, VERTICAL), vray_dst));
+		return (ray_info(vpoint, angle_side(angle, VERTICAL), vray_dst));
 }
 
 double	fishazz(double ray_dst, double angle, double p_angle)
@@ -114,14 +115,18 @@ double	fishazz(double ray_dst, double angle, double p_angle)
 	return (ray_dst * cos((angleito)));
 }
 
-t_render	get_values(t_data *data, double angle)
+t_ray	get_values(t_data *data, double angle)
 {
-	double		ray_dst;
+	t_ray	ray;
 
-	ray_dst = rays(data, angle. &render);
-	ray_dst = fishazz(ray_dst, angle, data->player->angle);
-	ray_dst = (SCALE * HEIGHT / 2) / ray_dst;
-	if (ray_dst > HEIGHT)
-		ray_dst = HEIGHT;
-	return (ray_dst);
+	ray = rays(data, angle);
+	ray.wall_height = fishazz(ray.wall_height, angle, data->player->angle);
+	ray.wall_height = (SCALE * HEIGHT / 2) / ray.wall_height;
+	if (check_map_range(data->map, ray.cord)
+		&& data->map->map[(int)(ray.cord.y / SCALE)]
+			[(int)(ray.cord.x / SCALE)] == '2')
+			ray.door = 1;
+	if (ray.wall_height > HEIGHT)
+		ray.wall_height = HEIGHT;
+	return (ray);
 }
