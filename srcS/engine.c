@@ -55,7 +55,7 @@ int	game_loop(t_data *data)
 	mlx_clear_window(data->mlx_ptr, data->win_ptr);
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, frame.frame, 0, 0);
 	if (DEBUG)
-		mlx_put_image_to_window(data->mlx_ptr, data->tmp_win_ptr, tmp.frame, 0, 0);
+		mlx_put_image_to_window(data->mlx_ptr,data->tmp_win_ptr, tmp.frame, 0, 0);
 	mlx_destroy_image(data->mlx_ptr, frame.frame);
 	return (SUCCESS);
 }

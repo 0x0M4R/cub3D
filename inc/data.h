@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 21:13:34 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/20 00:50:05 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/20 23:34:30 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,13 +85,13 @@ typedef struct s_map
 	char	**map;
 }				t_map;
 
-// typedef struct s_render
-// {
-// 	int ray_loc; // x && y
-// 	int side; // n s w e
-// 	int	door;
-// 	int wall_height;
-// }
+typedef struct s_render
+{
+	t_dxy	ray_loc;
+	int		side;
+	int		door;
+	int		wall_height;
+}	t_render;
 
 typedef struct s_data
 {

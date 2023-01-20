@@ -9,10 +9,11 @@ SRCS			=		cub3d.c				\
 						engine.c			\
 						utils.c				\
 						big_brain.c			\
+						raycasting_utils.c	\
 						render.c			\
 						player.c			\
 						tmp.c				\
-						# assets.c			\
+						map_utils.c			\
 
 OBJS			=		$(addprefix $(SRCS_DIR),$(SRCS:.c=.o))
 

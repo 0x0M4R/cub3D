@@ -6,12 +6,11 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 19:18:48 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/20 01:37:55 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/20 23:07:55 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "cub3d.h"
-
+#include "cub3d.h"
 
 static void	alpha_pixel_put(int *img_data, int x, int y, int color)
 {
@@ -24,7 +23,7 @@ t_frame	create_frame(void *mlx, int x, int y)
 
 	frame.frame = mlx_new_image(mlx, x, y);
 	frame.data = (int *)mlx_get_data_addr(
-		frame.frame, &frame.bpp, &frame.size_line, &frame.endian);
+			frame.frame, &frame.bpp, &frame.size_line, &frame.endian);
 	return (frame);
 }
 
@@ -36,7 +35,7 @@ void	draw_frame(int *img_data, double wall_height, int x)
 
 	k = 0;
 	i = (HEIGHT / 2) - (wall_height / 2);
- 	j = (HEIGHT / 2) + (wall_height / 2);
+	j = (HEIGHT / 2) + (wall_height / 2);
 	while (k < i)
 		alpha_pixel_put(img_data, x, k++, RED);
 	while (i < j)
