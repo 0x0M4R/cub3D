@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 21:11:47 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/16 21:18:10 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/20 00:58:53 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,9 @@
 # include <fcntl.h>
 # include <math.h>
 # include "../libft/libft.h"
-# include "mlx.h"
+# include "../mlx/mlx.h"
 # include "debug.h"
+# include "error_msgs.h"
 // # include "data.h"
 
 enum e_key {
@@ -49,35 +50,46 @@ enum e_key {
 # define BLACK		0x000000
 
 enum e_dir {
-	UP			= 1,
-	DOWN		= 2,
-	LEFT		= 3,
-	RIGHT		= 4,
-	VERTICAL	= 5,
-	HORIZONTAL	= 6
+	NORTH		= 1,
+	SOUTH		= 2,
+	WEST		= 3,
+	EAST		= 4,
+	FLOOR		= 5,
+	CEILING		= 6,
+	VERTICAL	= 7,
+	HORIZONTAL	= 8,
 };
 
 # define SCALE 64
 
-# define FLOOR_ID -5
-# define CEILING_ID -6
+# define MAP_CHARS " 01NSEW"
+# define MAP_OBJS "01NSEW"
 
+/******** PARSER **********/
+t_data		*parser(char *map_path);
+char		**get_file(char *map_path);
+t_textures	*get_textures(char **file, size_t *line);
+t_map		*get_map(char **file);
+double		get_values(t_data *data, double angle);
 
-int	parse_elements(t_data *data, char *content);
+/************ GAME ENGINE **********/
+int			keys(int keycode, t_data *data);
+
+t_player	*get_player(char **map);
 
 /*****OMARRRRR*****/
-double	get_values(t_data *data, double angle);
 
-t_frame	create_frame(void *mlx, int x, int y);
-void	draw_frame(int *img_data, double wall_height, int x);
+t_frame		create_frame(void *mlx, int x, int y);
+void		draw_frame(int *img_data, double wall_height, int x);
 
-void	find_player(t_data *data);
 
-int		keys(int keycode, t_data *data);
-int		game_loop(t_data *data);
+int			game_loop(t_data *data);
 
-double	deg_to_rad(double deg);
-double	get_dst(t_dxy p1, t_dxy p2);
-double	fix_angle(double angle);
+/********* UTILS **********/
+double		deg_to_rad(double deg);
+double		get_dst(t_dxy p1, t_dxy p2);
+double		fix_angle(double angle);
+void		free_2d(char **str);
+size_t		ft_strlenx2(char **str);
 
 #endif

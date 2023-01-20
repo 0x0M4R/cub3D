@@ -6,11 +6,11 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/31 16:26:25 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/02 16:45:24 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/17 21:34:52 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "cub3d.h"
+#include "cub3d.h"
 
 double	deg_to_rad(double deg)
 {
@@ -30,4 +30,27 @@ double	fix_angle(double angle)
 		return (angle - 359.0);
 	else
 		return (angle);
+}
+
+void	free_2d(char **str)
+{
+	size_t		i;
+
+	i = 0;
+	while (str[i])
+	{
+		free(str[i]);
+		i++;
+	}
+	free(str);
+}
+
+size_t	ft_strlenx2(char **str)
+{
+	size_t		i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
 }

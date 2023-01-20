@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   player.c                                           :+:      :+:    :+:   */
+/*   player->c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/31 16:19:21 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/03 12:29:04 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/20 00:53:38 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,26 +24,31 @@ static double	get_player_angle(char c)
 		return (180);
 }
 
-void	find_player(t_map *map)
+t_player	*get_player(char **map)
 {
-	int		i;
-	int		j;
+	int			i;
+	int			j;
+	t_player	*player;
 
 	i = 0;
-	while (map->map[i])
+	player = (t_player *)malloc(sizeof(t_player));
+	if (!player)
+		return (NULL); // error msg
+	while (map[i])
 	{
 		j = 0;
-		while (map->map[i][j])
+		while (map[i][j])
 		{
-			if (ft_strchr("NSEW", map->map[i][j]))
+			if (ft_strchr("NSEW", map[i][j]))
 			{
-				map->player.angle = get_player_angle(map->map[i][j]);
-				map->player.pos.y = (i * SCALE) + SCALE / 2;
-				map->player.pos.x = (j * SCALE) + SCALE / 2;
-				return ;
+				player->angle = get_player_angle(map[i][j]);
+				player->pos.y = (i * SCALE) + SCALE / 2;
+				player->pos.x = (j * SCALE) + SCALE / 2;
+				return (player);
 			}
 			j++;
 		}
 		i++;
 	}
+	return (NULL);
 }

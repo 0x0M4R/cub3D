@@ -3,15 +3,16 @@ NAME			=		cub3d
 SRCS_DIR		=		./srcs/
 
 SRCS			=		cub3d.c				\
-						parse.c				\
-						parse_elements.c	\
-						big_brain.c			\
-						render.c			\
-						assets.c			\
-						player.c			\
+						parser.c			\
+						map.c				\
+						get_elements.c		\
 						engine.c			\
 						utils.c				\
+						big_brain.c			\
+						render.c			\
+						player.c			\
 						tmp.c				\
+						# assets.c			\
 
 OBJS			=		$(addprefix $(SRCS_DIR),$(SRCS:.c=.o))
 
@@ -49,7 +50,7 @@ endif
 
 $(NAME)			:		$(OBJS)
 						make -C $(LIBDIR)
-						$(CC) $(CFLAGS) $(OBJS) $(MLX_FLAGS) $(LIBFT) -o $(NAME)
+						$(CC) $(CFLAGS) $(LIBFT) $(OBJS) $(MLX_FLAGS) -o $(NAME)
 
 all				:		$(NAME)
 

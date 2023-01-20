@@ -8,6 +8,7 @@
         "unistd.h": "c",
         "math.h": "c",
         "parsing.h": "c",
-        "fcntl.h": "c"
+        "fcntl.h": "c",
+        "get_next_line.h": "c"
     }
 }

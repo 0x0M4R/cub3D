@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 21:13:34 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/16 21:14:17 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/20 00:50:05 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,29 @@ typedef struct s_rgb
 }	t_rgb;
 
 /**
+ * @brief This structure holds all the data to define a frame (image)
+ *
+ * NOTE: data stores the value of mlx_get_address, this variable has been
+ * 		typecasted into an integer pointer.
+ */
+typedef struct s_frame
+{
+	void	*frame;
+	int		*data;
+	int		bpp;
+	int		size_line;
+	int		endian;
+}	t_frame;
+
+/**
  * @brief This structure holds all the texture paths
  *
  */
 typedef struct s_textures
 {
-	char		*no;
-	char		*so;
-	char		*we;
-	char		*ea;
-	t_rgb		ceiling;
-	t_rgb		floor;
+	char		*wall[4];
+	int			ceiling;
+	int			floor;
 }	t_textures;
 
 /**
@@ -60,21 +72,6 @@ typedef struct s_dxy
 	double	y;
 }	t_dxy;
 
-/**
- * @brief This structure holds all the data to define a frame (image)
- *
- * NOTE: data stores the value of mlx_get_address, this variable has been
- * 		typecasted into an integer pointer.
- */
-typedef struct s_frame
-{
-	void	*frame;
-	int		*data;
-	int		bpp;
-	int		size_line;
-	int		endian;
-}	t_frame;
-
 typedef struct s_player
 {
 	t_dxy	pos;
@@ -83,11 +80,18 @@ typedef struct s_player
 
 typedef struct s_map
 {
-	int		width;
-	int		height;
-	int		**map;
+	size_t	width;
+	size_t	height;
+	char	**map;
 }				t_map;
 
+// typedef struct s_render
+// {
+// 	int ray_loc; // x && y
+// 	int side; // n s w e
+// 	int	door;
+// 	int wall_height;
+// }
 
 typedef struct s_data
 {
@@ -95,8 +99,8 @@ typedef struct s_data
 	void		*win_ptr;
 	void		*tmp_win_ptr;
 	int			err;
-	t_textures	texts;
-	t_player	player;
-	t_map		map;
+	t_textures	*texts;
+	t_player	*player;
+	t_map		*map;
 }				t_data;
 #endif

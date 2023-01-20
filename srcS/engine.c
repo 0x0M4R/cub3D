@@ -1,73 +1,61 @@
 /* ************************************************************************** */
-/*                                                                            */
+/*		                                                            */
 /*                                                        :::      ::::::::   */
 /*   engine.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oabdalla <oabdalla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/31 16:22:41 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/05 16:17:17 by oabdalla         ###   ########.fr       */
+/*   Updated: 2023/01/20 00:36:35 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	keys(int key, t_map *map)
+int	keys(int key, t_data *data)
 {
-	if (key == 13) // forward
+	if (key == 13)
 	{
-		map->player.pos.x += cos(deg_to_rad(map->player.angle)) * SPEED;
-		map->player.pos.y += sin(deg_to_rad(map->player.angle)) * SPEED;
+		data->player->pos.x += cos(deg_to_rad(data->player->angle)) * SPEED;
+		data->player->pos.y += sin(deg_to_rad(data->player->angle)) * SPEED;
 	}
-	else if (key == 1) //backward
+	else if (key == 1)
 	{
-		map->player.pos.x -= cos(deg_to_rad(map->player.angle)) * SPEED;
-		map->player.pos.y -= sin(deg_to_rad(map->player.angle)) * SPEED;
-		// map->player.pos.y -= sin(map->player.angle) * SPEED;
+		data->player->pos.x -= cos(deg_to_rad(data->player->angle)) * SPEED;
+		data->player->pos.y -= sin(deg_to_rad(data->player->angle)) * SPEED;
 	}
-	else if (key == 0) //left
-	{
-		map->player.angle -= SPEED;
-	}
-	else if (key == 2) //right
-	{
-		map->player.angle += SPEED;
-	}
+	else if (key == 0)
+		data->player->angle -= SPEED;
+	else if (key == 2)
+		data->player->angle += SPEED;
 	return (SUCCESS);
 }
 
-int	game_loop(t_map *map)
+int	game_loop(t_data *data)
 {
-	int		x; // column number
-	double	angle; // angle of the first ray
-	double	ang_inc; // the angle difference between each rays
+	int		x;
+	double	angle;
+	double	ang_inc;
 	double	wall_height;
 	t_frame	frame;
 
 	x = 0;
-	angle = fix_angle(map->player.angle - (FOV / 2));
+	angle = fix_angle(data->player->angle - (FOV / 2));
 	ang_inc = (double)FOV / (double)WIDTH;
-	// printf("starting angle: %f - ang_inc: %f\n", angle, ang_inc);
-	frame = create_frame(&map->mlx, WIDTH, HEIGHT);
+	frame = create_frame(data->mlx_ptr, WIDTH, HEIGHT);
 	if (DEBUG)
-    {
-        // map->debug.img = mlx_new_image(map->mlx.mlx, 320, 320);
-        // map->debug.addr = mlx_get_data_addr(map->debug.img, &map->debug.bits_per_pixel, &map->debug.line_length,
-		// 						&map->debug.endian);
-		draw_map(*map);
-        // mlx_put_image_to_window(map->mlx.mlx, map->mlx.tmp, map->debug.img, 0, 0);
-    }
+		draw_map(*data);
 	while (x < WIDTH)
 	{
-		wall_height = get_values(map, angle);
+		wall_height = get_values(data, angle);
 		draw_frame(frame.data, wall_height, x);
 		angle = fix_angle(angle + ang_inc);
 		x++;
 	}
-	mlx_clear_window(map->mlx.mlx, map->mlx.win);
-	mlx_put_image_to_window(map->mlx.mlx, map->mlx.win, frame.frame, 0, 0);
-    if (DEBUG)
-        mlx_put_image_to_window(map->mlx.mlx, map->mlx.tmp, tmp.frame, 0, 0);
-	mlx_destroy_image(map->mlx.mlx, frame.frame);
+	mlx_clear_window(data->mlx_ptr, data->win_ptr);
+	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, frame.frame, 0, 0);
+	if (DEBUG)
+		mlx_put_image_to_window(data->mlx_ptr, data->tmp_win_ptr, tmp.frame, 0, 0);
+	mlx_destroy_image(data->mlx_ptr, frame.frame);
 	return (SUCCESS);
 }
