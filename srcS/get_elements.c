@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 15:36:26 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/20 00:24:03 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/21 03:15:47 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,9 @@ static int	get_element(t_textures *text, char *line, int element)
 		return (ERROR);
 	if (element >= NORTH && element <= EAST)
 	{
-		if (text->wall[element - 1])
+		if (text->walls_path[element - 1])
 			return (ERROR);
-		text->wall[element - 1] = ft_strtrim(line + 3, " ");
+		text->walls_path[element - 1] = ft_strtrim(line + 3, " ");
 		return (SUCCESS);
 	}
 	else if (element == FLOOR)
@@ -112,7 +112,7 @@ static t_textures	*parse_elements(char **file, size_t *line)
 	text->floor = -1;
 	text->ceiling = -1;
 	while (++i < 4)
-		text->wall[i] = NULL;
+		text->walls_path[i] = NULL;
 	i = -1;
 	while (file[++i])
 	{
@@ -139,14 +139,14 @@ t_textures	*get_textures(char **file, size_t *line)
 	if (!texts)
 		return (NULL);
 	while (++i < 4)
-		if (!texts->wall[i])
+		if (!texts->walls_path[i])
 			f = 1;
 	if (f || texts->ceiling == -1 || texts->floor == -1)
 	{
 		i = -1;
 		while (++i < 4)
-			if (texts->wall[i])
-				free(texts->wall[i]);
+			if (texts->walls_path[i])
+				free(texts->walls_path[i]);
 		free(texts);
 		return (ft_putstr_fd(ELEMENTS_ERROR, 2), NULL);
 	}

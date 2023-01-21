@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/16 21:11:47 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/21 02:43:10 by ommohame         ###   ########.fr       */
+/*   Created: 2022/10/29 00:47:46 by ommohame          #+#    #+#             */
+/*   Updated: 2023/01/21 03:25:21 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,13 +71,14 @@ char		**get_file(char *map_path);
 t_textures	*get_textures(char **file, size_t *line);
 t_map		*get_map(char **file);
 t_ray		get_values(t_data *data, double angle);
+int			load_assets(void *mlx_ptr, t_textures *tex);
 
 /************ GAME ENGINE **********/
 int			keys(int keycode, t_data *data);
 
-/************** RAY ***************/
+/************ RENDER *************/
 t_frame		create_frame(void *mlx, int x, int y);
-void		draw_frame(int *img_data, t_ray ray, int x);
+void		draw_frame(t_textures *text, int *img_data, t_ray ray, int x);
 
 int			game_loop(t_data *data);
 

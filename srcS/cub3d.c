@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 00:46:43 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/20 01:28:37 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/21 03:29:00 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	init_cube(char *map_path)
 		return (ERROR);
 	data->player = get_player(data->map->map); // add to the parser
 	data->mlx_ptr = mlx_init();
+	load_assets(data->mlx_ptr, data->texts); // need to move
 	if (!data->mlx_ptr)
 	{
 		ft_putstr_fd("Cube3D: Error: Failed to init minishell.\n", 2);

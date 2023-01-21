@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/31 16:22:41 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/20 00:36:35 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/12 15:45:20 by oabdalla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	game_loop(t_data *data)
 	while (x < WIDTH)
 	{
 		ray = get_values(data, angle);
-		draw_frame(frame.data, ray, x);
+		draw_frame(data->texts, frame.data, ray, x);
 		angle = fix_angle(angle + ang_inc);
 		x++;
 	}

@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 21:13:34 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/21 02:42:29 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/21 03:51:21 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,10 @@ typedef struct s_frame
 	int		bpp;
 	int		size_line;
 	int		endian;
+	int		img_width;
+	int		img_height;
 }	t_frame;
+
 
 /**
  * @brief This structure holds all the texture paths
@@ -45,9 +48,11 @@ typedef struct s_frame
  */
 typedef struct s_textures
 {
-	char		*wall[4];
 	int			ceiling;
 	int			floor;
+	int			img_width;
+	char		*walls_path[4];
+	t_frame		*walls[4];
 }	t_textures;
 
 /**
