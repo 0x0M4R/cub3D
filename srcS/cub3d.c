@@ -6,11 +6,26 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 00:46:43 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/21 03:29:00 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/22 14:15:33 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+
+void	free_struct(t_data *data)
+{
+	free(data->texts->walls[0]);
+	free(data->texts->walls[1]);
+	free(data->texts->walls[2]);
+	free(data->texts->walls[3]);
+	free(data->texts);
+	free(data->player);
+	free_2d(data->map->map);
+	free(data->map);
+	free(data);
+	exit(EXIT_SUCCESS);
+}
 
 int	init_cube(char *map_path)
 {

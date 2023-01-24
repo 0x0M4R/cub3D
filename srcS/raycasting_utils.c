@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 22:36:28 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/20 23:08:14 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/24 13:52:10 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	check_walls(t_map *map, t_dxy a)
 	i = -1;
 	if (check_map_range(map, a) == ERROR)
 		return (SUCCESS);
-	if (map->map[(int)(a.y / SCALE)][(int)(a.x / SCALE)] == 1)
+	if (map->map[(int)(a.y / SCALE)][(int)(a.x / SCALE)] == '1')
 		return (SUCCESS);
 	get_corners_inc(inc1, inc2);
 	while (++i < 4)

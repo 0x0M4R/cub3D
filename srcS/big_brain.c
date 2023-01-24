@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 18:12:55 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/21 02:55:35 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/24 13:52:25 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,12 @@ double	check_grids(t_data *data, double angle, t_dxy *a, int side)
 		{
 			if (DEBUG)
 			{
-				if (side == EAST || side == WEST)
-					line(*data, data->player->pos.x,
-						data->player->pos.y, a->x, a->y, BLUE);
-				else if (side == NORTH || side == SOUTH)
-					line(*data, data->player->pos.x,
-						data->player->pos.y, a->x, a->y, GREEN);
+				// if (side == EAST || side == WEST)
+				// 	line(*data, data->player->pos.x,
+				// 		data->player->pos.y, a->x, a->y, BLUE);
+				// else if (side == NORTH || side == SOUTH)
+				// 	line(*data, data->player->pos.x,
+				// 		data->player->pos.y, a->x, a->y, GREEN);
 			}
 			break ;
 		}
@@ -128,5 +128,7 @@ t_ray	get_values(t_data *data, double angle)
 			ray.door = 1;
 	if (ray.wall_height > HEIGHT)
 		ray.wall_height = HEIGHT;
+	line(*data, data->player->pos.x, data->player->pos.y,
+		ray.cord.x, ray.cord.y, RED);
 	return (ray);
 }
