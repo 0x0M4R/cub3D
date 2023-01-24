@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 23:08:44 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/24 14:30:06 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/24 17:10:49 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ static double	get_player_angle(char c)
 	else
 		return (180.0);
 }
-
 
 static void	player_pos_ang(t_player *player, char c, size_t i, size_t j)
 {

@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 00:47:46 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/24 14:58:39 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/24 17:23:23 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,8 @@
 # include <math.h>
 # include "../libft/libft.h"
 # include "../mlx/mlx.h"
-# include "debug.h"
 # include "error_msgs.h"
-// # include "data.h"
-
-
+# include "data.h"
 
 enum e_key {
 	W = 13,
@@ -80,13 +77,19 @@ enum e_dir {
 # define MAP_OBJS "01NSEW"
 
 /******** PARSER **********/
-t_data		*parser(char *map_path);
 char		**get_file(char *map_path);
+t_textures	*parse_elements(char **file, size_t *line);
 t_textures	*get_textures(char **file, size_t *line);
-t_map		*get_map(char **file);
+int			parse_map(t_map *map);
+size_t		get_width(char **map);
+int			check_invalid_char(char **file);
+char		**trim_map(char **file);
+int			check_surrounding(t_map *map, size_t i, size_t j);
+char		**squareazz(char **tmp_map, size_t width, size_t height);
 t_ray		get_values(t_data *data, double angle);
 int			load_assets(void *mlx_ptr, t_textures *tex);
 t_player	*get_player(char **map);
+t_data		*parser(char *map_path);
 
 /************ GAME ENGINE **********/
 int			keys(int keycode, t_data *data);
@@ -101,11 +104,13 @@ void		draw_frame(t_textures *text, int *img_data, t_ray ray, int x);
 int			game_loop(t_data *data);
 
 /************* RAYCASTING *************/
+t_dxy		get_inc(double angle, int side);
 t_dxy		first_hpoint(t_dxy pos, double angle, int side);
 t_dxy		first_vpoint(t_dxy pos, double angle, int side);
 int			check_walls(t_map *map, t_dxy a);
 void		get_corners_inc(t_dxy *inc1, t_dxy *inc2);
 int			angle_side(double angle, int side);
+t_ray		ray_info(t_dxy point, int side, double dst);
 
 /********* UTILS **********/
 double		deg_to_rad(double deg);

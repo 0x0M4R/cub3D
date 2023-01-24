@@ -4,18 +4,20 @@ SRCS_DIR		=		./srcs/
 
 SRCS			=		cub3d.c				\
 						parser.c			\
+						read_map.c			\
+						map_utils.c			\
 						map.c				\
 						get_elements.c		\
 						engine.c			\
 						utils.c				\
 						big_brain.c			\
+						rays_utils.c		\
 						raycasting_utils.c	\
 						render.c			\
 						player.c			\
-						tmp.c				\
-						map_utils.c			\
 						assets.c			\
 						memory.c			\
+						# tmp.c				\
 
 OBJS			=		$(addprefix $(SRCS_DIR),$(SRCS:.c=.o))
 

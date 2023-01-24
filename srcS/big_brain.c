@@ -6,38 +6,11 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 18:12:55 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/24 13:55:12 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/24 17:10:15 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-t_dxy	get_inc(double angle, int side)
-{
-	t_dxy	inc;
-
-	if (side == NORTH)
-	{
-		inc.y = -SCALE;
-		inc.x = inc.y / tan(deg_to_rad(angle));
-	}
-	else if (side == SOUTH)
-	{
-		inc.y = SCALE;
-		inc.x = inc.y / tan(deg_to_rad(angle));
-	}
-	else if (side == WEST)
-	{
-		inc.x = -SCALE;
-		inc.y = inc.x * tan(deg_to_rad(angle));
-	}
-	else
-	{
-		inc.x = SCALE;
-		inc.y = inc.x * tan(deg_to_rad(angle));
-	}
-	return (inc);
-}
 
 double	check_grids(t_data *data, double angle, t_dxy *a, int side)
 {
@@ -47,32 +20,11 @@ double	check_grids(t_data *data, double angle, t_dxy *a, int side)
 	while (1)
 	{
 		if (check_walls(data->map, *a) == SUCCESS)
-		{
-			if (DEBUG)
-			{
-				// if (side == EAST || side == WEST)
-				// 	line(*data, data->player->pos.x,
-				// 		data->player->pos.y, a->x, a->y, BLUE);
-				// else if (side == NORTH || side == SOUTH)
-				// 	line(*data, data->player->pos.x,
-				// 		data->player->pos.y, a->x, a->y, GREEN);
-			}
 			break ;
-		}
 		a->x += inc.x;
 		a->y += inc.y;
 	}
 	return (get_dst(data->player->pos, *a));
-}
-
-t_ray	ray_info(t_dxy point, int side, double dst)
-{
-	t_ray	ray;
-
-	ray.cord = point;
-	ray.side = side;
-	ray.wall_height = dst;
-	return (ray);
 }
 
 t_ray	rays(t_data *data, double angle)
@@ -128,8 +80,5 @@ t_ray	get_values(t_data *data, double angle)
 			ray.door = 1;
 	if (ray.wall_height > HEIGHT)
 		ray.wall_height = HEIGHT;
-	if (DEBUG)
-		line(*data, data->player->pos.x, data->player->pos.y,
-			ray.cord.x, ray.cord.y, RED);
 	return (ray);
 }

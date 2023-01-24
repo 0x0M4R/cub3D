@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 15:36:26 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/21 03:15:47 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/24 17:13:10 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ static int	get_colors(char *line)
 
 static int	get_element(t_textures *text, char *line, int element)
 {
-	// need to check the path
 	if (element == ERROR)
 		return (ERROR);
 	if (element >= NORTH && element <= EAST)
@@ -98,7 +97,7 @@ static int	get_element(t_textures *text, char *line, int element)
 	return (ERROR);
 }
 
-static t_textures	*parse_elements(char **file, size_t *line)
+t_textures	*parse_elements(char **file, size_t *line)
 {
 	size_t		i;
 	size_t		count;
@@ -124,31 +123,4 @@ static t_textures	*parse_elements(char **file, size_t *line)
 	if (count != 6)
 		return (ft_putstr_fd(ELEMENTS_ERROR, 2), NULL);
 	return (text);
-}
-
-t_textures	*get_textures(char **file, size_t *line)
-{
-	int			i;
-	int			f;
-	t_textures	*texts;
-
-	*line = 0;
-	texts = parse_elements(file, line);
-	i = -1;
-	f = 0;
-	if (!texts)
-		return (NULL);
-	while (++i < 4)
-		if (!texts->walls_path[i])
-			f = 1;
-	if (f || texts->ceiling == -1 || texts->floor == -1)
-	{
-		i = -1;
-		while (++i < 4)
-			if (texts->walls_path[i])
-				free(texts->walls_path[i]);
-		free(texts);
-		return (ft_putstr_fd(ELEMENTS_ERROR, 2), NULL);
-	}
-	return (texts);
 }

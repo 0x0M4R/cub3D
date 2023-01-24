@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 21:13:34 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/22 14:09:15 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/24 17:23:27 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ typedef struct s_frame
 	int		img_width;
 	int		img_height;
 }	t_frame;
-
 
 /**
  * @brief This structure holds all the texture paths

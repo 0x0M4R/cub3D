@@ -6,11 +6,62 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 16:21:06 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/24 14:31:14 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/24 17:17:07 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+t_textures	*get_textures(char **file, size_t *line)
+{
+	int			i;
+	int			f;
+	t_textures	*texts;
+
+	*line = 0;
+	texts = parse_elements(file, line);
+	i = -1;
+	f = 0;
+	if (!texts)
+		return (NULL);
+	while (++i < 4)
+		if (!texts->walls_path[i])
+			f = 1;
+	if (f || texts->ceiling == -1 || texts->floor == -1)
+	{
+		i = -1;
+		while (++i < 4)
+			if (texts->walls_path[i])
+				free(texts->walls_path[i]);
+		free(texts);
+		return (ft_putstr_fd(ELEMENTS_ERROR, 2), NULL);
+	}
+	return (texts);
+}
+
+t_map	*get_map(char **file)
+{
+	char	**tmp_map;
+	t_map	*map;
+
+	if (!file)
+		return (ft_putstr_fd(MAP_ERROR, 2), NULL);
+	if (check_invalid_char(file) == ERROR)
+		return (NULL);
+	tmp_map = trim_map(file);
+	if (!tmp_map)
+		return (ft_putstr_fd(MALLOC_ERROR, 2), NULL);
+	map = (t_map *)malloc(sizeof(t_map));
+	if (!map)
+		return (free_2d(tmp_map), ft_putstr_fd(MALLOC_ERROR, 2), NULL);
+	map->width = get_width(tmp_map);
+	map->height = ft_strlenx2(tmp_map);
+	map->map = squareazz(tmp_map, map->width, map->height);
+	free(tmp_map);
+	if (parse_map(map) == ERROR)
+		return (free_2d(map->map), free(map), NULL);
+	return (map);
+}
 
 t_data	*parser(char *map_path)
 {
