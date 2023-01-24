@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 17:04:38 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/24 17:21:10 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/24 17:41:41 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,12 +86,12 @@ int	parse_map(t_map *map)
 		{
 			if (map->map[i][j] == '0')
 			{
-				if (check_surrounding(map, i, j) == ERROR)
-					return (ft_putstr_fd(MAP_ERROR, 2), ERROR);
+				if (check_surrounding(map, i, j) == FALSE)
+					return (ft_putstr_fd(MAP_ERROR, 2), FALSE);
 			}
 			j++;
 		}
 		i++;
 	}
-	return (SUCCESS);
+	return (TRUE);
 }

@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 16:21:06 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/24 17:17:07 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/24 17:40:31 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ t_map	*get_map(char **file)
 
 	if (!file)
 		return (ft_putstr_fd(MAP_ERROR, 2), NULL);
-	if (check_invalid_char(file) == ERROR)
+	if (check_invalid_char(file) == FALSE)
 		return (NULL);
 	tmp_map = trim_map(file);
 	if (!tmp_map)
@@ -58,7 +58,7 @@ t_map	*get_map(char **file)
 	map->height = ft_strlenx2(tmp_map);
 	map->map = squareazz(tmp_map, map->width, map->height);
 	free(tmp_map);
-	if (parse_map(map) == ERROR)
+	if (parse_map(map) == FALSE)
 		return (free_2d(map->map), free(map), NULL);
 	return (map);
 }
@@ -103,5 +103,5 @@ t_data	*parser(char *map_path)
 // 		data = parser(av[1]);
 // 	if (!data)
 // 		exit(EXIT_FAILURE);
-// 	exit(EXIT_SUCCESS);
+// 	exit(EXIT_TRUE);
 // }

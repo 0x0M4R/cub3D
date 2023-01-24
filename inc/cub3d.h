@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 00:47:46 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/24 17:23:23 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/25 00:00:00 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,13 @@
 # include "../libft/libft.h"
 # include "../mlx/mlx.h"
 # include "error_msgs.h"
-# include "data.h"
+// # include "data.h"
+# include "debug.h"
+
+enum e_bool {
+	TRUE = 1,
+	FALSE = 0,
+};
 
 enum e_key {
 	W = 13,
@@ -43,9 +49,6 @@ enum e_key {
 	ON_EXPOSE = 12,
 	ON_DESTROY = 17
 };
-
-# define SUCCESS	1
-# define ERROR		0
 
 # define WIDTH		1280
 # define HEIGHT		720
@@ -72,6 +75,7 @@ enum e_dir {
 };
 
 # define SCALE 64
+# define MINIMAP 5
 
 # define MAP_CHARS " 01NSEW"
 # define MAP_OBJS "01NSEW"
@@ -98,8 +102,10 @@ int			keys(int keycode, t_data *data);
 void		ft_exit(t_data *data);
 
 /************ RENDER *************/
+void		alpha_pixel_put(int *img_data, int x, int y, int color);
 t_frame		create_frame(void *mlx, int x, int y);
 void		draw_frame(t_textures *text, int *img_data, t_ray ray, int x);
+void		draw_minimap(t_data *data, int *img_data);
 
 int			game_loop(t_data *data);
 

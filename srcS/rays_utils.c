@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   raycasting_utils.c                                 :+:      :+:    :+:   */
+/*   rays_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 22:36:28 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/24 17:07:26 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/25 00:06:47 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,9 @@ t_dxy	first_hpoint(t_dxy pos, double angle, int side)
 	t_dxy	a;
 
 	if (side == NORTH)
-		a.y = (int)(pos.y / SCALE) * SCALE - 0.000001;
+		a.y = ((int)(pos.y / SCALE)) * SCALE - 0.000001;
 	else if (side == SOUTH)
-		a.y = (int)(pos.y / SCALE) * SCALE + SCALE;
+		a.y = ((int)(pos.y / SCALE)) * SCALE + SCALE;
 	a.x = (pos.y - a.y) / -tan(deg_to_rad(angle)) + pos.x;
 	return (a);
 }
@@ -74,9 +74,9 @@ t_dxy	first_vpoint(t_dxy pos, double angle, int side)
 	t_dxy	a;
 
 	if (side == WEST)
-		a.x = (int)(pos.x / SCALE) * SCALE - 0.000001;
+		a.x = ((int)(pos.x / SCALE)) * SCALE - 0.00000169;
 	else if (side == EAST)
-		a.x = (int)(pos.x / SCALE) * SCALE + SCALE;
+		a.x = ((int)(pos.x / SCALE)) * SCALE + SCALE;
 	a.y = (pos.x - a.x) * -tan(deg_to_rad(angle)) + pos.y;
 	return (a);
 }

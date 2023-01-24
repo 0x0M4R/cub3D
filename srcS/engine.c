@@ -12,6 +12,29 @@
 
 #include "cub3d.h"
 
+// int	collision_check(t_data *data, int key)
+// {
+// 	int		i;
+// 	double	angle;
+// 	t_dxy	coll_point;
+
+// 	i = -1;
+// 	angle = fix_angle(data->player->angle - (FOV / 2));
+// 	coll_point = data->player->pos;
+// 	if (key == W || key == UP)
+// 	{
+// 		while (++i < 3)
+// 		{
+// 			coll_point.x += cos(deg_to_rad(angle)) * SPEED;
+// 			coll_point.y += sin(deg_to_rad(angle)) * SPEED;
+// 			if (data->map->map[(int)(coll_point.y / SCALE)][(int)(coll_point.x / SCALE)] == '1')
+// 				return (FALSE);
+// 			angle = fix_angle(angle + (FOV / 2));
+// 		}
+// 	}
+// 	return (TRUE);
+// }
+
 int	keys(int key, t_data *data)
 {
 	if (key == W || key == UP)
@@ -30,7 +53,7 @@ int	keys(int key, t_data *data)
 		data->player->angle += SPEED;
 	else if (key == ESC || key == Q)
 		ft_exit(data);
-	return (SUCCESS);
+	return (TRUE);
 }
 
 int	game_loop(t_data *data)
@@ -39,21 +62,26 @@ int	game_loop(t_data *data)
 	double	angle;
 	double	ang_inc;
 	t_ray	ray;
-	t_frame	frame;
+	t_frame	mini_f;
+	t_frame	rays_f;
 
 	x = 0;
 	angle = fix_angle(data->player->angle - (FOV / 2));
 	ang_inc = (double)FOV / (double)WIDTH;
-	frame = create_frame(data->mlx_ptr, WIDTH, HEIGHT);
+	mini_f = create_frame(data->mlx_ptr, MINIMAP * SCALE, MINIMAP * SCALE);
+	rays_f = create_frame(data->mlx_ptr, WIDTH, HEIGHT);
 	while (x < WIDTH)
 	{
 		ray = get_values(data, angle);
-		draw_frame(data->texts, frame.data, ray, x);
+		draw_frame(data->texts, rays_f.data, ray, x);
 		angle = fix_angle(angle + ang_inc);
 		x++;
 	}
+	// draw_minimap(data, mini_f.data);
 	mlx_clear_window(data->mlx_ptr, data->win_ptr);
-	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, frame.frame, 0, 0);
-	mlx_destroy_image(data->mlx_ptr, frame.frame);
-	return (SUCCESS);
+	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, rays_f.frame, 0, 0);
+	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, mini_f.frame, 0, 0);
+	mlx_destroy_image(data->mlx_ptr, rays_f.frame);
+	mlx_destroy_image(data->mlx_ptr, mini_f.frame);
+	return (TRUE);
 }

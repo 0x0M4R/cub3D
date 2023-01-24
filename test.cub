@@ -2,7 +2,7 @@ NO       xpms/tile27.xpm
 SO xpms/grass64x64.xpm
 WE   xpms/wall64x64.xpm
 
-EA xpms/exit64x64.xpm
+EA xpms/test.xpm
 
 C 111,30,0
 F  111,110,100
@@ -12,3 +12,18 @@ F  111,110,100
 10011
 1N001
 11111
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

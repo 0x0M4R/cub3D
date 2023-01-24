@@ -8,7 +8,7 @@
         "type": "cppdbg",
         "request": "launch",
         "program": "${workspaceFolder}/cub3d", //path to your programs exe and exe name
-        "args": ["test.cub"],
+        "args": ["test2.cub"],
         "preLaunchTask": "makefile",
         "stopAtEntry": true,
         "cwd": "${workspaceFolder}",

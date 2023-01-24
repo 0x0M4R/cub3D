@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 15:36:26 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/24 17:13:10 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/24 17:40:03 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	check_element(char *line)
 	else if (!ft_strncmp(line, "C ", 2))
 		return (CEILING);
 	else
-		return (ERROR);
+		return (FALSE);
 }
 
 static int	get_color(char *color_str)
@@ -81,20 +81,20 @@ static int	get_colors(char *line)
 
 static int	get_element(t_textures *text, char *line, int element)
 {
-	if (element == ERROR)
-		return (ERROR);
+	if (element == FALSE)
+		return (FALSE);
 	if (element >= NORTH && element <= EAST)
 	{
 		if (text->walls_path[element - 1])
-			return (ERROR);
+			return (FALSE);
 		text->walls_path[element - 1] = ft_strtrim(line + 3, " ");
-		return (SUCCESS);
+		return (TRUE);
 	}
 	else if (element == FLOOR)
-		return (text->floor = get_colors(line + 2), SUCCESS);
+		return (text->floor = get_colors(line + 2), TRUE);
 	else if (element == CEILING)
-		return (text->ceiling = get_colors(line + 2), SUCCESS);
-	return (ERROR);
+		return (text->ceiling = get_colors(line + 2), TRUE);
+	return (FALSE);
 }
 
 t_textures	*parse_elements(char **file, size_t *line)
@@ -115,7 +115,7 @@ t_textures	*parse_elements(char **file, size_t *line)
 	i = -1;
 	while (file[++i])
 	{
-		if (get_element(text, file[i], check_element(file[i])) == SUCCESS)
+		if (get_element(text, file[i], check_element(file[i])) == TRUE)
 			count++;
 		if (count == 6 && *line == 0)
 			*line = i + 1;

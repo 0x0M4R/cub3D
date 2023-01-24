@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 17:14:17 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/24 17:21:12 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/24 17:41:33 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,14 @@
 int	check_surrounding(t_map *map, size_t i, size_t j)
 {
 	if (i == 0 || !ft_strchr(MAP_OBJS, map->map[i - 1][j]))
-		return (ERROR);
+		return (FALSE);
 	else if (j == 0 || !ft_strchr(MAP_OBJS, map->map[i][j - 1]))
-		return (ERROR);
+		return (FALSE);
 	else if (i == map->height - 1 || !ft_strchr(MAP_OBJS, map->map[i + 1][j]))
-		return (ERROR);
+		return (FALSE);
 	else if (j == map->width - 1 || !ft_strchr(MAP_OBJS, map->map[i][j + 1]))
-		return (ERROR);
-	return (SUCCESS);
+		return (FALSE);
+	return (TRUE);
 }
 
 int	check_invalid_char(char **file)
@@ -39,19 +39,19 @@ int	check_invalid_char(char **file)
 		j = -1;
 		trim = ft_strtrim(file[i], " ");
 		if (!trim || !*trim)
-			return (free(trim), ft_putstr_fd(INVALID_CHAR, 2), ERROR);
+			return (free(trim), ft_putstr_fd(INVALID_CHAR, 2), FALSE);
 		free(trim);
 		while (file[i][++j])
 		{
 			if (!ft_strchr(MAP_CHARS, file[i][j]))
-				return (ft_putstr_fd(INVALID_CHAR, 2), ERROR);
+				return (ft_putstr_fd(INVALID_CHAR, 2), FALSE);
 			if (ft_strchr("NSWE", file[i][j]))
 				p_count++;
 		}
 	}
 	if (p_count != 1)
-		return (ft_putstr_fd(PLAYER_ERROR, 2), ERROR);
-	return (SUCCESS);
+		return (ft_putstr_fd(PLAYER_ERROR, 2), FALSE);
+	return (TRUE);
 }
 
 char	**squareazz(char **tmp_map, size_t width, size_t height)

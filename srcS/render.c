@@ -6,13 +6,13 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 19:18:48 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/24 15:06:44 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/24 20:45:53 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	alpha_pixel_put(int *img_data, int x, int y, int color)
+void	alpha_pixel_put(int *img_data, int x, int y, int color)
 {
 	img_data[y * WIDTH + x] = color;
 }

@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 18:12:55 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/24 17:10:15 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/24 17:59:17 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ double	check_grids(t_data *data, double angle, t_dxy *a, int side)
 	inc = get_inc(angle, side);
 	while (1)
 	{
-		if (check_walls(data->map, *a) == SUCCESS)
+		if (check_walls(data->map, *a) == TRUE)
 			break ;
 		a->x += inc.x;
 		a->y += inc.y;
@@ -80,5 +80,7 @@ t_ray	get_values(t_data *data, double angle)
 			ray.door = 1;
 	if (ray.wall_height > HEIGHT)
 		ray.wall_height = HEIGHT;
+	// line(*data, data->player->pos.x, data->player->pos.y, ray.cord.x,
+	// 	ray.cord.y, GREEN);
 	return (ray);
 }

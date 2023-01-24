@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 16:38:59 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/24 16:39:00 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/24 17:42:06 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	load_assets(void *mlx_ptr, t_textures *tex)
 	{
 		tex->walls[i] = (t_frame *)malloc(sizeof(t_frame));
 		if (!tex->walls[i])
-			return (ft_putstr_fd(MALLOC_ERROR, 2), ERROR);
+			return (ft_putstr_fd(MALLOC_ERROR, 2), FALSE);
 		tex->walls[i]->frame = mlx_xpm_file_to_image(mlx_ptr,
 				tex->walls_path[i],
 				&tex->walls[i]->img_width, &tex->walls[i]->img_height);
@@ -52,6 +52,6 @@ int	load_assets(void *mlx_ptr, t_textures *tex)
 		i++;
 	}
 	if (err)
-		return (invalid_asset(mlx_ptr, tex, i), ERROR);
-	return (SUCCESS);
+		return (invalid_asset(mlx_ptr, tex, i), FALSE);
+	return (TRUE);
 }
