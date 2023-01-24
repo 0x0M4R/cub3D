@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 19:18:48 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/21 10:43:58 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/24 15:06:44 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ t_frame	create_frame(void *mlx_ptr, int x, int y)
 
 int	get_texture_color(t_textures *text, t_ray ray, double *texy)
 {
-	int				texx;
-	double			step;
-	int				color;
-	int				i;
+	int		i;
+	int		texx;
+	int		color;
+	double	step;
 
 	i = ray.side;
 	if (ray.side == NORTH || ray.side == SOUTH)
@@ -40,7 +40,8 @@ int	get_texture_color(t_textures *text, t_ray ray, double *texy)
 	else
 		texx = (int)ray.cord.y % text->walls[i - 1]->img_height;
 	step = (text->walls[i - 1]->img_height / ray.wall_height);
-	color = text->walls[i - 1]->data[(int)*texy * text->walls[i - 1]->img_height + texx];
+	color = text->walls[i - 1]
+		->data[(int)*texy * text->walls[i - 1]->img_height + texx];
 	*texy += step;
 	return (color);
 }

@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 18:12:55 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/24 13:52:25 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/24 13:55:12 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,8 @@ t_ray	get_values(t_data *data, double angle)
 			ray.door = 1;
 	if (ray.wall_height > HEIGHT)
 		ray.wall_height = HEIGHT;
-	line(*data, data->player->pos.x, data->player->pos.y,
-		ray.cord.x, ray.cord.y, RED);
+	if (DEBUG)
+		line(*data, data->player->pos.x, data->player->pos.y,
+			ray.cord.x, ray.cord.y, RED);
 	return (ray);
 }

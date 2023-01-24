@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 00:47:46 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/21 03:25:21 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/24 14:58:39 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,21 @@
 # include "error_msgs.h"
 // # include "data.h"
 
+
+
 enum e_key {
+	W = 13,
+	A = 0,
+	S = 1,
+	D = 2,
+	Q = 12,
+	E = 14,
+	ESC = 53,
+	LEFT = 123,
+	UP = 126,
+	RIGHT = 124,
+	DOWN = 125,
+	ENTER = 36,
 	ON_KEYDOWN = 2,
 	ON_KEYUP = 3,
 	ON_MOUSEDOWN = 4,
@@ -72,9 +86,13 @@ t_textures	*get_textures(char **file, size_t *line);
 t_map		*get_map(char **file);
 t_ray		get_values(t_data *data, double angle);
 int			load_assets(void *mlx_ptr, t_textures *tex);
+t_player	*get_player(char **map);
 
 /************ GAME ENGINE **********/
 int			keys(int keycode, t_data *data);
+
+/************ MEM MANG *************/
+void		ft_exit(t_data *data);
 
 /************ RENDER *************/
 t_frame		create_frame(void *mlx, int x, int y);
@@ -89,7 +107,6 @@ int			check_walls(t_map *map, t_dxy a);
 void		get_corners_inc(t_dxy *inc1, t_dxy *inc2);
 int			angle_side(double angle, int side);
 
-t_player	*get_player(char **map);
 /********* UTILS **********/
 double		deg_to_rad(double deg);
 double		get_dst(t_dxy p1, t_dxy p2);

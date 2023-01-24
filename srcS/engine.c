@@ -14,20 +14,22 @@
 
 int	keys(int key, t_data *data)
 {
-	if (key == 13)
+	if (key == W || key == UP)
 	{
 		data->player->pos.x += cos(deg_to_rad(data->player->angle)) * SPEED;
 		data->player->pos.y += sin(deg_to_rad(data->player->angle)) * SPEED;
 	}
-	else if (key == 1)
+	else if (key == S || key == DOWN)
 	{
 		data->player->pos.x -= cos(deg_to_rad(data->player->angle)) * SPEED;
 		data->player->pos.y -= sin(deg_to_rad(data->player->angle)) * SPEED;
 	}
-	else if (key == 0)
+	else if (key == A || key == LEFT)
 		data->player->angle -= SPEED;
-	else if (key == 2)
+	else if (key == D || key == RIGHT)
 		data->player->angle += SPEED;
+	else if (key == ESC || key == Q)
+		ft_exit(data);
 	return (SUCCESS);
 }
 

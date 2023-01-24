@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 16:21:06 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/21 03:28:44 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/24 14:31:14 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,11 @@ t_data	*parser(char *map_path)
 	if (!data->map)
 		return (free_2d(file), free(data->texts), free(data), NULL);
 	free_2d(file);
+	data->player = get_player(data->map->map);
+	if (!data->player)
+		return (free_2d(data->map->map), free(data->map),
+			free_2d(data->texts->walls_path),
+			free(data->texts), free(data), NULL);
 	return (data);
 }
 
