@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 20:36:58 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/25 20:08:05 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/25 22:58:55 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void	pick_square(t_data *data, int *img_data, t_ixy map, t_ixy minimap)
 			MINIMAP_SCALE / 4, BLUE);
 }
 
-void	draw_line(int *img_data, t_dxy pos, double angle)
+void	draw_line(int *img_data, double angle)
 {
 	int		tangent;
 	t_dxy	ray;
@@ -49,12 +49,12 @@ void	draw_line(int *img_data, t_dxy pos, double angle)
 
 	tangent = 0;
 	ray = (t_dxy){0, 0};
-	player.x = 2.5;
-	player.y = 2.5;
-	(void)pos;
-	while(tangent < 50)
+	player.x = (MINIMAP / 2.0) * MINIMAP_SCALE;
+	player.y = (MINIMAP / 2.0) * MINIMAP_SCALE;
+	while (tangent < 50)
 	{
-		alpha_pixel_put(img_data, player.x + ray.x, player.y + ray.y, GREEN, MINIMAP_SCALE * MINIMAP);
+		alpha_pixel_put(img_data,
+			player.x + ray.x, player.y + ray.y, BLUE, MINIMAP_SCALE * MINIMAP);
 		ray.x = cos(deg_to_rad(angle)) * tangent;
 		ray.y = sin(deg_to_rad(angle)) * tangent;
 		tangent += 1;
@@ -86,5 +86,5 @@ void	draw_minimap(t_data *data, int *img_data)
 		minimap.y += MINIMAP_SCALE;
 		map.y++;
 	}
-	// draw_line(img_data, data->player->pos, data->player->angle);
+	draw_line(img_data, data->player->angle);
 }
