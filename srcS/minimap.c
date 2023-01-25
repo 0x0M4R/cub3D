@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 20:36:58 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/25 22:58:55 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/25 23:00:18 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	draw_line(int *img_data, double angle)
 	ray = (t_dxy){0, 0};
 	player.x = (MINIMAP / 2.0) * MINIMAP_SCALE;
 	player.y = (MINIMAP / 2.0) * MINIMAP_SCALE;
-	while (tangent < 50)
+	while (tangent < MINIMAP_SCALE / 2)
 	{
 		alpha_pixel_put(img_data,
 			player.x + ray.x, player.y + ray.y, BLUE, MINIMAP_SCALE * MINIMAP);
