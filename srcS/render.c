@@ -6,15 +6,15 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 19:18:48 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/24 20:45:53 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/25 14:53:02 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	alpha_pixel_put(int *img_data, int x, int y, int color)
+void	alpha_pixel_put(int *img_data, int x, int y, int color, int width)
 {
-	img_data[y * WIDTH + x] = color;
+	img_data[y * width + x] = color;
 }
 
 t_frame	create_frame(void *mlx_ptr, int x, int y)
@@ -59,13 +59,13 @@ void	draw_frame(t_textures *text, int *img_data, t_ray ray, int x)
 	i = (HEIGHT / 2) - (ray.wall_height / 2);
 	j = (HEIGHT / 2) + (ray.wall_height / 2);
 	while (k < i)
-		alpha_pixel_put(img_data, x, k++, text->ceiling);
+		alpha_pixel_put(img_data, x, k++, text->ceiling, WIDTH);
 	while (i < j)
 	{
 		color = get_texture_color(text, ray, &texy);
-		alpha_pixel_put(img_data, x, i++, color);
+		alpha_pixel_put(img_data, x, i++, color, WIDTH);
 	}
 	k = j;
 	while (k < HEIGHT)
-		alpha_pixel_put(img_data, x, k++, text->floor);
+		alpha_pixel_put(img_data, x, k++, text->floor, WIDTH);
 }

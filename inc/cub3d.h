@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 00:47:46 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/25 00:00:00 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/25 17:28:54 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 
 enum e_bool {
 	TRUE = 1,
-	FALSE = 0,
+	FALSE = 0
 };
 
 enum e_key {
@@ -76,6 +76,7 @@ enum e_dir {
 
 # define SCALE 64
 # define MINIMAP 5
+# define MINIMAP_SCALE 32
 
 # define MAP_CHARS " 01NSEW"
 # define MAP_OBJS "01NSEW"
@@ -102,7 +103,7 @@ int			keys(int keycode, t_data *data);
 void		ft_exit(t_data *data);
 
 /************ RENDER *************/
-void		alpha_pixel_put(int *img_data, int x, int y, int color);
+void		alpha_pixel_put(int *img_data, int x, int y, int color, int width);
 t_frame		create_frame(void *mlx, int x, int y);
 void		draw_frame(t_textures *text, int *img_data, t_ray ray, int x);
 void		draw_minimap(t_data *data, int *img_data);

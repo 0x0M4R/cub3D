@@ -5,56 +5,64 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/24 20:36:58 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/24 23:28:16 by ommohame         ###   ########.fr       */
+/*   Created: 2022/01/24 20:36:58 by ommohame          #+#    #+#             */
+/*   Updated: 2023/01/25 18:14:34 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	draw_box(int *img_data, t_dxy point, size_t size, int color)
+int	draw_box(int *img_data, t_ixy start, int size, int color)
 {
-	size_t	i;
-	size_t	j;
+	int		i;
+	int		j;
 
-	i = -1;
-	while (++i < size)
+	j = -1;
+	while (++j < size)
 	{
-		j = -1;
-		while (++j < size)
-			alpha_pixel_put(img_data, point.x + i, point.y + j, color);
+		i = -1;
+		while (++i < size)
+			alpha_pixel_put(img_data, start.x + i,
+				start.y + j, color, MINIMAP_SCALE * MINIMAP);
 	}
+	return (0);
+}
+
+void	pick_square(t_data *data, int *img_data, t_ixy map, t_ixy minimap)
+{
+	if (data->map->map[(int)map.y][(int)map.x] == '1')
+		draw_box(img_data, minimap, MINIMAP_SCALE - 1, RED);
+	else
+		draw_box(img_data, minimap, MINIMAP_SCALE - 1, WHITE);
+	if ((int)(data->player->pos.x / SCALE) == (int)map.x
+		&& (int)(data->player->pos.y / SCALE) == (int)map.y)
+		draw_box(img_data, (t_ixy){minimap.x + (MINIMAP_SCALE * 3 / 8),
+			minimap.y + (MINIMAP_SCALE * 3 / 8)},
+			MINIMAP_SCALE / 4, BLUE);
 }
 
 void	draw_minimap(t_data *data, int *img_data)
 {
-	ssize_t	i;
-	ssize_t	j;
-	t_dxy	point;
+	t_ixy	map;
+	t_ixy	minimap;
 
-	point = (t_dxy){0, 0};
-	i = (int)(data->player->pos.y / SCALE) - 2;
-	while (i < (ssize_t)data->map->height && i < MINIMAP)
+	minimap = (t_ixy){0, 0};
+	map.y = (int)(data->player->pos.y / SCALE) - (int)(MINIMAP / 2);
+	while (minimap.y < MINIMAP_SCALE * MINIMAP)
 	{
-		j = (int)(data->player->pos.x / SCALE) - 2;
-		while (j < (ssize_t)data->map->width && j < MINIMAP)
+		minimap.x = 0;
+		map.x = (int)(data->player->pos.x / SCALE) - (int)(MINIMAP / 2);
+		while (minimap.x < MINIMAP_SCALE * MINIMAP)
 		{
-			point.x = j * SCALE;
-			point.y = i * SCALE;
-			if (i < 0 || i > (ssize_t)data->map->height
-				|| j > (ssize_t)data->map->width || j < 0)
+			if (map.x > (int)data->map->width - 1 || map.x < 0
+				|| map.y > (int)data->map->height - 1 || map.y < 0)
 				;
-			else if (data->map->map[i][j] == '1')
-				draw_box(img_data, point, SCALE, RED);
-			else if (data->map->map[i][j] == '0')
-				draw_box(img_data, point, SCALE, WHITE);
-			else if (data->map->map[i][j] == 'N' || data->map->map[i][j] == 'S' \
-				|| data->map->map[i][j] == 'E' || data->map->map[i][j] == 'W')
-				draw_box(img_data, point, SCALE, GREEN);
 			else
-				draw_box(img_data, point, SCALE, BLUE);
-			j++;
+				pick_square(data, img_data, map, minimap);
+			minimap.x += MINIMAP_SCALE;
+			map.x++;
 		}
-		i++;
+		minimap.y += MINIMAP_SCALE;
+		map.y++;
 	}
 }

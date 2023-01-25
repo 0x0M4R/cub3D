@@ -1,4 +1,4 @@
-NAME			=		cub3d
+  NAME			=		cub3d
 
 SRCS_DIR		=		./srcs/
 
@@ -28,7 +28,7 @@ LIBFT			=		libft/libft.a
 
 CC				=		gcc
 
-CFLAGS			=		-Wall -Werror -Wextra -Iinc -g
+CFLAGS			=		-Wall -Werror -Wextra -Iinc -g #-fsanitize=address
 
 DEBUG			=		-g -DDEBUG
 

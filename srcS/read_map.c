@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 17:18:57 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/25 00:21:50 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/25 11:32:21 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,11 @@ static char	*read_file(int fd)
 	if (!buff)
 		return (ft_putstr_fd(MALLOC_ERROR, 2), NULL);
 	ret = read(fd, buff, BUFFER_SIZE);
-	if (ret < 0)
-		return (ft_putstr_fd(FD_ERROR, 2), NULL);
+	if (ret <= 0)
+		return (free(buff), ft_putstr_fd(FD_ERROR, 2), NULL);
 	file = (char *)malloc(sizeof(char));
+	if (!file)
+		return (ft_putstr_fd(MALLOC_ERROR, 2), free(buff), NULL);
 	file = "";
 	while (ret > 0)
 	{

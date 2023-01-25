@@ -68,7 +68,7 @@ int	game_loop(t_data *data)
 	x = 0;
 	angle = fix_angle(data->player->angle - (FOV / 2));
 	ang_inc = (double)FOV / (double)WIDTH;
-	mini_f = create_frame(data->mlx_ptr, MINIMAP * SCALE, MINIMAP * SCALE);
+	mini_f = create_frame(data->mlx_ptr, MINIMAP * MINIMAP_SCALE, MINIMAP * MINIMAP_SCALE);
 	rays_f = create_frame(data->mlx_ptr, WIDTH, HEIGHT);
 	while (x < WIDTH)
 	{
@@ -77,7 +77,7 @@ int	game_loop(t_data *data)
 		angle = fix_angle(angle + ang_inc);
 		x++;
 	}
-	// draw_minimap(data, mini_f.data);
+	draw_minimap(data, mini_f.data);
 	mlx_clear_window(data->mlx_ptr, data->win_ptr);
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, rays_f.frame, 0, 0);
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, mini_f.frame, 0, 0);
