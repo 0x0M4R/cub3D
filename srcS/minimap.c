@@ -6,13 +6,13 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 20:36:58 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/25 18:14:34 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/25 20:08:05 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	draw_box(int *img_data, t_ixy start, int size, int color)
+static int	draw_box(int *img_data, t_ixy start, int size, int color)
 {
 	int		i;
 	int		j;
@@ -28,7 +28,7 @@ int	draw_box(int *img_data, t_ixy start, int size, int color)
 	return (0);
 }
 
-void	pick_square(t_data *data, int *img_data, t_ixy map, t_ixy minimap)
+static void	pick_square(t_data *data, int *img_data, t_ixy map, t_ixy minimap)
 {
 	if (data->map->map[(int)map.y][(int)map.x] == '1')
 		draw_box(img_data, minimap, MINIMAP_SCALE - 1, RED);
@@ -39,6 +39,27 @@ void	pick_square(t_data *data, int *img_data, t_ixy map, t_ixy minimap)
 		draw_box(img_data, (t_ixy){minimap.x + (MINIMAP_SCALE * 3 / 8),
 			minimap.y + (MINIMAP_SCALE * 3 / 8)},
 			MINIMAP_SCALE / 4, BLUE);
+}
+
+void	draw_line(int *img_data, t_dxy pos, double angle)
+{
+	int		tangent;
+	t_dxy	ray;
+	t_dxy	player;
+
+	tangent = 0;
+	ray = (t_dxy){0, 0};
+	player.x = 2.5;
+	player.y = 2.5;
+	(void)pos;
+	while(tangent < 50)
+	{
+		alpha_pixel_put(img_data, player.x + ray.x, player.y + ray.y, GREEN, MINIMAP_SCALE * MINIMAP);
+		ray.x = cos(deg_to_rad(angle)) * tangent;
+		ray.y = sin(deg_to_rad(angle)) * tangent;
+		tangent += 1;
+	}
+
 }
 
 void	draw_minimap(t_data *data, int *img_data)
@@ -65,4 +86,5 @@ void	draw_minimap(t_data *data, int *img_data)
 		minimap.y += MINIMAP_SCALE;
 		map.y++;
 	}
+	// draw_line(img_data, data->player->pos, data->player->angle);
 }
