@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 00:47:46 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/25 22:51:07 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/26 04:30:52 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,6 @@ enum e_key {
 # define HEIGHT		720
 # define FOV		60
 
-# define SPEED		5
-
 # define RED		0xFF0000
 # define GREEN		0x00FF00
 # define BLUE		0x0000FF
@@ -75,6 +73,7 @@ enum e_dir {
 };
 
 # define SCALE 64
+# define SPEED 10
 # define MINIMAP 5
 # define MINIMAP_SCALE 32
 

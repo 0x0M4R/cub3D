@@ -12,37 +12,14 @@
 
 #include "cub3d.h"
 
-// int	collision_check(t_data *data, int key)
-// {
-// 	int		i;
-// 	double	angle;
-// 	t_dxy	coll_point;
-
-// 	i = -1;
-// 	angle = fix_angle(data->player->angle - (FOV / 2));
-// 	coll_point = data->player->pos;
-// 	if (key == W || key == UP)
-// 	{
-// 		while (++i < 3)
-// 		{
-// 			coll_point.x += cos(deg_to_rad(angle)) * SPEED;
-// 			coll_point.y += sin(deg_to_rad(angle)) * SPEED;
-// 			if (data->map->map[(int)(coll_point.y / SCALE)][(int)(coll_point.x / SCALE)] == '1')
-// 				return (FALSE);
-// 			angle = fix_angle(angle + (FOV / 2));
-// 		}
-// 	}
-// 	return (TRUE);
-// }
-
 int	keys(int key, t_data *data)
 {
-	if (key == W || key == UP)
+	if ((key == W || key == UP) && data->player->forward == FALSE)
 	{
 		data->player->pos.x += cos(deg_to_rad(data->player->angle)) * SPEED;
 		data->player->pos.y += sin(deg_to_rad(data->player->angle)) * SPEED;
 	}
-	else if (key == S || key == DOWN)
+	else if ((key == S || key == DOWN) && data->player->backward == FALSE)
 	{
 		data->player->pos.x -= cos(deg_to_rad(data->player->angle)) * SPEED;
 		data->player->pos.y -= sin(deg_to_rad(data->player->angle)) * SPEED;
