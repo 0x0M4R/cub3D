@@ -26,13 +26,9 @@ int	keys(int key, t_data *data)
 	}
 	else if (key == A)
 	{
-		data->player->pos.x -= SPEED;
-		data->player->pos.y -= SPEED;
 	}
 	else if (key == D)
 	{
-		data->player->pos.x += SPEED;
-		data->player->pos.y += SPEED;
 	}
 	else if (key == LEFT)
 		data->player->angle -= SPEED;

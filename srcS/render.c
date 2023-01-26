@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 19:18:48 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/26 19:24:16 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/27 00:36:28 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,19 +29,24 @@ t_frame	create_frame(void *mlx_ptr, int x, int y)
 
 int	get_texture_color(t_textures *text, t_ray ray, double *texy)
 {
-	int		i;
-	int		texx;
-	int		color;
-	double	step;
+	int			i;
+	int			texx;
+	int			color;
+	double		step;
+	t_frame		*image;
 
 	i = ray.side;
-	if (ray.side == NORTH || ray.side == SOUTH)
-		texx = (int)ray.cord.x % text->walls[i - 1]->img_height;
+	if (ray.door == TRUE)
+		image = text->door;
 	else
-		texx = (int)ray.cord.y % text->walls[i - 1]->img_height;
-	step = (text->walls[i - 1]->img_height / ray.wall_height);
-	color = text->walls[i - 1]
-		->data[(int)*texy * text->walls[i - 1]->img_height + texx];
+		image = text->walls[i - 1];
+	if (ray.side == NORTH || ray.side == SOUTH)
+		texx = (int)ray.cord.x % image->img_height;
+	else
+		texx = (int)ray.cord.y % image->img_height;
+	step = (image->img_height / ray.wall_height);
+	color = image
+		->data[(int)*texy * image->img_height + texx];
 	*texy += step;
 	return (color);
 }

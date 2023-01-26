@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 21:13:34 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/26 19:26:06 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/27 00:09:19 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,12 @@ typedef struct s_frame
  */
 typedef struct s_textures
 {
-	int			ceiling;
 	int			floor;
+	int			ceiling;
 	int			img_width;
 	char		*walls_path[4];
 	t_frame		*walls[4];
+	t_frame		*door;
 }	t_textures;
 
 /**

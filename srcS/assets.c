@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 16:38:59 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/24 17:42:06 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/27 00:23:05 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,23 @@ static void	invalid_asset(void *mlx_ptr, t_textures *tex, int i)
 		i++;
 	}
 	ft_putstr_fd(TEXTURE_ERROR, 2);
+}
+
+int	get_door(void *mlx_ptr, t_textures *tex)
+{
+	tex->door = (t_frame *)malloc(sizeof(t_frame));
+	if (!tex->door)
+		return (ft_putstr_fd(MALLOC_ERROR, 2), FALSE);
+	tex->door->frame = mlx_xpm_file_to_image(mlx_ptr,
+			"xpms/door.xpm",
+			&tex->door->img_width, &tex->door->img_height);
+	if (!tex->door->frame)
+		return (FALSE);
+	else
+		tex->door->data = (int *)mlx_get_data_addr(
+				tex->door->frame, &tex->door->bpp,
+				&tex->door->size_line, &tex->door->endian);
+	return (TRUE);
 }
 
 int	load_assets(void *mlx_ptr, t_textures *tex)
@@ -51,7 +68,7 @@ int	load_assets(void *mlx_ptr, t_textures *tex)
 		free(tex->walls_path[i]);
 		i++;
 	}
-	if (err)
+	if (err || get_door(mlx_ptr, tex) == FALSE)
 		return (invalid_asset(mlx_ptr, tex, i), FALSE);
 	return (TRUE);
 }

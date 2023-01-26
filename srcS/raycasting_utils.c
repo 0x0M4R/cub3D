@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 23:05:32 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/24 17:40:41 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/27 00:28:24 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	check_walls(t_map *map, t_dxy a)
 	i = -1;
 	if (check_map_range(map, a) == FALSE)
 		return (TRUE);
-	if (map->map[(int)(a.y / SCALE)][(int)(a.x / SCALE)] == '1')
+	if (ft_strchr("1C", map->map[(int)(a.y / SCALE)][(int)(a.x / SCALE)]))
 		return (TRUE);
 	get_corners_inc(inc1, inc2);
 	while (++i < 4)
@@ -59,8 +59,8 @@ int	check_walls(t_map *map, t_dxy a)
 			|| check_map_range(map, corner2) == FALSE)
 			;
 		else if (
-			map->map[(int)(corner1.y / SCALE)][(int)(corner1.x / SCALE)] == '1'
-		&& map->map[(int)(corner2.y / SCALE)][(int)(corner2.x / SCALE)] == '1')
+			ft_strchr("1C", map->map[(int)(corner1.y / SCALE)][(int)(corner1.x / SCALE)])
+		&& ft_strchr("1C", map->map[(int)(corner2.y / SCALE)][(int)(corner2.x / SCALE)]))
 			return (TRUE);
 	}
 	return (FALSE);

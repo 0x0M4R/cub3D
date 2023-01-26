@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 00:47:46 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/26 19:28:17 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/27 01:06:32 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ enum e_move {
 	RIGHTT = 3
 };
 
-# define SCALE 128
+# define SCALE 64
 # define SPEED 10
 # define MINIMAP 5
 # define MINIMAP_SCALE 32
@@ -85,8 +85,8 @@ enum e_move {
 # define WIN_HEIGHT 1080
 # define FOV 60
 
-# define MAP_CHARS " 01NSEW"
-# define MAP_OBJS "01NSEW"
+# define MAP_CHARS " 01NSEWC"
+# define MAP_OBJS "01NSEWC"
 
 /******** PARSER **********/
 char		**get_file(char *map_path);

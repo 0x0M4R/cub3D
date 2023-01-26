@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 18:12:55 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/26 19:30:17 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/27 00:09:47 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,8 +109,8 @@ t_ray	get_values(t_data *data, double angle)
 	ray.wall_height = (SCALE * WIN_HEIGHT) / ray.wall_height;
 	if (check_map_range(data->map, ray.cord)
 		&& data->map->map[(int)(ray.cord.y / SCALE)]
-			[(int)(ray.cord.x / SCALE)] == '2')
-			ray.door = 1;
+			[(int)(ray.cord.x / SCALE)] == 'C')
+			ray.door = TRUE;
 	if (ray.wall_height > WIN_HEIGHT)
 		ray.wall_height = WIN_HEIGHT;
 	collision_check(data);
