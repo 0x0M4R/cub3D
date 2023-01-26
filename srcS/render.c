@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 19:18:48 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/26 04:00:55 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/26 19:24:16 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,16 +56,16 @@ void	draw_frame(t_textures *text, int *img_data, t_ray ray, int x)
 
 	texy = 0;
 	k = 0;
-	i = (HEIGHT / 2) - (ray.wall_height / 2);
-	j = (HEIGHT / 2) + (ray.wall_height / 2);
+	i = (WIN_HEIGHT / 2) - (ray.wall_height / 2);
+	j = (WIN_HEIGHT / 2) + (ray.wall_height / 2);
 	while (k < i)
-		alpha_pixel_put(img_data, x, k++, text->ceiling, WIDTH);
+		alpha_pixel_put(img_data, x, k++, text->ceiling, WIN_WIDTH);
 	while (i < j)
 	{
 		color = get_texture_color(text, ray, &texy);
-		alpha_pixel_put(img_data, x, i++, color, WIDTH);
+		alpha_pixel_put(img_data, x, i++, color, WIN_WIDTH);
 	}
 	k = j;
-	while (k < HEIGHT)
-		alpha_pixel_put(img_data, x, k++, text->floor, WIDTH);
+	while (k < WIN_HEIGHT)
+		alpha_pixel_put(img_data, x, k++, text->floor, WIN_WIDTH);
 }

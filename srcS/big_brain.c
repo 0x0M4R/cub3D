@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 18:12:55 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/26 04:05:08 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/26 19:30:17 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,8 @@ double	fishazz(double ray_dst, double angle, double p_angle)
 {
 	double	angleito;
 
-	angleito = deg_to_rad(p_angle - angle);
-	if (angleito < 0)
-		angleito += 2 * M_PI;
-	else if (angleito > 2 * M_PI)
-		angleito -= 2 * M_PI;
+	angleito = fix_angle(angle - p_angle);
+	angleito = deg_to_rad(angleito);
 	return (ray_dst * cos((angleito)));
 }
 
@@ -74,7 +71,7 @@ void	collision_check(t_data *data)
 	t_dxy	point;
 
 	i = -1;
-	data->player->forward = FALSE;
+	data->player->collision[FORWARD] = FALSE;
 	angle = fix_angle(data->player->angle - 35);
 	while (++i < 7)
 	{
@@ -82,21 +79,21 @@ void	collision_check(t_data *data)
 		point.y = data->player->pos.y + (sin(deg_to_rad(angle)) * (SCALE / 8));
 		if (check_walls(data->map, point) == TRUE)
 		{
-			data->player->forward = TRUE;
+			data->player->collision[FORWARD] = TRUE;
 			break ;
 		}
 		angle = fix_angle(angle + 10);
 	}
 	i = -1;
-	data->player->backward = FALSE;
-	angle = fix_angle(data->player->angle + 35 - 180);
+	data->player->collision[BACKWARD] = FALSE;
+	angle = fix_angle(data->player->angle - 35);
 	while (++i < 7)
 	{
-		point.x = data->player->pos.x + (cos(deg_to_rad(angle)) * (SCALE / 8));
-		point.y = data->player->pos.y + (sin(deg_to_rad(angle)) * (SCALE / 8));
+		point.x = data->player->pos.x - (cos(deg_to_rad(angle)) * (SCALE / 8));
+		point.y = data->player->pos.y - (sin(deg_to_rad(angle)) * (SCALE / 8));
 		if (check_walls(data->map, point) == TRUE)
 		{
-			data->player->backward = TRUE;
+			data->player->collision[BACKWARD] = TRUE;
 			break ;
 		}
 		angle = fix_angle(angle + 10);
@@ -109,13 +106,13 @@ t_ray	get_values(t_data *data, double angle)
 
 	ray = rays(data, angle);
 	ray.wall_height = fishazz(ray.wall_height, angle, data->player->angle);
-	ray.wall_height = (SCALE * HEIGHT) / ray.wall_height;
+	ray.wall_height = (SCALE * WIN_HEIGHT) / ray.wall_height;
 	if (check_map_range(data->map, ray.cord)
 		&& data->map->map[(int)(ray.cord.y / SCALE)]
 			[(int)(ray.cord.x / SCALE)] == '2')
 			ray.door = 1;
-	if (ray.wall_height > HEIGHT)
-		ray.wall_height = HEIGHT;
+	if (ray.wall_height > WIN_HEIGHT)
+		ray.wall_height = WIN_HEIGHT;
 	collision_check(data);
 	// line(*data, data->player->pos.x, data->player->pos.y, ray.cord.x,
 	// 	ray.cord.y, GREEN);

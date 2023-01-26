@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 00:47:46 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/26 04:30:52 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/26 19:28:17 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,16 +50,14 @@ enum e_key {
 	ON_DESTROY = 17
 };
 
-# define WIDTH		1280
-# define HEIGHT		720
-# define FOV		60
-
-# define RED		0xFF0000
-# define GREEN		0x00FF00
-# define BLUE		0x0000FF
-# define WHITE		0xFFFFFF
-# define YELLOW		0xFFFF00
-# define BLACK		0x000000
+enum e_colors {
+	RED = 0xFF0000,
+	GREEN = 0x00FF00,
+	BLUE = 0x0000FF,
+	WHITE = 0xFFFFFF,
+	YELLOW = 0xFFFF00,
+	BLACK = 0x000000
+};
 
 enum e_dir {
 	NORTH		= 1,
@@ -72,10 +70,20 @@ enum e_dir {
 	HORIZONTAL	= 8,
 };
 
-# define SCALE 64
+enum e_move {
+	FORWARD = 0,
+	BACKWARD = 1,
+	LEFTT = 2,
+	RIGHTT = 3
+};
+
+# define SCALE 128
 # define SPEED 10
 # define MINIMAP 5
 # define MINIMAP_SCALE 32
+# define WIN_WIDTH 1920
+# define WIN_HEIGHT 1080
+# define FOV 60
 
 # define MAP_CHARS " 01NSEW"
 # define MAP_OBJS "01NSEW"
@@ -99,7 +107,7 @@ t_data		*parser(char *map_path);
 int			keys(int keycode, t_data *data);
 
 /************ MEM MANG *************/
-void		ft_exit(t_data *data);
+int			ft_exit(t_data *data);
 
 /************ RENDER *************/
 void		alpha_pixel_put(int *img_data, int x, int y, int color, int width);

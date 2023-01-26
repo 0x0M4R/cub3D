@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 21:13:34 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/25 18:59:58 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/26 19:26:06 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,8 @@ typedef struct s_dxy
 typedef struct s_player
 {
 	t_dxy	pos;
-	int		forward;
-	int		backward;
 	double	angle;
+	int		collision[4];
 }				t_player;
 
 typedef struct s_map

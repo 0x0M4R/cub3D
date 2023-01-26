@@ -14,19 +14,29 @@
 
 int	keys(int key, t_data *data)
 {
-	if ((key == W || key == UP) && data->player->forward == FALSE)
+	if ((key == W || key == UP) && data->player->collision[FORWARD] == FALSE)
 	{
 		data->player->pos.x += cos(deg_to_rad(data->player->angle)) * SPEED;
 		data->player->pos.y += sin(deg_to_rad(data->player->angle)) * SPEED;
 	}
-	else if ((key == S || key == DOWN) && data->player->backward == FALSE)
+	else if ((key == S || key == DOWN) && data->player->collision[BACKWARD] == FALSE)
 	{
 		data->player->pos.x -= cos(deg_to_rad(data->player->angle)) * SPEED;
 		data->player->pos.y -= sin(deg_to_rad(data->player->angle)) * SPEED;
 	}
-	else if (key == A || key == LEFT)
+	else if (key == A)
+	{
+		data->player->pos.x -= SPEED;
+		data->player->pos.y -= SPEED;
+	}
+	else if (key == D)
+	{
+		data->player->pos.x += SPEED;
+		data->player->pos.y += SPEED;
+	}
+	else if (key == LEFT)
 		data->player->angle -= SPEED;
-	else if (key == D || key == RIGHT)
+	else if (key == RIGHT)
 		data->player->angle += SPEED;
 	else if (key == ESC || key == Q)
 		ft_exit(data);
@@ -44,10 +54,10 @@ int	game_loop(t_data *data)
 
 	x = 0;
 	angle = fix_angle(data->player->angle - (FOV / 2));
-	ang_inc = (double)FOV / (double)WIDTH;
+	ang_inc = (double)FOV / (double)WIN_WIDTH;
 	mini_f = create_frame(data->mlx_ptr, MINIMAP * MINIMAP_SCALE, MINIMAP * MINIMAP_SCALE);
-	rays_f = create_frame(data->mlx_ptr, WIDTH, HEIGHT);
-	while (x < WIDTH)
+	rays_f = create_frame(data->mlx_ptr, WIN_WIDTH, WIN_HEIGHT);
+	while (x < WIN_WIDTH)
 	{
 		ray = get_values(data, angle);
 		draw_frame(data->texts, rays_f.data, ray, x);

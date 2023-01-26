@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/31 16:26:25 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/20 23:05:23 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/26 18:50:38 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ double	get_dst(t_dxy p1, t_dxy p2)
 
 double	fix_angle(double angle)
 {
-	if (angle <= 0)
-		return (angle + 359.0);
-	else if (angle > 359.0)
-		return (angle - 359.0);
+	if (angle < 0)
+		return (angle + 360.0);
+	else if (angle > 360.0)
+		return (angle - 360.0);
 	else
 		return (angle);
 }
