@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 16:38:59 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/27 00:23:05 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/27 12:11:17 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	get_door(void *mlx_ptr, t_textures *tex)
 	if (!tex->door)
 		return (ft_putstr_fd(MALLOC_ERROR, 2), FALSE);
 	tex->door->frame = mlx_xpm_file_to_image(mlx_ptr,
-			"xpms/door.xpm",
+			"xpms/alka.xpm",
 			&tex->door->img_width, &tex->door->img_height);
 	if (!tex->door->frame)
 		return (FALSE);

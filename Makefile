@@ -18,6 +18,8 @@ SRCS			=		cub3d.c				\
 						assets.c			\
 						memory.c			\
 						minimap.c			\
+						doors.c				\
+						collision.c			\
 						# tmp.c				\
 
 OBJS			=		$(addprefix $(SRCS_DIR),$(SRCS:.c=.o))

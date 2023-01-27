@@ -24,12 +24,18 @@ int	keys(int key, t_data *data)
 		data->player->pos.x -= cos(deg_to_rad(data->player->angle)) * SPEED;
 		data->player->pos.y -= sin(deg_to_rad(data->player->angle)) * SPEED;
 	}
-	else if (key == A)
+	else if (key == A && data->player->collision[LEFTT] == FALSE)
 	{
+		data->player->pos.x -= cos(deg_to_rad(90 + data->player->angle)) * SPEED;
+		data->player->pos.y -= sin(deg_to_rad(90 + data->player->angle)) * SPEED;
 	}
-	else if (key == D)
+	else if (key == D && data->player->collision[RIGHTT] == FALSE)
 	{
+		data->player->pos.x += cos(deg_to_rad(90 + data->player->angle)) * SPEED;
+		data->player->pos.y += sin(deg_to_rad(90 + data->player->angle)) * SPEED;
 	}
+	else if (key == E)
+		doors(data);
 	else if (key == LEFT)
 		data->player->angle -= SPEED;
 	else if (key == RIGHT)

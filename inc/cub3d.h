@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 00:47:46 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/27 01:06:32 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/27 12:30:50 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,12 @@ enum e_colors {
 	BLACK = 0x000000
 };
 
+enum e_door {
+	NOT = 0,
+	OPEN = 1,
+	CLOSE = 2,
+};
+
 enum e_dir {
 	NORTH		= 1,
 	SOUTH		= 2,
@@ -77,7 +83,7 @@ enum e_move {
 	RIGHTT = 3
 };
 
-# define SCALE 64
+# define SCALE 128
 # define SPEED 10
 # define MINIMAP 5
 # define MINIMAP_SCALE 32
@@ -113,7 +119,7 @@ int			ft_exit(t_data *data);
 void		alpha_pixel_put(int *img_data, int x, int y, int color, int width);
 t_frame		create_frame(void *mlx, int x, int y);
 void		draw_frame(t_textures *text, int *img_data, t_ray ray, int x);
-void		draw_minimap(t_data *data, int *img_data);
+
 
 int			game_loop(t_data *data);
 
@@ -133,5 +139,10 @@ double		fix_angle(double angle);
 void		free_2d(char **str);
 size_t		ft_strlenx2(char **str);
 int			check_map_range(t_map *map, t_dxy point);
+
+/********** BONUS ***********/
+void		draw_minimap(t_data *data, int *img_data);
+int			doors(t_data *data);
+void		collision_check(t_data *data);
 
 #endif

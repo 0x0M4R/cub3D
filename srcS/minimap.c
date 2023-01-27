@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 20:36:58 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/25 23:00:18 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/27 13:13:19 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,21 @@ static int	draw_box(int *img_data, t_ixy start, int size, int color)
 static void	pick_square(t_data *data, int *img_data, t_ixy map, t_ixy minimap)
 {
 	if (data->map->map[(int)map.y][(int)map.x] == '1')
+		draw_box(img_data, minimap, MINIMAP_SCALE - 1, BLUE);
+	else if (data->map->map[(int)map.y][(int)map.x] == 'C')
 		draw_box(img_data, minimap, MINIMAP_SCALE - 1, RED);
+	else if (data->map->map[(int)map.y][(int)map.x] == 'O')
+		draw_box(img_data, minimap, MINIMAP_SCALE - 1, GREEN);
 	else
 		draw_box(img_data, minimap, MINIMAP_SCALE - 1, WHITE);
 	if ((int)(data->player->pos.x / SCALE) == (int)map.x
 		&& (int)(data->player->pos.y / SCALE) == (int)map.y)
 		draw_box(img_data, (t_ixy){minimap.x + (MINIMAP_SCALE * 3 / 8),
 			minimap.y + (MINIMAP_SCALE * 3 / 8)},
-			MINIMAP_SCALE / 4, BLUE);
+			MINIMAP_SCALE / 4, BLACK);
 }
 
-void	draw_line(int *img_data, double angle)
+static void	draw_line(int *img_data, double angle, int color)
 {
 	int		tangent;
 	t_dxy	ray;
@@ -54,7 +58,7 @@ void	draw_line(int *img_data, double angle)
 	while (tangent < MINIMAP_SCALE / 2)
 	{
 		alpha_pixel_put(img_data,
-			player.x + ray.x, player.y + ray.y, BLUE, MINIMAP_SCALE * MINIMAP);
+			player.x + ray.x, player.y + ray.y, color, MINIMAP_SCALE * MINIMAP);
 		ray.x = cos(deg_to_rad(angle)) * tangent;
 		ray.y = sin(deg_to_rad(angle)) * tangent;
 		tangent += 1;
@@ -86,5 +90,5 @@ void	draw_minimap(t_data *data, int *img_data)
 		minimap.y += MINIMAP_SCALE;
 		map.y++;
 	}
-	draw_line(img_data, data->player->angle);
+	draw_line(img_data, data->player->angle, BLACK);
 }

@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 18:12:55 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/27 00:09:47 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/27 12:25:04 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,41 +64,6 @@ double	fishazz(double ray_dst, double angle, double p_angle)
 	return (ray_dst * cos((angleito)));
 }
 
-void	collision_check(t_data *data)
-{
-	int		i;
-	size_t	angle;
-	t_dxy	point;
-
-	i = -1;
-	data->player->collision[FORWARD] = FALSE;
-	angle = fix_angle(data->player->angle - 35);
-	while (++i < 7)
-	{
-		point.x = data->player->pos.x + (cos(deg_to_rad(angle)) * (SCALE / 8));
-		point.y = data->player->pos.y + (sin(deg_to_rad(angle)) * (SCALE / 8));
-		if (check_walls(data->map, point) == TRUE)
-		{
-			data->player->collision[FORWARD] = TRUE;
-			break ;
-		}
-		angle = fix_angle(angle + 10);
-	}
-	i = -1;
-	data->player->collision[BACKWARD] = FALSE;
-	angle = fix_angle(data->player->angle - 35);
-	while (++i < 7)
-	{
-		point.x = data->player->pos.x - (cos(deg_to_rad(angle)) * (SCALE / 8));
-		point.y = data->player->pos.y - (sin(deg_to_rad(angle)) * (SCALE / 8));
-		if (check_walls(data->map, point) == TRUE)
-		{
-			data->player->collision[BACKWARD] = TRUE;
-			break ;
-		}
-		angle = fix_angle(angle + 10);
-	}
-}
 
 t_ray	get_values(t_data *data, double angle)
 {
