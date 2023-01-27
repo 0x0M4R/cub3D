@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 14:55:00 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/27 00:16:46 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/27 17:31:41 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static void	destroy_mlx(t_data *data)
 	i = -1;
 	while (++i < 4)
 		mlx_destroy_image(data->mlx_ptr, data->texts->walls[i]->frame);
+	mlx_destroy_image(data->mlx_ptr, data->texts->door->frame);
 	mlx_destroy_window(data->mlx_ptr, data->win_ptr);
 }
 
@@ -29,6 +30,7 @@ static void	free_struct(t_data *data)
 	i = -1;
 	while (++i < 4)
 		free(data->texts->walls[i]);
+	free(data->texts->door);
 	free(data->texts);
 	free(data->player);
 	free_2d(data->map->map);

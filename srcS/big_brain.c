@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 18:12:55 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/27 12:25:04 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/27 17:54:21 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ double	fishazz(double ray_dst, double angle, double p_angle)
 	return (ray_dst * cos((angleito)));
 }
 
-
 t_ray	get_values(t_data *data, double angle)
 {
 	t_ray	ray;
@@ -78,8 +77,6 @@ t_ray	get_values(t_data *data, double angle)
 			ray.door = TRUE;
 	if (ray.wall_height > WIN_HEIGHT)
 		ray.wall_height = WIN_HEIGHT;
-	collision_check(data);
-	// line(*data, data->player->pos.x, data->player->pos.y, ray.cord.x,
-	// 	ray.cord.y, GREEN);
+	collision(data);
 	return (ray);
 }

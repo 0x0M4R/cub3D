@@ -6,12 +6,9 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 10:23:19 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/27 15:24:28 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/27 17:34:54 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "cub3d.h"
-
 
 #include "cub3d.h"
 

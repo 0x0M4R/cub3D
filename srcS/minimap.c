@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 20:36:58 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/27 13:13:19 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/27 17:53:46 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ static int	draw_box(int *img_data, t_ixy start, int size, int color)
 	{
 		i = -1;
 		while (++i < size)
-			alpha_pixel_put(img_data, start.x + i,
-				start.y + j, color, MINIMAP_SCALE * MINIMAP);
+			alpha_pixel_put(img_data, (t_ixy){start.x + i,
+				start.y + j}, color, MINIMAP_SCALE * MINIMAP);
 	}
 	return (0);
 }
@@ -57,16 +57,15 @@ static void	draw_line(int *img_data, double angle, int color)
 	player.y = (MINIMAP / 2.0) * MINIMAP_SCALE;
 	while (tangent < MINIMAP_SCALE / 2)
 	{
-		alpha_pixel_put(img_data,
-			player.x + ray.x, player.y + ray.y, color, MINIMAP_SCALE * MINIMAP);
+		alpha_pixel_put(img_data, (t_ixy){player.x + ray.x, player.y + ray.y},
+			color, MINIMAP_SCALE * MINIMAP);
 		ray.x = cos(deg_to_rad(angle)) * tangent;
 		ray.y = sin(deg_to_rad(angle)) * tangent;
 		tangent += 1;
 	}
-
 }
 
-void	draw_minimap(t_data *data, int *img_data)
+static void	draw_minimap(t_data *data, int *img_data)
 {
 	t_ixy	map;
 	t_ixy	minimap;
@@ -91,4 +90,16 @@ void	draw_minimap(t_data *data, int *img_data)
 		map.y++;
 	}
 	draw_line(img_data, data->player->angle, BLACK);
+}
+
+int	minimap(t_data *data)
+{
+	t_frame	mini_f;
+
+	mini_f = create_frame(data->mlx_ptr,
+			MINIMAP * MINIMAP_SCALE, MINIMAP * MINIMAP_SCALE);
+	draw_minimap(data, mini_f.data);
+	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, mini_f.frame, 0, 0);
+	mlx_destroy_image(data->mlx_ptr, mini_f.frame);
+	return (TRUE);
 }

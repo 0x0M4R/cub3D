@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 12:24:09 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/27 15:46:41 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/27 17:54:22 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,10 @@ static void	left_collision(t_data *data)
 	angle = fix_angle(data->player->angle - 30);
 	while (++i < 7)
 	{
-		point.x = data->player->pos.x - (cos(deg_to_rad(90 + angle)) * (SCALE / 8));
-		point.y = data->player->pos.y - (sin(deg_to_rad(90 + angle)) * (SCALE / 8));
+		point.x = data->player->pos.x
+			- (cos(deg_to_rad(90 + angle)) * (SCALE / 8));
+		point.y = data->player->pos.y
+			- (sin(deg_to_rad(90 + angle)) * (SCALE / 8));
 		if (check_walls(data->map, point) == TRUE)
 		{
 			data->player->collision[LEFTT] = TRUE;
@@ -89,8 +91,10 @@ static void	right_collision(t_data *data)
 	angle = fix_angle(data->player->angle - 30);
 	while (++i < 7)
 	{
-		point.x = data->player->pos.x + (cos(deg_to_rad(90 + angle)) * (SCALE / 8));
-		point.y = data->player->pos.y + (sin(deg_to_rad(90 + angle)) * (SCALE / 8));
+		point.x = data->player->pos.x
+			+ (cos(deg_to_rad(90 + angle)) * (SCALE / 8));
+		point.y = data->player->pos.y
+			+ (sin(deg_to_rad(90 + angle)) * (SCALE / 8));
 		if (check_walls(data->map, point) == TRUE)
 		{
 			data->player->collision[RIGHTT] = TRUE;
@@ -100,7 +104,7 @@ static void	right_collision(t_data *data)
 	}
 }
 
-void	collision_check(t_data *data)
+void	collision(t_data *data)
 {
 	forward_collision(data);
 	backward_collision(data);

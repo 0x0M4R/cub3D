@@ -12,28 +12,40 @@
 
 #include "cub3d.h"
 
-int	keys(int key, t_data *data)
+void	player_movement(int key, t_data *data)
 {
 	if ((key == W || key == UP) && data->player->collision[FORWARD] == FALSE)
 	{
 		data->player->pos.x += cos(deg_to_rad(data->player->angle)) * SPEED;
 		data->player->pos.y += sin(deg_to_rad(data->player->angle)) * SPEED;
 	}
-	else if ((key == S || key == DOWN) && data->player->collision[BACKWARD] == FALSE)
+	else if ((key == S || key == DOWN)
+		&& data->player->collision[BACKWARD] == FALSE)
 	{
 		data->player->pos.x -= cos(deg_to_rad(data->player->angle)) * SPEED;
 		data->player->pos.y -= sin(deg_to_rad(data->player->angle)) * SPEED;
 	}
 	else if (key == A && data->player->collision[LEFTT] == FALSE)
 	{
-		data->player->pos.x -= cos(deg_to_rad(90 + data->player->angle)) * SPEED;
-		data->player->pos.y -= sin(deg_to_rad(90 + data->player->angle)) * SPEED;
+		data->player->pos.x
+			-= cos(deg_to_rad(90 + data->player->angle)) * SPEED;
+		data->player->pos.y
+			-= sin(deg_to_rad(90 + data->player->angle)) * SPEED;
 	}
 	else if (key == D && data->player->collision[RIGHTT] == FALSE)
 	{
-		data->player->pos.x += cos(deg_to_rad(90 + data->player->angle)) * SPEED;
-		data->player->pos.y += sin(deg_to_rad(90 + data->player->angle)) * SPEED;
+		data->player->pos.x
+			+= cos(deg_to_rad(90 + data->player->angle)) * SPEED;
+		data->player->pos.y
+			+= sin(deg_to_rad(90 + data->player->angle)) * SPEED;
 	}
+}
+
+int	keys(int key, t_data *data)
+{
+	if (key == W || key == UP || key == S || key == DOWN
+		|| key == A || key == D)
+		player_movement(key, data);
 	else if (key == E)
 		doors(data);
 	else if (key == LEFT)
@@ -51,13 +63,11 @@ int	game_loop(t_data *data)
 	double	angle;
 	double	ang_inc;
 	t_ray	ray;
-	t_frame	mini_f;
 	t_frame	rays_f;
 
 	x = 0;
 	angle = fix_angle(data->player->angle - (FOV / 2));
 	ang_inc = (double)FOV / (double)WIN_WIDTH;
-	mini_f = create_frame(data->mlx_ptr, MINIMAP * MINIMAP_SCALE, MINIMAP * MINIMAP_SCALE);
 	rays_f = create_frame(data->mlx_ptr, WIN_WIDTH, WIN_HEIGHT);
 	while (x < WIN_WIDTH)
 	{
@@ -66,11 +76,9 @@ int	game_loop(t_data *data)
 		angle = fix_angle(angle + ang_inc);
 		x++;
 	}
-	draw_minimap(data, mini_f.data);
 	mlx_clear_window(data->mlx_ptr, data->win_ptr);
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, rays_f.frame, 0, 0);
-	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, mini_f.frame, 0, 0);
 	mlx_destroy_image(data->mlx_ptr, rays_f.frame);
-	mlx_destroy_image(data->mlx_ptr, mini_f.frame);
+	minimap(data);
 	return (TRUE);
 }

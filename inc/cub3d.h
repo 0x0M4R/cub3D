@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 00:47:46 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/27 12:30:50 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/27 17:54:21 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,7 @@
 # include "../libft/libft.h"
 # include "../mlx/mlx.h"
 # include "error_msgs.h"
-// # include "data.h"
-# include "debug.h"
+# include "data.h"
 
 enum e_bool {
 	TRUE = 1,
@@ -116,10 +115,9 @@ int			keys(int keycode, t_data *data);
 int			ft_exit(t_data *data);
 
 /************ RENDER *************/
-void		alpha_pixel_put(int *img_data, int x, int y, int color, int width);
+void		alpha_pixel_put(int *img_data, t_ixy point, int color, int width);
 t_frame		create_frame(void *mlx, int x, int y);
 void		draw_frame(t_textures *text, int *img_data, t_ray ray, int x);
-
 
 int			game_loop(t_data *data);
 
@@ -141,8 +139,8 @@ size_t		ft_strlenx2(char **str);
 int			check_map_range(t_map *map, t_dxy point);
 
 /********** BONUS ***********/
-void		draw_minimap(t_data *data, int *img_data);
+int			minimap(t_data *data);
 int			doors(t_data *data);
-void		collision_check(t_data *data);
+void		collision(t_data *data);
 
 #endif
