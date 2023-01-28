@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 12:24:09 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/27 17:54:22 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/28 14:53:42 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,10 +104,14 @@ static void	right_collision(t_data *data)
 	}
 }
 
-void	collision(t_data *data)
+void	collision(t_data *data, int key)
 {
-	forward_collision(data);
-	backward_collision(data);
-	left_collision(data);
-	right_collision(data);
+	if (key == W || key == W)
+		forward_collision(data);
+	else if (key == S || key == DOWN)
+		backward_collision(data);
+	else if (key == A)
+		left_collision(data);
+	else if (key == D)
+		right_collision(data);
 }

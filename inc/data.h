@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 21:13:34 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/27 00:09:19 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/28 15:02:53 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ typedef struct s_data
 	void		*mlx_ptr;
 	void		*win_ptr;
 	void		*tmp_win_ptr;
-	int			err;
+	t_ixy		mouse;
 	t_textures	*texts;
 	t_player	*player;
 	t_map		*map;

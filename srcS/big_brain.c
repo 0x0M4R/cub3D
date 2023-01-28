@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 18:12:55 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/27 17:54:21 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/28 14:51:48 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,5 @@ t_ray	get_values(t_data *data, double angle)
 			ray.door = TRUE;
 	if (ray.wall_height > WIN_HEIGHT)
 		ray.wall_height = WIN_HEIGHT;
-	collision(data);
 	return (ray);
 }

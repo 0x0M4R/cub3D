@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 00:47:46 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/27 17:54:21 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/28 14:52:40 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,8 @@ enum e_move {
 # define SPEED 10
 # define MINIMAP 5
 # define MINIMAP_SCALE 32
-# define WIN_WIDTH 1920
-# define WIN_HEIGHT 1080
+# define WIN_WIDTH 1280
+# define WIN_HEIGHT 1024
 # define FOV 60
 
 # define MAP_CHARS " 01NSEWC"
@@ -141,6 +141,6 @@ int			check_map_range(t_map *map, t_dxy point);
 /********** BONUS ***********/
 int			minimap(t_data *data);
 int			doors(t_data *data);
-void		collision(t_data *data);
+void		collision(t_data *data, int key);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 00:46:43 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/27 17:34:00 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/28 15:10:53 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int	cub3d(char *map_path)
 		return (FALSE);
 	data->win_ptr = mlx_new_window(data->mlx_ptr,
 			WIN_WIDTH, WIN_HEIGHT, "cub3d");
+	mlx_mouse_hide();
 	mlx_loop_hook(data->mlx_ptr, game_loop, data);
 	mlx_hook(data->win_ptr, ON_KEYDOWN, 0, &keys, data);
 	mlx_hook(data->win_ptr, 17, (1L << 0), ft_exit, data);

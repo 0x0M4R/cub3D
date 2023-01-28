@@ -43,6 +43,7 @@ void	player_movement(int key, t_data *data)
 
 int	keys(int key, t_data *data)
 {
+	collision(data, key);
 	if (key == W || key == UP || key == S || key == DOWN
 		|| key == A || key == D)
 		player_movement(key, data);
@@ -57,6 +58,18 @@ int	keys(int key, t_data *data)
 	return (TRUE);
 }
 
+int	mouse(t_data *data)
+{
+	int		diff;
+
+	mlx_mouse_get_pos(data->win_ptr, &data->mouse.x, &data->mouse.y);
+	diff = ((WIN_WIDTH / 2) - data->mouse.x) / 100;
+	printf("%d\n", diff);
+	data->player->angle -= diff;
+	mlx_mouse_move(data->win_ptr, WIN_WIDTH / 2, WIN_HEIGHT / 2);
+	return (TRUE);
+}
+
 int	game_loop(t_data *data)
 {
 	int		x;
@@ -66,6 +79,7 @@ int	game_loop(t_data *data)
 	t_frame	rays_f;
 
 	x = 0;
+	mouse(data);
 	angle = fix_angle(data->player->angle - (FOV / 2));
 	ang_inc = (double)FOV / (double)WIN_WIDTH;
 	rays_f = create_frame(data->mlx_ptr, WIN_WIDTH, WIN_HEIGHT);
