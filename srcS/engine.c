@@ -58,15 +58,30 @@ int	keys(int key, t_data *data)
 	return (TRUE);
 }
 
-int	mouse(t_data *data)
+int	mouse_move(t_data *data)
 {
 	int		diff;
 
 	mlx_mouse_get_pos(data->win_ptr, &data->mouse.x, &data->mouse.y);
 	diff = ((WIN_WIDTH / 2) - data->mouse.x) / 100;
-	printf("%d\n", diff);
 	data->player->angle -= diff;
 	mlx_mouse_move(data->win_ptr, WIN_WIDTH / 2, WIN_HEIGHT / 2);
+	if (data->texts->gun_f != 0)
+		data->texts->gun_f++;
+	if (data->texts->gun_f == 5)
+		data->texts->gun_f = 0;
+	return (TRUE);
+}
+
+int	mouse_keys(int key, int x, int y, t_data *data)
+{
+	(void)x;
+	(void)y;
+	if (key == 1)
+	{
+		if (data->texts->gun_f == 0)
+			data->texts->gun_f++;
+	}
 	return (TRUE);
 }
 
@@ -79,7 +94,7 @@ int	game_loop(t_data *data)
 	t_frame	rays_f;
 
 	x = 0;
-	mouse(data);
+	mouse_move(data);
 	angle = fix_angle(data->player->angle - (FOV / 2));
 	ang_inc = (double)FOV / (double)WIN_WIDTH;
 	rays_f = create_frame(data->mlx_ptr, WIN_WIDTH, WIN_HEIGHT);
@@ -92,6 +107,8 @@ int	game_loop(t_data *data)
 	}
 	mlx_clear_window(data->mlx_ptr, data->win_ptr);
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, rays_f.frame, 0, 0);
+	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
+		data->texts->gun[data->texts->gun_f]->frame, 427, 700);
 	mlx_destroy_image(data->mlx_ptr, rays_f.frame);
 	minimap(data);
 	return (TRUE);

@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 00:46:43 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/28 15:10:53 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/28 16:34:05 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ t_data	*init_cube(char *map_path)
 		ft_putstr_fd("Cube3D: FALSE: Failed to init minishell.\n", 2);
 		return (NULL);
 	}
+	data->texts->gun_f = 0;
 	return (data);
 }
 
@@ -46,6 +47,7 @@ int	cub3d(char *map_path)
 	mlx_loop_hook(data->mlx_ptr, game_loop, data);
 	mlx_hook(data->win_ptr, ON_KEYDOWN, 0, &keys, data);
 	mlx_hook(data->win_ptr, 17, (1L << 0), ft_exit, data);
+	mlx_mouse_hook(data->win_ptr, mouse_keys, data);
 	mlx_loop(data->mlx_ptr);
 	return (TRUE);
 }
@@ -53,6 +55,7 @@ int	cub3d(char *map_path)
 int	main(int ac, char **av)
 {
 	int		ret;
+
 
 	if (ac != 2)
 	{

@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 00:47:46 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/28 14:52:40 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/28 16:29:20 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,8 @@ t_data		*parser(char *map_path);
 
 /************ GAME ENGINE **********/
 int			keys(int keycode, t_data *data);
+int			mouse_move(t_data *data);
+int	mouse_keys(int key, int x, int y, t_data *data);
 
 /************ MEM MANG *************/
 int			ft_exit(t_data *data);
