@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 00:46:43 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/28 16:34:05 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/29 13:13:53 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ int	cub3d(char *map_path)
 int	main(int ac, char **av)
 {
 	int		ret;
-
 
 	if (ac != 2)
 	{

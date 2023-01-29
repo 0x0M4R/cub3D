@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 00:47:46 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/28 16:29:20 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/29 15:36:21 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ t_data		*parser(char *map_path);
 /************ GAME ENGINE **********/
 int			keys(int keycode, t_data *data);
 int			mouse_move(t_data *data);
-int	mouse_keys(int key, int x, int y, t_data *data);
+int			mouse_keys(int key, int x, int y, t_data *data);
 
 /************ MEM MANG *************/
 int			ft_exit(t_data *data);
@@ -139,6 +139,7 @@ double		fix_angle(double angle);
 void		free_2d(char **str);
 size_t		ft_strlenx2(char **str);
 int			check_map_range(t_map *map, t_dxy point);
+void		invalid_asset(void *mlx_ptr, t_textures *tex, int i, int type);
 
 /********** BONUS ***********/
 int			minimap(t_data *data);

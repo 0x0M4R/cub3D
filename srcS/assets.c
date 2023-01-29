@@ -6,28 +6,13 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 16:38:59 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/28 15:55:35 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/29 15:34:49 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	invalid_asset(void *mlx_ptr, t_textures *tex, int i)
-{
-	int		j;
-
-	j = -1;
-	while (++j < i - 1 && j < 4)
-		mlx_destroy_image(mlx_ptr, tex->walls[j]->frame);
-	while (i < 4)
-	{
-		free(tex->walls_path[i]);
-		i++;
-	}
-	ft_putstr_fd(TEXTURE_ERROR, 2);
-}
-
-int	get_door(void *mlx_ptr, t_textures *tex)
+int	load_door(void *mlx_ptr, t_textures *tex)
 {
 	tex->door = (t_frame *)malloc(sizeof(t_frame));
 	if (!tex->door)
@@ -44,38 +29,54 @@ int	get_door(void *mlx_ptr, t_textures *tex)
 	return (TRUE);
 }
 
-int	get_gun(void *mlx_ptr, t_textures *tex)
+char	*get_gun_path(int i)
 {
-	int		i;
 	char	*tmp1;
 	char	*tmp2;
+
+	tmp1 = ft_itoa(i);
+	if (!tmp1)
+		return (ft_putstr_fd(MALLOC_ERROR, 2), NULL);
+	tmp2 = ft_strjoin("xpms/gun", tmp1);
+	free(tmp1);
+	if (!tmp2)
+		return (ft_putstr_fd(MALLOC_ERROR, 2), NULL);
+	tmp1 = ft_strjoin(tmp2, ".xpm");
+	free(tmp2);
+	if (!tmp1)
+		return (ft_putstr_fd(MALLOC_ERROR, 2), NULL);
+	return (tmp1);
+}
+
+int	load_gun(void *mlx_ptr, t_textures *tex)
+{
+	int		i;
+	char	*path;
 
 	i = -1;
 	while (++i < 5)
 	{
-		tmp1 = ft_itoa(i);
-		tmp2 = ft_strjoin("xpms/gun", tmp1);
-		free(tmp1);
-		tmp1 = ft_strjoin(tmp2, ".xpm");
-		free(tmp2);
+		path = get_gun_path(i);
+		if (!path)
+			return (ft_putstr_fd(MALLOC_ERROR, 2), FALSE);
 		tex->gun[i] = (t_frame *)malloc(sizeof(t_frame));
 		if (!tex->gun[i])
 			return (ft_putstr_fd(MALLOC_ERROR, 2), FALSE);
 		tex->gun[i]->frame = mlx_xpm_file_to_image(mlx_ptr,
-				tmp1,
-				&tex->gun[i]->img_width, &tex->gun[i]->img_height);
+				path, &tex->gun[i]->img_width, &tex->gun[i]->img_height);
 		if (!tex->gun[i]->frame)
-			return (FALSE);
+			return (invalid_asset(mlx_ptr, tex, i, 1),
+				ft_putstr_fd(TEXTURE_ERROR, 2), FALSE);
 		else
 			tex->gun[i]->data = (int *)mlx_get_data_addr(
 					tex->gun[i]->frame, &tex->gun[i]->bpp,
 					&tex->gun[i]->size_line, &tex->gun[i]->endian);
-		free(tmp1);
+		free(path);
 	}
 	return (TRUE);
 }
 
-int	load_assets(void *mlx_ptr, t_textures *tex)
+static int	load_walls(void *mlx_ptr, t_textures *tex)
 {
 	int		i;
 	int		err;
@@ -84,6 +85,7 @@ int	load_assets(void *mlx_ptr, t_textures *tex)
 	err = 0;
 	while (i < 4 && !err)
 	{
+		tex->walls[i] = NULL;
 		tex->walls[i] = (t_frame *)malloc(sizeof(t_frame));
 		if (!tex->walls[i])
 			return (ft_putstr_fd(MALLOC_ERROR, 2), FALSE);
@@ -91,7 +93,8 @@ int	load_assets(void *mlx_ptr, t_textures *tex)
 				tex->walls_path[i],
 				&tex->walls[i]->img_width, &tex->walls[i]->img_height);
 		if (!tex->walls[i]->frame)
-			err = 1;
+			return (invalid_asset(mlx_ptr, tex, i, 0),
+				ft_putstr_fd(TEXTURE_ERROR, 2), FALSE);
 		else
 			tex->walls[i]->data = (int *)mlx_get_data_addr(
 					tex->walls[i]->frame, &tex->walls[i]->bpp,
@@ -99,7 +102,24 @@ int	load_assets(void *mlx_ptr, t_textures *tex)
 		free(tex->walls_path[i]);
 		i++;
 	}
-	if (err || get_door(mlx_ptr, tex) == FALSE || get_gun(mlx_ptr, tex) == FALSE)
-		return (invalid_asset(mlx_ptr, tex, i), FALSE);
 	return (TRUE);
+}
+
+int	load_assets(void *mlx_ptr, t_textures *tex)
+{
+	int		ret;
+
+	ret = TRUE;
+	if (load_gun(mlx_ptr, tex) == FALSE)
+		ret = FALSE;
+	if (ret == TRUE && load_walls(mlx_ptr, tex) == FALSE)
+		ret = FALSE;
+	if (ret == TRUE && load_door(mlx_ptr, tex) == FALSE)
+	{
+		ret = FALSE;
+		invalid_asset(mlx_ptr, tex, 5, 0);
+	}
+	if (ret == FALSE)
+		free(tex);
+	return (ret);
 }
