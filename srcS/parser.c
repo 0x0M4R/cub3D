@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 16:21:06 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/27 15:44:15 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/29 16:11:36 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,25 @@ t_map	*get_map(char **file)
 	if (parse_map(map) == FALSE)
 		return (free_2d(map->map), free(map), NULL);
 	return (map);
+}
+
+int	load_assets(void *mlx_ptr, t_textures *tex)
+{
+	int		ret;
+
+	ret = TRUE;
+	if (load_gun(mlx_ptr, tex) == FALSE)
+		ret = FALSE;
+	if (ret == TRUE && load_walls(mlx_ptr, tex) == FALSE)
+		ret = FALSE;
+	if (ret == TRUE && load_door(mlx_ptr, tex) == FALSE)
+	{
+		ret = FALSE;
+		invalid_asset(mlx_ptr, tex, 5, 0);
+	}
+	if (ret == FALSE)
+		free(tex);
+	return (ret);
 }
 
 t_data	*parser(char *map_path)

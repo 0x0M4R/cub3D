@@ -6,11 +6,39 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 16:38:59 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/29 15:34:49 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/29 16:27:14 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	invalid_asset(void *mlx_ptr, t_textures *tex, int i, int type)
+{
+	int			j;
+	int			x;
+	t_frame		**data;
+
+	j = -1;
+	if (type == 0)
+	{
+		data = tex->walls;
+		x = 4;
+	}
+	else
+	{
+		data = tex->gun;
+		x = 5;
+	}
+	while (++j < i - 1 && j < x)
+	{
+		mlx_destroy_image(mlx_ptr, data[j]->frame);
+		if (data[i])
+			free(data[j]);
+	}
+	while (i < 4 && type == 0)
+		free(tex->walls_path[i++]);
+	ft_putstr_fd(TEXTURE_ERROR, 2);
+}
 
 int	load_door(void *mlx_ptr, t_textures *tex)
 {
@@ -76,7 +104,7 @@ int	load_gun(void *mlx_ptr, t_textures *tex)
 	return (TRUE);
 }
 
-static int	load_walls(void *mlx_ptr, t_textures *tex)
+int	load_walls(void *mlx_ptr, t_textures *tex)
 {
 	int		i;
 	int		err;
@@ -103,23 +131,4 @@ static int	load_walls(void *mlx_ptr, t_textures *tex)
 		i++;
 	}
 	return (TRUE);
-}
-
-int	load_assets(void *mlx_ptr, t_textures *tex)
-{
-	int		ret;
-
-	ret = TRUE;
-	if (load_gun(mlx_ptr, tex) == FALSE)
-		ret = FALSE;
-	if (ret == TRUE && load_walls(mlx_ptr, tex) == FALSE)
-		ret = FALSE;
-	if (ret == TRUE && load_door(mlx_ptr, tex) == FALSE)
-	{
-		ret = FALSE;
-		invalid_asset(mlx_ptr, tex, 5, 0);
-	}
-	if (ret == FALSE)
-		free(tex);
-	return (ret);
 }

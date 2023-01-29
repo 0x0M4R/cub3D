@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 00:47:46 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/29 15:36:21 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/29 16:28:06 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,13 @@ t_ray		get_values(t_data *data, double angle);
 int			load_assets(void *mlx_ptr, t_textures *tex);
 t_player	*get_player(char **map);
 t_data		*parser(char *map_path);
+
+
+/********* ASSETS ***********/
+void		invalid_asset(void *mlx_ptr, t_textures *tex, int i, int type);
+int			load_walls(void *mlx_ptr, t_textures *tex);
+int			load_gun(void *mlx_ptr, t_textures *tex);
+int			load_door(void *mlx_ptr, t_textures *tex);
 
 /************ GAME ENGINE **********/
 int			keys(int keycode, t_data *data);
