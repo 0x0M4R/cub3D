@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 00:47:46 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/29 16:28:06 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/30 20:18:34 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,8 @@ enum e_move {
 # define SPEED 10
 # define MINIMAP 5
 # define MINIMAP_SCALE 32
-# define WIN_WIDTH 1280
-# define WIN_HEIGHT 1024
+# define WIN_WIDTH 720
+# define WIN_HEIGHT 640
 # define FOV 60
 
 # define MAP_CHARS " 01NSEWC"
@@ -107,7 +107,6 @@ t_ray		get_values(t_data *data, double angle);
 int			load_assets(void *mlx_ptr, t_textures *tex);
 t_player	*get_player(char **map);
 t_data		*parser(char *map_path);
-
 
 /********* ASSETS ***********/
 void		invalid_asset(void *mlx_ptr, t_textures *tex, int i, int type);

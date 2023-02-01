@@ -30,7 +30,7 @@ LIBFT			=		libft/libft.a
 
 CC				=		gcc
 
-CFLAGS			=		-Wall -Werror -Wextra -Iinc -g #-fsanitize=address
+CFLAGS			=		-Wall -Werror -Wextra -Iinc
 
 DEBUG			=		-g -DDEBUG
 

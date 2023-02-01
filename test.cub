@@ -1,17 +1,29 @@
+
+
+
+
+
+C 111,30,0
+F  111,110,100
+SO xpms/oabdalla.xpm
 NO       xpms/ommohame.xpm
 EA xpms/mmassarw.xpm
 WE   xpms/jebucoy.xpm
 
-SO xpms/oabdalla.xpm
 
-C 111,30,0
-F  111,110,100
+
+
+
+
+
 
 1111111
 1000001
-1000001
+
+10000001
 1000001
 101C101
 1000001
 100N001
-1111111
+111C111
+   1

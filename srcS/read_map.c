@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 17:18:57 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/25 11:32:21 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/30 20:30:23 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ static char	**read_map_file(char *map_path)
 	if (!file)
 		return (NULL);
 	split_file = ft_split(file, '\n');
+	
 	free(file);
 	if (!split_file)
 		return (ft_putstr_fd(MALLOC_ERROR, 2), NULL);

@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 20:36:58 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/27 17:53:46 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/30 20:12:46 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	pick_square(t_data *data, int *img_data, t_ixy map, t_ixy minimap)
 		draw_box(img_data, minimap, MINIMAP_SCALE - 1, RED);
 	else if (data->map->map[(int)map.y][(int)map.x] == 'O')
 		draw_box(img_data, minimap, MINIMAP_SCALE - 1, GREEN);
-	else
+	else if (data->map->map[(int)map.y][(int)map.x] != ' ')
 		draw_box(img_data, minimap, MINIMAP_SCALE - 1, WHITE);
 	if ((int)(data->player->pos.x / SCALE) == (int)map.x
 		&& (int)(data->player->pos.y / SCALE) == (int)map.y)

@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 12:24:09 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/28 14:53:42 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/30 19:58:38 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void	forward_collision(t_data *data)
 {
 	int		i;
-	size_t	angle;
+	double	angle;
 	t_dxy	point;
 
 	i = -1;
@@ -37,7 +37,7 @@ static void	forward_collision(t_data *data)
 static void	backward_collision(t_data *data)
 {
 	int		i;
-	size_t	angle;
+	double	angle;
 	t_dxy	point;
 
 	i = -1;
@@ -59,7 +59,7 @@ static void	backward_collision(t_data *data)
 static void	left_collision(t_data *data)
 {
 	int		i;
-	size_t	angle;
+	double	angle;
 	t_dxy	point;
 
 	i = -1;
@@ -83,7 +83,7 @@ static void	left_collision(t_data *data)
 static void	right_collision(t_data *data)
 {
 	int		i;
-	size_t	angle;
+	double	angle;
 	t_dxy	point;
 
 	i = -1;
@@ -106,7 +106,7 @@ static void	right_collision(t_data *data)
 
 void	collision(t_data *data, int key)
 {
-	if (key == W || key == W)
+	if (key == W || key == UP)
 		forward_collision(data);
 	else if (key == S || key == DOWN)
 		backward_collision(data);

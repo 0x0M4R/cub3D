@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 19:18:48 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/29 15:20:59 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/30 19:43:27 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	alpha_pixel_put(int *img_data, t_ixy point, int color, int width)
 {
+	if (point.x < WIN_WIDTH && point.y < WIN_HEIGHT
+		&& point.x >= 0 && point.y >= 0)
 	img_data[point.y * width + point.x] = color;
 }
 
@@ -35,18 +37,24 @@ int	get_texture_color(t_textures *text, t_ray ray, double *texy)
 	double		step;
 	t_frame		*image;
 
+	color = 0;
+	texx = 0;
 	i = ray.side;
 	if (ray.door == TRUE)
 		image = text->door;
 	else
 		image = text->walls[i - 1];
-	if (ray.side == NORTH || ray.side == SOUTH)
-		texx = (int)ray.cord.x % image->img_height;
+	if (texx < 0 || *texy < 0 || texx > WIN_WIDTH || *texy > WIN_HEIGHT)
+		;
 	else
-		texx = (int)ray.cord.y % image->img_height;
+	{
+		if (ray.side == NORTH || ray.side == SOUTH)
+			texx = (int)ray.cord.x % image->img_height;
+		else
+			texx = (int)ray.cord.y % image->img_height;
+		color = image->data[(int)*texy * image->img_height + texx];
+	}
 	step = (image->img_height / ray.wall_height);
-	color = image
-		->data[(int)*texy * image->img_height + texx];
 	*texy += step;
 	return (color);
 }
