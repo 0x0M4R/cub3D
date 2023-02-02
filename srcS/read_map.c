@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
+/*   By: oabdalla <oabdalla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 17:18:57 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/30 20:30:23 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/02/02 14:12:13 by oabdalla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,33 @@ static char	*read_file(int fd)
 	return (file);
 }
 
+int	check_nl(char *file)
+{
+	int		i;
+	char	*end;
+	char	*start;
+
+	i = 0;
+	start = file;
+	while (1)
+	{
+		start = ft_strchr(start, '\n') + 1;
+		if (start[0] == '1' || start[0] == ' ')
+			break ;
+	}
+	while (1)
+	{
+		end = ft_strrchr(start, '\n') - i;
+		i++;
+		if (end[0] == '1' || end[0] == ' ')
+			break ;
+	}
+	start[ft_strlen(start)-ft_strlen(end) + 1] = 0;
+	if (ft_strnstr(start, "\n\n", ft_strlen(start)))
+		return (0);
+	return (1);
+}
+
 static char	**read_map_file(char *map_path)
 {
 	int		fd;
@@ -51,8 +78,9 @@ static char	**read_map_file(char *map_path)
 	close(fd);
 	if (!file)
 		return (NULL);
+	if (!check_nl(file))
+		return (ft_putstr_fd(MAP_ERROR, 2), NULL);
 	split_file = ft_split(file, '\n');
-	
 	free(file);
 	if (!split_file)
 		return (ft_putstr_fd(MALLOC_ERROR, 2), NULL);
