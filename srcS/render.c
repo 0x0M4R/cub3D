@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
+/*   By: oabdalla <oabdalla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 19:18:48 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/30 19:43:27 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/02/02 14:18:51 by oabdalla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,9 @@ int	get_texture_color(t_textures *text, t_ray ray, double *texy)
 	color = 0;
 	texx = 0;
 	i = ray.side;
+	image = text->walls[i - 1];
 	if (ray.door == TRUE)
 		image = text->door;
-	else
-		image = text->walls[i - 1];
 	if (texx < 0 || *texy < 0 || texx > WIN_WIDTH || *texy > WIN_HEIGHT)
 		;
 	else
