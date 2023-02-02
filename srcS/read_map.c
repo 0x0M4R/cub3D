@@ -6,7 +6,7 @@
 /*   By: oabdalla <oabdalla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 17:18:57 by ommohame          #+#    #+#             */
-/*   Updated: 2023/02/02 14:12:13 by oabdalla         ###   ########.fr       */
+/*   Updated: 2023/02/02 14:33:27 by oabdalla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ int	check_nl(char *file)
 		i++;
 		if (end[0] == '1' || end[0] == ' ')
 			break ;
+		else if (end[0] != '\n')
+			return (0);
 	}
 	start[ft_strlen(start)-ft_strlen(end) + 1] = 0;
 	if (ft_strnstr(start, "\n\n", ft_strlen(start)))
