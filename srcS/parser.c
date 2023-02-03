@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
+/*   By: oabdalla <oabdalla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 16:21:06 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/31 16:27:34 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/02/03 14:53:39 by oabdalla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ t_textures	*get_textures(char **file, size_t *line)
 
 	*line = 0;
 	texts = parse_elements(file, line);
+	if (!texts)
+		return (NULL);
 	i = -1;
 	f = 0;
 	if (!texts)
