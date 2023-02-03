@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
+/*   By: oabdalla <oabdalla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 00:47:46 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/30 20:18:34 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/02/03 18:51:38 by oabdalla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,10 @@ enum e_key {
 	ON_MOUSEUP = 5,
 	ON_MOUSEMOVE = 6,
 	ON_EXPOSE = 12,
-	ON_DESTROY = 17
+	ON_DESTROY = 17,
+	LEFT_CLICK = 1,
+	SCROLL_DOWN = 4,
+	SCROLL_UP = 5
 };
 
 enum e_colors {
@@ -82,8 +85,9 @@ enum e_move {
 	RIGHTT = 3
 };
 
+# define STEP 20
 # define SCALE 128
-# define SPEED 10
+# define SPEED 16
 # define MINIMAP 5
 # define MINIMAP_SCALE 32
 # define WIN_WIDTH 720
@@ -92,6 +96,8 @@ enum e_move {
 
 # define MAP_CHARS " 01NSEWC"
 # define MAP_OBJS "01NSEWC"
+# define DOOR_PATH "xpms/alka.xpm"
+# define GUN_PATH "xpms/gun"
 
 /******** PARSER **********/
 char		**get_file(char *map_path);

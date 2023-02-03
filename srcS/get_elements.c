@@ -6,7 +6,7 @@
 /*   By: oabdalla <oabdalla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 15:36:26 by ommohame          #+#    #+#             */
-/*   Updated: 2023/02/03 15:42:16 by oabdalla         ###   ########.fr       */
+/*   Updated: 2023/02/03 16:31:09 by oabdalla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static int	get_color(char *color_str)
 		return (-1);
 	trim = ft_strtrim(color_str, " ");
 	while (trim[++i])
-		if (!ft_isdigit(trim[i]) || i > 5)
+		if (!ft_isdigit(trim[i]))
 			return (free(trim), -1);
 	free(trim);
 	color = ft_atoi(color_str);

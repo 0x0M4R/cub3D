@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   collision.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
+/*   By: oabdalla <oabdalla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 12:24:09 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/30 19:58:38 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/02/03 19:06:03 by oabdalla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ static void	forward_collision(t_data *data)
 	angle = fix_angle(data->player->angle - 30);
 	while (++i < 7)
 	{
-		point.x = data->player->pos.x + (cos(deg_to_rad(angle)) * (SCALE / 8));
-		point.y = data->player->pos.y + (sin(deg_to_rad(angle)) * (SCALE / 8));
+		point.x = data->player->pos.x + (cos(deg_to_rad(angle)) * (STEP));
+		point.y = data->player->pos.y + (sin(deg_to_rad(angle)) * (STEP));
 		if (check_walls(data->map, point) == TRUE)
 		{
 			data->player->collision[FORWARD] = TRUE;
@@ -45,8 +45,8 @@ static void	backward_collision(t_data *data)
 	angle = fix_angle(data->player->angle - 30);
 	while (++i < 7)
 	{
-		point.x = data->player->pos.x - (cos(deg_to_rad(angle)) * (SCALE / 8));
-		point.y = data->player->pos.y - (sin(deg_to_rad(angle)) * (SCALE / 8));
+		point.x = data->player->pos.x - (cos(deg_to_rad(angle)) * (STEP));
+		point.y = data->player->pos.y - (sin(deg_to_rad(angle)) * (STEP));
 		if (check_walls(data->map, point) == TRUE)
 		{
 			data->player->collision[BACKWARD] = TRUE;
@@ -68,9 +68,9 @@ static void	left_collision(t_data *data)
 	while (++i < 7)
 	{
 		point.x = data->player->pos.x
-			- (cos(deg_to_rad(90 + angle)) * (SCALE / 8));
+			- (cos(deg_to_rad(90 + angle)) * (STEP));
 		point.y = data->player->pos.y
-			- (sin(deg_to_rad(90 + angle)) * (SCALE / 8));
+			- (sin(deg_to_rad(90 + angle)) * (STEP));
 		if (check_walls(data->map, point) == TRUE)
 		{
 			data->player->collision[LEFTT] = TRUE;
@@ -92,9 +92,9 @@ static void	right_collision(t_data *data)
 	while (++i < 7)
 	{
 		point.x = data->player->pos.x
-			+ (cos(deg_to_rad(90 + angle)) * (SCALE / 8));
+			+ (cos(deg_to_rad(90 + angle)) * (STEP));
 		point.y = data->player->pos.y
-			+ (sin(deg_to_rad(90 + angle)) * (SCALE / 8));
+			+ (sin(deg_to_rad(90 + angle)) * (STEP));
 		if (check_walls(data->map, point) == TRUE)
 		{
 			data->player->collision[RIGHTT] = TRUE;
@@ -106,9 +106,9 @@ static void	right_collision(t_data *data)
 
 void	collision(t_data *data, int key)
 {
-	if (key == W || key == UP)
+	if (key == W || key == UP || key == SCROLL_UP)
 		forward_collision(data);
-	else if (key == S || key == DOWN)
+	else if (key == S || key == DOWN || key == SCROLL_DOWN)
 		backward_collision(data);
 	else if (key == A)
 		left_collision(data);

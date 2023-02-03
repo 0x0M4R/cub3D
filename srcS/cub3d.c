@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
+/*   By: oabdalla <oabdalla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 00:46:43 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/29 13:13:53 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/02/03 19:03:40 by oabdalla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ t_data	*init_cube(char *map_path)
 		return (NULL);
 	}
 	data->texts->gun_f = 0;
+    data->is_mouse = FALSE;
 	return (data);
 }
 
@@ -43,12 +44,12 @@ int	cub3d(char *map_path)
 		return (FALSE);
 	data->win_ptr = mlx_new_window(data->mlx_ptr,
 			WIN_WIDTH, WIN_HEIGHT, "cub3d");
-	mlx_mouse_hide();
 	mlx_loop_hook(data->mlx_ptr, game_loop, data);
 	mlx_hook(data->win_ptr, ON_KEYDOWN, 0, &keys, data);
 	mlx_hook(data->win_ptr, 17, (1L << 0), ft_exit, data);
 	mlx_mouse_hook(data->win_ptr, mouse_keys, data);
 	mlx_loop(data->mlx_ptr);
+
 	return (TRUE);
 }
 

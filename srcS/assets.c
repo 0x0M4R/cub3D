@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   assets.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
+/*   By: oabdalla <oabdalla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 16:38:59 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/29 16:27:14 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/02/03 18:42:09 by oabdalla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void	invalid_asset(void *mlx_ptr, t_textures *tex, int i, int type)
 	}
 	while (i < 4 && type == 0)
 		free(tex->walls_path[i++]);
-	ft_putstr_fd(TEXTURE_ERROR, 2);
 }
 
 int	load_door(void *mlx_ptr, t_textures *tex)
@@ -46,10 +45,10 @@ int	load_door(void *mlx_ptr, t_textures *tex)
 	if (!tex->door)
 		return (ft_putstr_fd(MALLOC_ERROR, 2), FALSE);
 	tex->door->frame = mlx_xpm_file_to_image(mlx_ptr,
-			"xpms/alka.xpm",
+			DOOR_PATH,
 			&tex->door->img_width, &tex->door->img_height);
 	if (!tex->door->frame)
-		return (FALSE);
+		return (ft_putstr_fd(TEXTURE_ERROR, 2), FALSE);
 	else
 		tex->door->data = (int *)mlx_get_data_addr(
 				tex->door->frame, &tex->door->bpp,
@@ -65,7 +64,7 @@ char	*get_gun_path(int i)
 	tmp1 = ft_itoa(i);
 	if (!tmp1)
 		return (ft_putstr_fd(MALLOC_ERROR, 2), NULL);
-	tmp2 = ft_strjoin("xpms/gun", tmp1);
+	tmp2 = ft_strjoin(GUN_PATH, tmp1);
 	free(tmp1);
 	if (!tmp2)
 		return (ft_putstr_fd(MALLOC_ERROR, 2), NULL);

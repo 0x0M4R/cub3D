@@ -16,28 +16,28 @@ void	player_movement(int key, t_data *data)
 {
 	if ((key == W || key == UP) && data->player->collision[FORWARD] == FALSE)
 	{
-		data->player->pos.x += cos(deg_to_rad(data->player->angle)) * SPEED;
-		data->player->pos.y += sin(deg_to_rad(data->player->angle)) * SPEED;
+		data->player->pos.x += cos(deg_to_rad(data->player->angle)) * STEP;
+		data->player->pos.y += sin(deg_to_rad(data->player->angle)) * STEP;
 	}
 	else if ((key == S || key == DOWN)
 		&& data->player->collision[BACKWARD] == FALSE)
 	{
-		data->player->pos.x -= cos(deg_to_rad(data->player->angle)) * SPEED;
-		data->player->pos.y -= sin(deg_to_rad(data->player->angle)) * SPEED;
+		data->player->pos.x -= cos(deg_to_rad(data->player->angle)) * STEP;
+		data->player->pos.y -= sin(deg_to_rad(data->player->angle)) * STEP;
 	}
 	else if (key == A && data->player->collision[LEFTT] == FALSE)
 	{
 		data->player->pos.x
-			-= cos(deg_to_rad(90 + data->player->angle)) * SPEED;
+			-= cos(deg_to_rad(90 + data->player->angle)) * STEP;
 		data->player->pos.y
-			-= sin(deg_to_rad(90 + data->player->angle)) * SPEED;
+			-= sin(deg_to_rad(90 + data->player->angle)) * STEP;
 	}
 	else if (key == D && data->player->collision[RIGHTT] == FALSE)
 	{
 		data->player->pos.x
-			+= cos(deg_to_rad(90 + data->player->angle)) * SPEED;
+			+= cos(deg_to_rad(90 + data->player->angle)) * STEP;
 		data->player->pos.y
-			+= sin(deg_to_rad(90 + data->player->angle)) * SPEED;
+			+= sin(deg_to_rad(90 + data->player->angle)) * STEP;
 	}
 }
 
@@ -55,6 +55,13 @@ int	keys(int key, t_data *data)
 		data->player->angle += SPEED;
 	else if (key == ESC || key == Q)
 		ft_exit(data);
+	else if (key == ENTER)
+	{
+		if (data->is_mouse == TRUE)
+			data->is_mouse = FALSE;
+		else
+			data->is_mouse = TRUE;
+	}
 	return (TRUE);
 }
 
@@ -62,10 +69,13 @@ int	mouse_move(t_data *data)
 {
 	int		diff;
 
-	mlx_mouse_get_pos(data->win_ptr, &data->mouse.x, &data->mouse.y);
-	diff = ((WIN_WIDTH / 2) - data->mouse.x) / 50;
-	data->player->angle -= diff;
-	mlx_mouse_move(data->win_ptr, WIN_WIDTH / 2, WIN_HEIGHT / 2);
+	if (data->is_mouse == FALSE)
+	{
+		mlx_mouse_get_pos(data->win_ptr, &data->mouse.x, &data->mouse.y);
+		diff = ((WIN_WIDTH / 2) - data->mouse.x) / 50;
+		data->player->angle -= diff;
+		mlx_mouse_move(data->win_ptr, WIN_WIDTH / 2, WIN_HEIGHT / 2);
+	}
 	if (data->texts->gun_f != 0)
 		data->texts->gun_f++;
 	if (data->texts->gun_f == 5)
@@ -77,10 +87,21 @@ int	mouse_keys(int key, int x, int y, t_data *data)
 {
 	(void)x;
 	(void)y;
-	if (key == 1)
+	collision(data, key);
+	if (key == LEFT_CLICK)
 	{
 		if (data->texts->gun_f == 0)
 			data->texts->gun_f++;
+	}
+	if (key == SCROLL_UP && data->player->collision[FORWARD] == FALSE)
+	{
+		data->player->pos.x += cos(deg_to_rad(data->player->angle)) * STEP;
+		data->player->pos.y += sin(deg_to_rad(data->player->angle)) * STEP;
+	}
+	if (key == SCROLL_DOWN && data->player->collision[BACKWARD] == FALSE)
+	{
+		data->player->pos.x -= cos(deg_to_rad(data->player->angle)) * STEP;
+		data->player->pos.y -= sin(deg_to_rad(data->player->angle)) * STEP;
 	}
 	return (TRUE);
 }
