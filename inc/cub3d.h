@@ -6,7 +6,7 @@
 /*   By: oabdalla <oabdalla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 00:47:46 by ommohame          #+#    #+#             */
-/*   Updated: 2023/02/04 20:37:03 by oabdalla         ###   ########.fr       */
+/*   Updated: 2023/02/05 02:52:28 by oabdalla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ enum e_move {
 
 # define MAP_CHARS " 01NSEWC"
 # define MAP_OBJS "01NSEWC"
-# define DOOR_PATH "xpms/alka.xpm"
+# define DOOR_PATH "xpms/door.xpm"
 # define GUN_PATH "xpms/gun"
 
 /******** PARSER **********/
