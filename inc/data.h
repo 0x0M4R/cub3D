@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oabdalla <oabdalla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 21:13:34 by ommohame          #+#    #+#             */
-/*   Updated: 2023/02/03 18:32:20 by oabdalla         ###   ########.fr       */
+/*   Updated: 2023/02/03 19:30:44 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ typedef struct s_data
 {
 	void		*mlx_ptr;
 	void		*win_ptr;
-    int         is_mouse;
+	int			is_mouse;
 	t_ixy		mouse;
 	t_textures	*texts;
 	t_player	*player;

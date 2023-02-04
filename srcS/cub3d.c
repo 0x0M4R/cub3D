@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oabdalla <oabdalla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 00:46:43 by ommohame          #+#    #+#             */
-/*   Updated: 2023/02/03 19:03:40 by oabdalla         ###   ########.fr       */
+/*   Updated: 2023/02/03 19:33:19 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_data	*init_cube(char *map_path)
 		return (NULL);
 	}
 	data->texts->gun_f = 0;
-    data->is_mouse = FALSE;
+	data->is_mouse = FALSE;
 	return (data);
 }
 
@@ -49,7 +49,7 @@ int	cub3d(char *map_path)
 	mlx_hook(data->win_ptr, 17, (1L << 0), ft_exit, data);
 	mlx_mouse_hook(data->win_ptr, mouse_keys, data);
 	mlx_loop(data->mlx_ptr);
-
+	printf("Blskndf\n");
 	return (TRUE);
 }
 

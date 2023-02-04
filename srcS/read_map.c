@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oabdalla <oabdalla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 17:18:57 by ommohame          #+#    #+#             */
-/*   Updated: 2023/02/02 14:33:27 by oabdalla         ###   ########.fr       */
+/*   Updated: 2023/02/03 20:10:40 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int	check_nl(char *file)
 	int		i;
 	char	*end;
 	char	*start;
+	char	c;
 
 	i = 0;
 	start = file;
@@ -61,9 +62,11 @@ int	check_nl(char *file)
 		else if (end[0] != '\n')
 			return (0);
 	}
+	c = start[ft_strlen(start)-ft_strlen(end) + 1];
 	start[ft_strlen(start)-ft_strlen(end) + 1] = 0;
 	if (ft_strnstr(start, "\n\n", ft_strlen(start)))
 		return (0);
+	start[ft_strlen(start)-ft_strlen(end) + 1] = c;
 	return (1);
 }
 
