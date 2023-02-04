@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
+/*   By: oabdalla <oabdalla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 17:14:17 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/24 17:41:33 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/02/04 20:36:35 by oabdalla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,4 +99,15 @@ size_t	get_width(char **map)
 		i++;
 	}
 	return (len);
+}
+
+char	*check_element_error(size_t elem, size_t *count)
+{
+	if (elem == TRUE)
+		(*count)++;
+	else if ((elem == FALSE && *count < 6))
+		return (ft_putstr_fd(INVALID_ELEMENTS, 2), NULL);
+	else if (elem == 3)
+		return (ft_putstr_fd(ELEMENTS_ERROR, 2), NULL);
+	return ("NO ERROR");
 }

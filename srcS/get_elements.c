@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_elements.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
+/*   By: oabdalla <oabdalla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 15:36:26 by ommohame          #+#    #+#             */
-/*   Updated: 2023/02/03 19:46:37 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/02/04 20:39:10 by oabdalla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,6 @@ t_textures	*parse_elements(char **file, size_t *line)
 	size_t		i;
 	size_t		count;
 	t_textures	*text;
-	size_t		elem;
 
 	i = -1;
 	count = 0;
@@ -116,13 +115,9 @@ t_textures	*parse_elements(char **file, size_t *line)
 	i = -1;
 	while (file[++i])
 	{
-		elem = get_element(text, file[i], check_element(file[i]));
-		if (elem == TRUE)
-			count++;
-		else if (elem == 3)
-			return (ft_putstr_fd(ELEMENTS_ERROR, 2), NULL);
-		else if ((elem == FALSE && count < 6))
-			return (ft_putstr_fd(INVALID_ELEMENTS, 2), NULL);
+		if (!check_element_error(get_element(text, file[i],
+					check_element(file[i])), &count))
+			return (NULL);
 		if (count == 6 && *line == 0)
 			*line = i + 1;
 	}

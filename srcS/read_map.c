@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
+/*   By: oabdalla <oabdalla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 17:18:57 by ommohame          #+#    #+#             */
-/*   Updated: 2023/02/03 20:10:40 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/02/05 00:20:42 by oabdalla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,35 +38,51 @@ static char	*read_file(int fd)
 	return (file);
 }
 
-int	check_nl(char *file)
+int	find_end(char **start)
 {
-	int		i;
+	size_t	i;
 	char	*end;
-	char	*start;
-	char	c;
 
 	i = 0;
-	start = file;
+	if (!(*start)[ft_strlen(*start)])
+		return (1);
 	while (1)
 	{
-		start = ft_strchr(start, '\n') + 1;
-		if (start[0] == '1' || start[0] == ' ')
-			break ;
-	}
-	while (1)
-	{
-		end = ft_strrchr(start, '\n') - i;
+		end = ft_strrchr(*start, '\n') - i;
 		i++;
+		if (!(end))
+			return (0);
 		if (end[0] == '1' || end[0] == ' ')
 			break ;
 		else if (end[0] != '\n')
 			return (0);
 	}
-	c = start[ft_strlen(start)-ft_strlen(end) + 1];
-	start[ft_strlen(start)-ft_strlen(end) + 1] = 0;
+	return (ft_strlen(end));
+}
+
+int	check_nl(char *file)
+{
+	size_t	end;
+	char	c;
+	char	*start;
+
+	start = file;
+	while (start)
+	{
+		start = ft_strchr(start, '\n') + 1;
+		if (start[0] == 0)
+			return (0);
+		if (start[0] == '1' || start[0] == ' ')
+			break ;
+	}
+	end = find_end(&start);
+	if (!end)
+		return (0);
+	c = start[ft_strlen(start) - end + 1];
+	start[ft_strlen(start) - end + 1] = 0;
 	if (ft_strnstr(start, "\n\n", ft_strlen(start)))
 		return (0);
-	start[ft_strlen(start)-ft_strlen(end) + 1] = c;
+	start[ft_strlen(start) - end + 1] = c;
 	return (1);
 }
 

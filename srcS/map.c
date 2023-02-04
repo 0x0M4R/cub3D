@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
+/*   By: oabdalla <oabdalla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 17:04:38 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/30 20:11:41 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/02/04 21:23:02 by oabdalla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	parse_map(t_map *map)
 		j = 0;
 		while (map->map[i][j])
 		{
-			if (map->map[i][j] == '0' || map->map[i][j] == 'C')
+			if (ft_strchr("0CNWES", map->map[i][j]))
 			{
 				if (check_surrounding(map, i, j) == FALSE)
 					return (ft_putstr_fd(MAP_ERROR, 2), FALSE);

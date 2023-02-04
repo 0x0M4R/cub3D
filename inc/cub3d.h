@@ -6,7 +6,7 @@
 /*   By: oabdalla <oabdalla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 00:47:46 by ommohame          #+#    #+#             */
-/*   Updated: 2023/02/03 18:51:38 by oabdalla         ###   ########.fr       */
+/*   Updated: 2023/02/04 20:37:03 by oabdalla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,6 +152,7 @@ void		free_2d(char **str);
 size_t		ft_strlenx2(char **str);
 int			check_map_range(t_map *map, t_dxy point);
 void		invalid_asset(void *mlx_ptr, t_textures *tex, int i, int type);
+char		*check_element_error(size_t elem, size_t *count);
 
 /********** BONUS ***********/
 int			minimap(t_data *data);
