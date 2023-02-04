@@ -6,7 +6,7 @@
 /*   By: oabdalla <oabdalla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 15:36:26 by ommohame          #+#    #+#             */
-/*   Updated: 2023/02/05 02:01:48 by oabdalla         ###   ########.fr       */
+/*   Updated: 2023/02/05 03:05:37 by oabdalla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,9 @@ static int	get_colors(char *line)
 	rgb.red = get_color(colors[0]);
 	rgb.green = get_color(colors[1]);
 	rgb.blue = get_color(colors[2]);
-	free_2d(colors);
 	if (rgb.red == -1 || rgb.green == -1 || rgb.blue == -1)
-		return (ft_putstr_fd(COLOR_ERROR, 2), -1);
-	return (rgb.red << 16 | rgb.green << 8 | rgb.blue);
+		return (free_2d(colors), ft_putstr_fd(COLOR_ERROR, 2), -1);
+	return (free_2d(colors), rgb.red << 16 | rgb.green << 8 | rgb.blue);
 }
 
 static int	get_element(t_textures *text, char *line, int element)

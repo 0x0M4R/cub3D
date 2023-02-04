@@ -6,7 +6,7 @@
 /*   By: oabdalla <oabdalla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 17:18:57 by ommohame          #+#    #+#             */
-/*   Updated: 2023/02/05 00:20:42 by oabdalla         ###   ########.fr       */
+/*   Updated: 2023/02/05 03:03:07 by oabdalla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,6 @@ static char	*read_file(int fd)
 	ret = read(fd, buff, BUFFER_SIZE);
 	if (ret <= 0)
 		return (free(buff), ft_putstr_fd(FD_ERROR, 2), NULL);
-/*	file = (char *)malloc(sizeof(char));
-	if (!file)
-		return (ft_putstr_fd(MALLOC_ERROR, 2), free(buff), NULL);
-	file = "";*/
 	buff[ret] = 0;
 	file = ft_strdup(buff);
 	while (ret > 0)

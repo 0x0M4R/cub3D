@@ -6,7 +6,7 @@
 /*   By: oabdalla <oabdalla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 16:21:06 by ommohame          #+#    #+#             */
-/*   Updated: 2023/02/03 14:53:39 by oabdalla         ###   ########.fr       */
+/*   Updated: 2023/02/05 03:02:55 by oabdalla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,8 @@ t_data	*parser(char *map_path)
 		return (free_2d(file), free(data), NULL);
 	data->map = get_map(file + line);
 	if (!data->map)
-		return (free_2d(file), free_textures_path(data->texts), free(data), NULL);
+		return (free_2d(file), free_textures_path(data->texts),
+			free(data), NULL);
 	free_2d(file);
 	data->player = get_player(data->map->map);
 	if (!data->player)
@@ -115,4 +116,3 @@ t_data	*parser(char *map_path)
 			free(data->texts), free(data), NULL);
 	return (data);
 }
-

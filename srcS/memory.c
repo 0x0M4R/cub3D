@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   memory.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
+/*   By: oabdalla <oabdalla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 14:55:00 by ommohame          #+#    #+#             */
-/*   Updated: 2023/01/29 15:19:19 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/02/05 02:58:21 by oabdalla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ static void	destroy_mlx(t_data *data)
 	}
 	mlx_destroy_image(data->mlx_ptr, data->texts->gun[i]->frame);
 	mlx_destroy_image(data->mlx_ptr, data->texts->door->frame);
-	//mlx_destroy_window(data->mlx_ptr, data->win_ptr);
 }
 
 static void	free_struct(t_data *data)
