@@ -24,7 +24,7 @@ static void	destroy_mlx(t_data *data)
 	}
 	mlx_destroy_image(data->mlx_ptr, data->texts->gun[i]->frame);
 	mlx_destroy_image(data->mlx_ptr, data->texts->door->frame);
-	mlx_destroy_window(data->mlx_ptr, data->win_ptr);
+	//mlx_destroy_window(data->mlx_ptr, data->win_ptr);
 }
 
 static void	free_struct(t_data *data)
@@ -43,6 +43,7 @@ static void	free_struct(t_data *data)
 	free(data->player);
 	free_2d(data->map->map);
 	free(data->map);
+	free(data->mlx_ptr);
 	free(data);
 }
 

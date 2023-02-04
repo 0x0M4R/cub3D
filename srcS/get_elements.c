@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/* f************************************************************************* */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   get_elements.c                                     :+:      :+:    :+:   */
@@ -74,6 +74,7 @@ static int	get_colors(char *line)
 	rgb.red = get_color(colors[0]);
 	rgb.green = get_color(colors[1]);
 	rgb.blue = get_color(colors[2]);
+	free_2d(colors);
 	if (rgb.red == -1 || rgb.green == -1 || rgb.blue == -1)
 		return (ft_putstr_fd(COLOR_ERROR, 2), -1);
 	return (rgb.red << 16 | rgb.green << 8 | rgb.blue);
@@ -120,13 +121,13 @@ t_textures	*parse_elements(char **file, size_t *line)
 		if (elem == TRUE)
 			count++;
 		else if (elem == 3)
-			return (ft_putstr_fd(ELEMENTS_ERROR, 2), NULL);
+			return (ft_putstr_fd(ELEMENTS_ERROR, 2), text);
 		else if ((elem == FALSE && count < 6))
-			return (ft_putstr_fd(INVALID_ELEMENTS, 2), NULL);
+			return (ft_putstr_fd(INVALID_ELEMENTS, 2), text);
 		if (count == 6 && *line == 0)
 			*line = i + 1;
 	}
 	if (count != 6)
-		return (ft_putstr_fd(ELEMENTS_ERROR, 2), NULL);
+		return (ft_putstr_fd(ELEMENTS_ERROR, 2), text);
 	return (text);
 }

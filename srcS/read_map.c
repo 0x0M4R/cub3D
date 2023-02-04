@@ -24,15 +24,17 @@ static char	*read_file(int fd)
 	ret = read(fd, buff, BUFFER_SIZE);
 	if (ret <= 0)
 		return (free(buff), ft_putstr_fd(FD_ERROR, 2), NULL);
-	file = (char *)malloc(sizeof(char));
+/*	file = (char *)malloc(sizeof(char));
 	if (!file)
 		return (ft_putstr_fd(MALLOC_ERROR, 2), free(buff), NULL);
-	file = "";
+	file = "";*/
+	buff[ret] = 0;
+	file = ft_strdup(buff);
 	while (ret > 0)
 	{
+		ret = read(fd, buff, BUFFER_SIZE);
 		buff[ret] = 0;
 		file = ft_gnljoin(&file, buff);
-		ret = read(fd, buff, BUFFER_SIZE);
 	}
 	free(buff);
 	return (file);
@@ -84,7 +86,7 @@ static char	**read_map_file(char *map_path)
 	if (!file)
 		return (NULL);
 	if (!check_nl(file))
-		return (ft_putstr_fd(MAP_ERROR, 2), NULL);
+		return (free(file), ft_putstr_fd(MAP_ERROR, 2), NULL);
 	split_file = ft_split(file, '\n');
 	free(file);
 	if (!split_file)
