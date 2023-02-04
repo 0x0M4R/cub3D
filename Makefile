@@ -51,7 +51,8 @@ MLX_FLAGS		=		-Lmlx -lmlx -framework OpenGL -framework AppKit -Ofast
 endif
 
 $(NAME)			:		$(OBJS)
-						make -C $(LIBDIR)
+						make -C $(LIBDIR) 
+						make -C $(MLX_DIR)
 						$(CC) $(CFLAGS) $(OBJS) $(MLX_FLAGS) $(LIBFT) -o $(NAME)
 
 all				:		$(NAME)
@@ -59,6 +60,7 @@ all				:		$(NAME)
 clean			:
 						$(RM) $(OBJS)
 						make clean -C $(LIBDIR)
+						make clean -C $(MLX_DIR)
 
 fclean			:		clean
 						make fclean -C $(LIBDIR)
