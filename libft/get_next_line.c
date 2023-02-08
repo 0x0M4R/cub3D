@@ -6,7 +6,7 @@
 /*   By: ommohame < ommohame@student.42abudhabi.ae> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 11:29:12 by oabdalla          #+#    #+#             */
-/*   Updated: 2022/10/28 20:19:50 by ommohame         ###   ########.fr       */
+/*   Updated: 2023/01/24 17:23:42 by ommohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,6 @@ int	ft_strchr_i(const char *s, int c)
 	{
 		if (*s == (char)c)
 			return (j);
-		// if (*s == -1)
-		// 	return (j - 1);
 		s++;
 		j++;
 	}
